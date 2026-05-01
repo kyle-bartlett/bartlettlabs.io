@@ -1,0 +1,54 @@
+# Bartlett Labs
+
+> Founder-led missed-call recovery, AI follow-up, scheduling, CRM, and review automation for Houston-area service businesses.
+
+## About
+
+Bartlett Labs is a small studio based in Crosby, Texas. The work is led directly by Kyle Bartlett and focused on practical builds for local service businesses: missed-call recovery, cleaner lead capture, quote follow-up, scheduling, CRM, and review automation.
+
+## Founder
+
+Kyle Bartlett is a Purdue-trained engineer with 13 years of post-college experience across Sears, Belk, Apple, and Anker. He has built 300+ automations and now applies that operations background to founder-led client work.
+
+## Services
+
+- Missed Call Text-Back: $500 setup + $99/mo
+- Automated Follow-Ups: included in the core operating system
+- Simple CRM Dashboard: included in the core operating system
+- Consulting & Advisory: scoped case by case
+
+## Work
+
+- The public Work page currently shows demo concepts built for real local businesses.
+- These examples are meant to show direction, structure, and system thinking.
+
+## Contact
+
+- Email: kyle@bartlettlabs.io
+- Phone: (832) 630-4317
+- Book a call: https://bartlettlabs.io/book
+- Website: https://bartlettlabs.io
+
+## Positioning
+
+- Founder-led, not agency-layered
+- Fixed-scope projects
+- Built for local business owners who need one useful system first
+- Strong fit for businesses around Houston, Crosby, Baytown, Huffman, and nearby areas
+
+## Pages
+
+- Home: https://bartlettlabs.io
+- Services: https://bartlettlabs.io/services
+- HVAC Industry Page: https://bartlettlabs.io/industries/hvac
+- Houston Service Area Page: https://bartlettlabs.io/areas/houston
+- Work: https://bartlettlabs.io/work
+- About: https://bartlettlabs.io/about
+- Blog: https://bartlettlabs.io/blog
+- Contact: https://bartlettlabs.io/contact
+- Book: https://bartlettlabs.io/book
+- Quiz: https://bartlettlabs.io/quiz
+- Calculator: https://bartlettlabs.io/calculator
+- Privacy Policy: https://bartlettlabs.io/privacy
+- Data Deletion: https://bartlettlabs.io/data-deletion
+- Full LLM reference: https://bartlettlabs.io/llms-full.txt

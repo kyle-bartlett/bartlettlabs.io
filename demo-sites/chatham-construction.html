@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatham Construction | Building Excellence in Crosby, TX</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.6; }
+
+  .hero {
+    background: linear-gradient(135deg, #1b3a4b 0%, #2d5f7a 50%, #1b3a4b 100%);
+    color: white; text-align: center; padding: 100px 20px 80px;
+  }
+  .hero h1 { font-size: 3em; margin-bottom: 10px; font-weight: 700; }
+  .hero .tagline { font-size: 1.3em; opacity: 0.9; margin-bottom: 30px; }
+  .hero .cta {
+    display: inline-block; background: #e8971e; color: white; padding: 15px 40px;
+    border-radius: 5px; text-decoration: none; font-size: 1.1em; font-weight: 600;
+    transition: background 0.3s;
+  }
+  .hero .cta:hover { background: #cf8418; }
+  .hero .badges {
+    margin-top: 30px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+  }
+  .hero .badge {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px; padding: 12px 20px; font-size: 0.9em;
+  }
+
+  .section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+  .section h2 { font-size: 2em; text-align: center; margin-bottom: 40px; color: #1b3a4b; }
+  .section h2::after {
+    content: ''; display: block; width: 60px; height: 3px;
+    background: #e8971e; margin: 10px auto 0;
+  }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+  }
+  .service-card {
+    background: white; border: 1px solid #e5e5e5; border-radius: 10px;
+    padding: 35px 25px; transition: transform 0.3s, box-shadow 0.3s;
+    border-top: 4px solid #e8971e;
+  }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+  .service-card .icon { font-size: 2.2em; margin-bottom: 15px; }
+  .service-card h3 { font-size: 1.2em; margin-bottom: 10px; color: #1b3a4b; }
+  .service-card p { color: #666; font-size: 0.95em; }
+
+  .why-us { background: #f5f7fa; padding: 80px 20px; }
+  .why-content { max-width: 1100px; margin: 0 auto; }
+  .why-content h2 { font-size: 2em; text-align: center; margin-bottom: 40px; color: #1b3a4b; }
+  .why-content h2::after {
+    content: ''; display: block; width: 60px; height: 3px;
+    background: #e8971e; margin: 10px auto 0;
+  }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+  }
+  .why-item { text-align: center; padding: 30px 20px; }
+  .why-item .number { font-size: 2.5em; font-weight: 700; color: #e8971e; }
+  .why-item h4 { margin: 10px 0 8px; color: #1b3a4b; font-size: 1.1em; }
+  .why-item p { color: #666; font-size: 0.9em; }
+
+  .projects { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+  .projects h2 { font-size: 2em; text-align: center; margin-bottom: 40px; color: #1b3a4b; }
+  .projects h2::after {
+    content: ''; display: block; width: 60px; height: 3px;
+    background: #e8971e; margin: 10px auto 0;
+  }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .project-card {
+    background: linear-gradient(135deg, #e8e8e8, #d0d0d0); border-radius: 10px;
+    height: 220px; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 20px; position: relative; overflow: hidden;
+  }
+  .project-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  }
+  .project-card h4 { color: white; position: relative; z-index: 1; font-size: 1.1em; }
+  .project-card span { color: rgba(255,255,255,0.8); position: relative; z-index: 1; font-size: 0.85em; }
+
+  .testimonials { background: #1b3a4b; color: white; padding: 80px 20px; }
+  .testimonials-content { max-width: 1100px; margin: 0 auto; }
+  .testimonials h2 { font-size: 2em; text-align: center; margin-bottom: 40px; }
+  .testimonials h2::after {
+    content: ''; display: block; width: 60px; height: 3px;
+    background: #e8971e; margin: 10px auto 0;
+  }
+  .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+  .testimonial {
+    background: rgba(255,255,255,0.08); border-radius: 10px; padding: 30px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .testimonial .stars { color: #e8971e; font-size: 1.2em; margin-bottom: 12px; }
+  .testimonial p { opacity: 0.9; font-style: italic; margin-bottom: 15px; }
+  .testimonial .author { opacity: 0.7; font-size: 0.9em; }
+
+  .contact {
+    background: linear-gradient(135deg, #e8971e 0%, #cf8418 100%);
+    color: white; padding: 80px 20px; text-align: center;
+  }
+  .contact h2 { font-size: 2em; margin-bottom: 20px; }
+  .contact p { opacity: 0.95; margin-bottom: 10px; font-size: 1.1em; }
+  .contact .phone { font-size: 1.8em; font-weight: 700; margin: 20px 0; }
+  .contact .cta-secondary {
+    display: inline-block; background: white; color: #1b3a4b; padding: 15px 40px;
+    border-radius: 5px; text-decoration: none; font-weight: 600; margin-top: 15px;
+  }
+
+  footer {
+    background: #111; color: #888; text-align: center; padding: 20px;
+    font-size: 0.9em;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2em; }
+    .hero .badges { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>Chatham Construction</h1>
+  <p class="tagline">Building Excellence in Crosby &amp; Greater Houston Since Day One</p>
+  <a href="#contact" class="cta">Request a Quote</a>
+  <div class="badges">
+    <div class="badge">Licensed &amp; Insured</div>
+    <div class="badge">Free Estimates</div>
+    <div class="badge">Residential &amp; Commercial</div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>What We Build</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="icon">🏗️</div>
+      <h3>New Construction</h3>
+      <p>From foundation to finish, we build custom homes and commercial structures with precision engineering and quality materials.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon">🔨</div>
+      <h3>Renovations &amp; Remodels</h3>
+      <p>Kitchen and bath remodels, room additions, garage conversions, and whole-home renovations that add value and function.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon">🏠</div>
+      <h3>Roofing &amp; Siding</h3>
+      <p>Complete roof replacements, storm damage repair, and exterior siding installation. Protecting your investment from Texas weather.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon">🪵</div>
+      <h3>Decks &amp; Outdoor</h3>
+      <p>Custom decks, pergolas, patios, fencing, and outdoor living spaces designed for the Texas lifestyle.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon">🏢</div>
+      <h3>Commercial Build-Outs</h3>
+      <p>Office spaces, retail interiors, restaurant build-outs, and tenant improvements. On time, on budget.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon">🛡️</div>
+      <h3>Storm &amp; Flood Repair</h3>
+      <p>Emergency structural repair and rebuilding after hurricane, flood, and storm damage. We help you recover fast.</p>
+    </div>
+  </div>
+</section>
+
+<section class="why-us">
+  <div class="why-content">
+    <h2>Why Chatham</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="number">200+</div>
+        <h4>Projects Delivered</h4>
+        <p>Residential and commercial projects completed on time across Harris County.</p>
+      </div>
+      <div class="why-item">
+        <div class="number">100%</div>
+        <h4>Licensed &amp; Insured</h4>
+        <p>Fully bonded, licensed, and insured for your complete peace of mind.</p>
+      </div>
+      <div class="why-item">
+        <div class="number">Local</div>
+        <h4>Crosby Based</h4>
+        <p>We live here, we build here. Invested in the community we serve.</p>
+      </div>
+      <div class="why-item">
+        <div class="number">5★</div>
+        <h4>Customer Rated</h4>
+        <p>Consistently top-rated by homeowners and commercial clients alike.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects">
+  <h2>Featured Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <h4>Custom Home Build</h4>
+      <span>Crosby, TX &bull; 3,200 sq ft</span>
+    </div>
+    <div class="project-card">
+      <h4>Kitchen &amp; Bath Remodel</h4>
+      <span>Mont Belvieu, TX</span>
+    </div>
+    <div class="project-card">
+      <h4>Commercial Office Build-Out</h4>
+      <span>Baytown, TX &bull; 5,000 sq ft</span>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="testimonials-content">
+    <h2>What Clients Say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Chatham built our dream home from the ground up. Professional, transparent, and the quality of work was outstanding."</p>
+        <div class="author">&mdash; Homeowner, Crosby</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"After the storm tore up our roof, Chatham had us covered — literally — within days. Can't recommend them enough."</p>
+        <div class="author">&mdash; Homeowner, Huffman</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Our office build-out was done on time and under budget. They communicated every step of the way."</p>
+        <div class="author">&mdash; Business Owner, Baytown</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Let's Build Something Great</h2>
+  <p>Free estimates on all residential and commercial projects.</p>
+  <div class="phone">(281) 555-BUILD</div>
+  <p>Serving Crosby, Baytown, Huffman, Mont Belvieu &amp; Greater Houston</p>
+  <a href="#" class="cta-secondary">Schedule a Consultation</a>
+</section>
+
+<footer>
+  <p>&copy; 2026 Chatham Construction. All rights reserved. | Crosby, TX</p>
+  <p style="margin-top:8px; font-size:0.85em; color:#555;">Demo site built by Bartlett Labs</p>
+</footer>
+
+</body>
+</html>

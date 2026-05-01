@@ -1,0 +1,48 @@
+Company,Enriched Email,Email Confidence,Phone,City,Website,Owner/Contact,Tags,Enrichment Source,Outreach Status
+FMG Exhaust,fmgexhaust@gmail.com,HIGH,281-328-4714,Crosby,fmgexhaust.com,FMG Exhaust Inc.,crosby automotive exhaust,business website,EMAIL_READY
+La Cruda Brand BBQ,lacrudabrand@gmail.com,HIGH,832-291-0041,Crosby,lacrudabrandbbq.com,La Cruda Brand BBQ,crosby restaurant bbq,business website,EMAIL_READY
+Crosby Air Conditioning & Heating,paul_crosbyair@yahoo.com,HIGH,346-480-7349,Crosby,crosbyair.com,Gary Vanderford,crosby hvac,Yellow Pages,EMAIL_READY
+Pickens Premier Pressure Washing Services,pickens718@gmail.com,MEDIUM,832-695-7753,Crosby,,Erroll Pickens,"high priority, mock site built, crosby, pressure washing",people search,EMAIL_READY
+Adr Fencing,prayracing41@yahoo.com,LOW,281-324-4715,Crosby,,Austin Pray / Ronald Pray Jr,"high priority, crosby, fencing, no website",people search,EMAIL_READY_VERIFY
+Texas Electrical Services,info@texaselectricalservices.com,MEDIUM,281-324-2495,Huffman,texaselectricalservices.com,Tim Storey,"medium priority, huffman, electrical",business website - verify same business,EMAIL_READY_VERIFY
+W & W Automotive,,OWNER_ONLY,281-328-1069,Crosby,,Gary Weselka,"high priority, unclaimed listing, crosby, automotive, no website",Yelp/background check,PHONE_OUTREACH
+Hausberger's Joe Auto Service,,OWNER_ONLY,281-426-3012,Highlands,,Joe Hausberger,"high priority, highlands, automotive",AutoCodes/Nextdoor,PHONE_OUTREACH
+RaFast Tire & Automotive,,OWNER_ONLY,281-462-1718,Crosby,,Rafael Paredes,"high priority, crosby, automotive",Manta/Facebook,PHONE_OUTREACH
+Orn Plumbing Co,,OWNER_ONLY,713-676-1954,Huffman,,John Edward Orn,"high priority, plumbing",BBB,PHONE_OUTREACH
+Mr. Dependable Electric,,OWNER_ONLY,866-317-6937,Baytown,mrdependableelectricalservices.com,John Labeet,"high priority, crosby, electrical",BBB/website,PHONE_OUTREACH
+Lil Garage,,OWNER_ONLY,281-426-6821,Highlands,,Kennith Robertson,"high priority, highlands, automotive",repair-auto.org,PHONE_OUTREACH
+Hector's Mexican Restaurant,,OWNER_ONLY,281-328-7780,Crosby,,Hector Campa,"crosby, restaurant, high priority, no website, 4.3 stars 213 reviews",people search,PHONE_OUTREACH
+Highland Air & Heating,,WEBSITE_ONLY,281-426-2950,Highlands,highland-air.com,,"high priority, highlands, hvac",website found,CONTACT_FORM
+Crosby Transmission & Auto Care,,WEBSITE_ONLY,281-462-4970,Crosby,crosbytransmissionrepairs.com,,"high priority, crosby, automotive - CLOSED per Yelp",Yelp,SKIP_CLOSED
+Alamo Auto Repair,,,281-328-5919,Crosby,,Edna & Bruno Tellez,"crosby, auto repair, medium priority",BBB - no email found,PHONE_OUTREACH
+Crosby TX Handyman,,,832-579-4821,Crosby,,,"high priority, crosby, handyman, no website",searched - no results,PHONE_ONLY
+Chatham Construction,chathamco@comcast.net,HIGH,281-427-3838,Baytown,chathamconstruction.net,Jamie Koobs,"standard priority, baytown, construction",business website contact page,EMAIL_READY
+Crosby Grass Farm,,,800-377-6388,Crosby,,,"medium priority, crosby, landscaping",searched - no email,PHONE_ONLY
+Culpepper's Automotive,,,281-421-0020,Baytown,,,"standard priority, baytown, automotive",not searched yet,PHONE_ONLY
+Glover & Sons Grass Farm,,,281-328-6673,Crosby,,,"medium priority, crosby, landscaping",not searched yet,PHONE_ONLY
+Castrejon Auto Service,,,281-426-3895,Highlands,,,"high priority, highlands, automotive, no website",searched - no results,PHONE_ONLY
+Floyd's Auto Service,,,281-422-3834,Baytown,,,"standard priority, baytown, automotive",not searched yet,PHONE_ONLY
+Greater Bay Roofing,,,281-839-7045,Baytown,,,"standard priority, baytown, roofing",not searched yet,PHONE_ONLY
+Vargas & Sons Roof Repair,,,936-259-4222,Baytown,,,"standard priority, baytown, roofing",not searched yet,PHONE_ONLY
+Aaron Brown Grass Farm,aaronbrown68@icloud.com,MEDIUM,281-324-5099,Crosby,thegrassfarm.net,Aaron Brown,"medium priority, crosby, landscaping",Nextdoor business page,EMAIL_READY
+Kostka Auto Storage,,,281-426-5160,Highlands,,,"high priority, highlands, automotive, no website",searched - no email,PHONE_ONLY
+Floyd's A/C & Heating,,,281-328-2665,Crosby,,,"high priority, mock site built, crosby, hvac, no website",searched - no email,PHONE_ONLY
+Hector's Mexican Restaurant,,,281-328-7780,Crosby,,Hector Campa,"crosby, restaurant, high priority",searched - owner only,PHONE_OUTREACH
+Vinyl Fences Texas,,,832-658-9464,Highlands,,,"high priority, highlands, fencing, no website",searched - no results,PHONE_ONLY
+La Casita Taqueria & Refresqueria,,,281-462-4689,Crosby,,,"high priority, crosby, restaurant",searched - Facebook only,PHONE_ONLY
+Baytown Fence Company,,,713-822-2253,Baytown,,,"high priority, baytown, fencing",searched - no email,PHONE_ONLY
+Joe's Lawn & Wood Fence Service,,,281-421-9723,Baytown,,,"high priority, baytown, fencing",not searched yet,PHONE_ONLY
+Redou Custom Gates & Fencing,,,281-666-1903,Baytown,,,"high priority, baytown, fencing",searched - no email,PHONE_ONLY
+Dun-Rite Plumbing,,,281-328-1866,Crosby,,,"high priority, crosby, plumbing",searched - no email,PHONE_ONLY
+Escobar Lawn Care and Landscaping,,,832-984-5937,Crosby,,,"high priority, crosby, landscaping",searched - no results,PHONE_ONLY
+Crosby Tx Propane,,,936-231-2288,Crosby,,,"high priority, crosby, propane",searched - no results,PHONE_ONLY
+M & R Automotive Services,,,281-502-3100,Highlands,,,"high priority, highlands, automotive",searched - no email,PHONE_ONLY
+Automotive Machine Shop,,,281-422-0944,Baytown,,,"high priority, baytown, automotive",not searched yet,PHONE_ONLY
+Action Electrical Services,,,281-324-9918,Huffman,,,"medium priority, huffman, electrical",searched - no results,PHONE_ONLY
+A-Better Plumbing,,,281-501-6934,Crosby,,,"medium priority, plumbing",searched - no results,PHONE_ONLY
+Mr Plumber,,,713-455-1896,Houston,,,"medium priority, plumbing",not searched yet,PHONE_ONLY
+Genesis Cabling Solution,,,281-324-6789,Huffman,,,"medium priority, huffman, electrical",not searched yet,PHONE_ONLY
+Plumbers Emergency,,,281-249-9468,Crosby,,,"medium priority, crosby, plumbing",not searched yet,PHONE_ONLY
+Vaughn's Air Conditioning,,,832-263-1883,Baytown,,,"standard priority, baytown, hvac",not searched yet,PHONE_ONLY
+Springwell Plumbing,,,346-427-8309,Crosby,,,"medium priority, crosby, plumbing",not searched yet,PHONE_ONLY
+Ken's Auto,,,281-424-5709,Baytown,,,"standard priority, baytown, automotive",not searched yet,PHONE_ONLY

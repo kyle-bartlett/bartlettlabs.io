@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sergio's Ceramic Tile | Professional Tile Installation in Crosby, TX</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.6; }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white; text-align: center; padding: 100px 20px 80px;
+  }
+  .hero h1 { font-size: 3em; margin-bottom: 10px; letter-spacing: 1px; }
+  .hero .tagline { font-size: 1.3em; opacity: 0.9; margin-bottom: 30px; }
+  .hero .cta {
+    display: inline-block; background: #e94560; color: white; padding: 15px 40px;
+    border-radius: 5px; text-decoration: none; font-size: 1.1em; font-weight: 600;
+    transition: background 0.3s;
+  }
+  .hero .cta:hover { background: #c73652; }
+
+  .section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+  .section h2 { font-size: 2em; text-align: center; margin-bottom: 40px; color: #1a1a2e; }
+  .section h2::after {
+    content: ''; display: block; width: 60px; height: 3px;
+    background: #e94560; margin: 10px auto 0;
+  }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; margin-top: 20px;
+  }
+  .service-card {
+    background: #f8f9fa; border-radius: 10px; padding: 35px 25px;
+    text-align: center; transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+  .service-card .icon { font-size: 2.5em; margin-bottom: 15px; }
+  .service-card h3 { font-size: 1.3em; margin-bottom: 10px; color: #1a1a2e; }
+  .service-card p { color: #666; }
+
+  .about { background: #f0f2f5; }
+  .about-content { max-width: 1100px; margin: 0 auto; padding: 80px 20px; }
+  .about-content h2 { font-size: 2em; text-align: center; margin-bottom: 40px; color: #1a1a2e; }
+  .about-content h2::after {
+    content: ''; display: block; width: 60px; height: 3px;
+    background: #e94560; margin: 10px auto 0;
+  }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .about-text p { margin-bottom: 15px; color: #555; font-size: 1.05em; }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  .stat { text-align: center; padding: 25px; background: white; border-radius: 10px; }
+  .stat .number { font-size: 2.5em; font-weight: 700; color: #e94560; }
+  .stat .label { color: #666; font-size: 0.9em; }
+
+  .gallery { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+  .gallery h2 { font-size: 2em; text-align: center; margin-bottom: 40px; color: #1a1a2e; }
+  .gallery h2::after {
+    content: ''; display: block; width: 60px; height: 3px;
+    background: #e94560; margin: 10px auto 0;
+  }
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;
+  }
+  .gallery-item {
+    background: linear-gradient(135deg, #ddd, #bbb); border-radius: 8px;
+    height: 200px; display: flex; align-items: center; justify-content: center;
+    color: #666; font-style: italic;
+  }
+
+  .contact {
+    background: #1a1a2e; color: white; padding: 80px 20px; text-align: center;
+  }
+  .contact h2 { font-size: 2em; margin-bottom: 20px; }
+  .contact p { opacity: 0.9; margin-bottom: 30px; font-size: 1.1em; }
+  .contact .phone { font-size: 1.8em; font-weight: 700; color: #e94560; }
+  .contact .details { margin-top: 20px; opacity: 0.8; }
+
+  footer {
+    background: #111; color: #888; text-align: center; padding: 20px;
+    font-size: 0.9em;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2em; }
+    .about-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>Sergio's Ceramic Tile</h1>
+  <p class="tagline">Expert Tile Installation &amp; Design in Crosby, TX</p>
+  <a href="#contact" class="cta">Get a Free Estimate</a>
+</section>
+
+<section class="section">
+  <h2>Our Services</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="icon">🏠</div>
+      <h3>Residential Tile</h3>
+      <p>Kitchen backsplashes, bathroom floors, shower surrounds, and entryways. Transform your home with expert craftsmanship.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon">🏢</div>
+      <h3>Commercial Flooring</h3>
+      <p>Durable, professional tile installation for offices, restaurants, retail spaces, and commercial properties.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon">🔨</div>
+      <h3>Custom Design</h3>
+      <p>Mosaic patterns, decorative borders, and custom layouts. We bring your vision to life with precision and artistry.</p>
+    </div>
+    <div class="service-card">
+      <div class="icon">🔧</div>
+      <h3>Repair &amp; Restoration</h3>
+      <p>Cracked tiles, grout repair, re-grouting, and full restoration of existing tile work to like-new condition.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-content">
+    <h2>About Sergio's</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>For years, Sergio's Ceramic Tile has been the trusted name in tile installation across Crosby and the greater Houston area. We take pride in delivering flawless results on every project.</p>
+        <p>From classic ceramic and porcelain to modern large-format tiles and natural stone, we work with all materials and styles. Every installation is backed by our commitment to quality and customer satisfaction.</p>
+        <p>Licensed, insured, and dedicated to craftsmanship that lasts a lifetime.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat"><div class="number">500+</div><div class="label">Projects Completed</div></div>
+        <div class="stat"><div class="number">15+</div><div class="label">Years Experience</div></div>
+        <div class="stat"><div class="number">100%</div><div class="label">Satisfaction Rate</div></div>
+        <div class="stat"><div class="number">5★</div><div class="label">Google Rating</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <h2>Recent Work</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item">Kitchen Backsplash</div>
+    <div class="gallery-item">Bathroom Floor</div>
+    <div class="gallery-item">Shower Surround</div>
+    <div class="gallery-item">Entryway Design</div>
+    <div class="gallery-item">Commercial Lobby</div>
+    <div class="gallery-item">Custom Mosaic</div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Ready to Start Your Project?</h2>
+  <p>Call today for a free, no-obligation estimate on your tile project.</p>
+  <div class="phone">(281) 555-TILE</div>
+  <div class="details">
+    <p>Serving Crosby, Baytown, Huffman, Mont Belvieu &amp; Greater Houston</p>
+    <p>Mon-Sat: 7:00 AM - 6:00 PM</p>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Sergio's Ceramic Tile. All rights reserved. | Crosby, TX</p>
+  <p style="margin-top:8px; font-size:0.85em; color:#555;">Demo site built by Bartlett Labs</p>
+</footer>
+
+</body>
+</html>

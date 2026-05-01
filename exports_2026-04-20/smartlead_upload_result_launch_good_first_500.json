@@ -1,0 +1,19 @@
+{
+  "campaign_id": 3086101,
+  "file": "/Volumes/Bart_26/Dev_Expansion/Personal/Bartlett_Labs/Outreach_Strategies/exports_2026-04-20/smartlead_launch_good_first_500.json",
+  "status_code": 200,
+  "response": {
+    "ok": true,
+    "upload_count": 500,
+    "total_leads": 280,
+    "block_count": 0,
+    "duplicate_count": 0,
+    "invalid_email_count": 0,
+    "invalid_emails": [],
+    "already_added_to_campaign": 220,
+    "unsubscribed_leads": [],
+    "is_lead_limit_exhausted": false,
+    "lead_import_stopped_count": 0,
+    "bounce_count": 0
+  }
+}

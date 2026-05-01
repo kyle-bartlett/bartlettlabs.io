@@ -1,0 +1,49 @@
+ The Core Sequence
+    
+    Email 1: The Initial Hook (Day 1)
+    (This one swaps out based on their industry—HVAC, plumbing, restaurants, etc. Here is the HVAC variant as an example)
+    > Subject: Gary, how Crosby Air can book more jobs automatically
+    >
+    > Hi Gary,
+    > 
+    > I'm Kyle with Bartlett Labs — I build automations for HVAC businesses here in Crosby.
+    > 
+    > I know running an HVAC business means you're on the job all day and can't always answer the phone. That's where a lot of leads get lost. Here's what I set up for businesses like yours:
+    > 
+    > - Missed call text-back — when you can't pick up, the customer instantly gets a text saying "Hey, we got your call — how can we help?" Keeps the lead warm
+    > - Online booking — customers pick a time slot right from your website or Google listing
+    > - Automated follow-ups — after the job, customers get a review request. After a quote, they get a gentle "still interested?" nudge
+    > 
+    > One-time build. You own everything. No monthly platform fees. Most setups run $800-$1,500.
+    > 
+    > Got 10 minutes for a call? Happy to swing by.
+    > 
+    > Kyle Bartlett  
+    > Bartlett Labs | bartlettlabs.io
+    
+    Email 2: The Nudge (Day 8)
+    > Subject: Re: [Original Subject]
+    >
+    > Hi [First Name],
+    > 
+    > Just bumping this up — I know you're busy running [Company].
+    > 
+    > Quick version: I build one-time automations for [Industry] businesses. Missed-call text-back, automatic review requests, online booking. No monthly fees.
+    > 
+    > If the timing isn't right, no worries at all. But if you want to see what it looks like, I'm a 10-minute drive away.
+    > 
+    > Kyle
+    
+    Email 3: The Break-Up (Day 15/22)
+    > Subject: Closing the loop — [Company]
+    >
+    > Hi [First Name],
+    > 
+    > This is my last note — I don't want to be that annoying email guy.
+    > 
+    > If you ever want to chat about automating parts of your business (booking, reviews, lead tracking), I'm right here in [City]. My door's always open.
+    > 
+    > Cheers,  
+    > Kyle  
+    
+    

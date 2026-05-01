@@ -1,0 +1,61 @@
+{
+  "timestamp_utc": "2026-04-21T06:33:09.383185Z",
+  "login_email": "kyle@bartlettlabs.io",
+  "before": [
+    {
+      "id": 3086101,
+      "name": "Bartlett Labs - Local Business Outreach Batch 1",
+      "status": "DRAFTED",
+      "max_leads_per_day": 15,
+      "min_time_btwn_emails": 8
+    },
+    {
+      "id": 3207569,
+      "name": "Bartlett Labs - Local Business Outreach Batch 1 - copy",
+      "status": "DRAFTED",
+      "max_leads_per_day": 15,
+      "min_time_btwn_emails": 8
+    }
+  ],
+  "actions": {
+    "old_campaign": {
+      "id": 3086101,
+      "set_name": "DO NOT USE - Bartlett Labs Batch 1 MIXED (728 leads)",
+      "set_status": "ARCHIVED",
+      "mutation": {
+        "update_email_campaigns_by_pk": {
+          "id": 3086101,
+          "name": "DO NOT USE - Bartlett Labs Batch 1 MIXED (728 leads)",
+          "status": "ARCHIVED"
+        }
+      }
+    },
+    "clean_campaign": {
+      "id": 3207569,
+      "set_name": "Bartlett Labs - Local Business Outreach Batch 1 - CLEAN 500",
+      "mutation": {
+        "update_email_campaigns_by_pk": {
+          "id": 3207569,
+          "name": "Bartlett Labs - Local Business Outreach Batch 1 - CLEAN 500",
+          "status": "DRAFTED"
+        }
+      }
+    }
+  },
+  "after": [
+    {
+      "id": 3086101,
+      "name": "DO NOT USE - Bartlett Labs Batch 1 MIXED (728 leads)",
+      "status": "ARCHIVED",
+      "max_leads_per_day": 15,
+      "min_time_btwn_emails": 8
+    },
+    {
+      "id": 3207569,
+      "name": "Bartlett Labs - Local Business Outreach Batch 1 - CLEAN 500",
+      "status": "DRAFTED",
+      "max_leads_per_day": 15,
+      "min_time_btwn_emails": 8
+    }
+  ]
+}

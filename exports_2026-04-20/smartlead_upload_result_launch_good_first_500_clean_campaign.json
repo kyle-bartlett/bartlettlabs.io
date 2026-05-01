@@ -1,0 +1,62 @@
+{
+  "source_campaign_id": 3086101,
+  "deleted_scratch_campaign_id": 3207529,
+  "new_campaign_id": 3207569,
+  "smartlead_file": "/Volumes/Bart_26/Dev_Expansion/Personal/Bartlett_Labs/Outreach_Strategies/exports_2026-04-20/smartlead_launch_good_first_500.json",
+  "upload_status_code": 200,
+  "upload_response": {
+    "ok": true,
+    "upload_count": 500,
+    "total_leads": 500,
+    "block_count": 0,
+    "duplicate_count": 0,
+    "invalid_email_count": 0,
+    "invalid_emails": [],
+    "already_added_to_campaign": 0,
+    "unsubscribed_leads": [],
+    "is_lead_limit_exhausted": false,
+    "lead_import_stopped_count": 0,
+    "bounce_count": 0
+  },
+  "campaign_status_code": 200,
+  "campaign": {
+    "id": 3207569,
+    "user_id": 397319,
+    "created_at": "2026-04-21T05:08:36.588Z",
+    "updated_at": "2026-04-21T05:08:36.588Z",
+    "status": "DRAFTED",
+    "name": "Bartlett Labs - Local Business Outreach Batch 1 - copy",
+    "track_settings": [
+      "DONT_EMAIL_OPEN",
+      "DONT_LINK_CLICK"
+    ],
+    "scheduler_cron_value": {
+      "tz": "America/Chicago",
+      "days": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "endHour": "17:00",
+      "startHour": "08:00"
+    },
+    "min_time_btwn_emails": 8,
+    "max_leads_per_day": 15,
+    "stop_lead_settings": "REPLY_TO_AN_EMAIL",
+    "schedule_start_time": null,
+    "enable_ai_esp_matching": false,
+    "send_as_plain_text": false,
+    "follow_up_percentage": 100,
+    "unsubscribe_text": null,
+    "parent_campaign_id": null,
+    "client_id": null
+  },
+  "leads_status_code": 200,
+  "leads_total": "500",
+  "sample_email": "info@nfm.com",
+  "sample_found_in_first_page": true,
+  "sample_status": "STARTED",
+  "sample_map_id": "2977048881"
+}
