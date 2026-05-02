@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Play } from "lucide-react";
-import { demoShowcase } from "@/content/growth-system";
+import { demoShowcase } from "@/content/demoShowcase";
 import { ServiceDemoModal } from "./ServiceDemoModal";
 
 /**
