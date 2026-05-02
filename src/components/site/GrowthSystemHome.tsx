@@ -11,7 +11,6 @@ import {
   Sparkles,
 } from "lucide-react";
 import {
-  demoShowcase,
   expansionModules,
   growthSteps,
   industries,
@@ -21,6 +20,8 @@ import {
   systemEngines,
 } from "@/content/growth-system";
 import { siteConfig } from "@/content/site";
+import { GuaranteeCarousel } from "./GuaranteeCarousel";
+import { HomepageDemoGrid } from "./HomepageDemoGrid";
 
 export function GrowthSystemHome() {
   return (
@@ -251,21 +252,7 @@ export function GrowthSystemHome() {
               CRM, and workflow doing the job in plain sight.
             </p>
           </div>
-          <div className="growth-demo-grid">
-            {demoShowcase.map((demo) => {
-              const Icon = demo.icon;
-              return (
-                <article key={demo.title} className="growth-demo-card">
-                  <div className="growth-video-frame">
-                    <Icon aria-hidden="true" size={34} />
-                    <span>{demo.label}</span>
-                  </div>
-                  <h3>{demo.title}</h3>
-                  <p>{demo.description}</p>
-                </article>
-              );
-            })}
-          </div>
+          <HomepageDemoGrid />
         </div>
       </section>
 
@@ -405,6 +392,8 @@ export function GrowthSystemHome() {
           </div>
         </div>
       </section>
+
+      <GuaranteeCarousel />
 
       <section className="growth-security-band" aria-label="Privacy and security">
         <div className="growth-container growth-security-layout">
