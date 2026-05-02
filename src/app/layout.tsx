@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, Inter, Montserrat } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
 import { siteConfig } from "@/content/site";
 import "./globals.css";
+import "./globals-demos.css";
 
 const inter = Inter({
   subsets: ["latin"],
