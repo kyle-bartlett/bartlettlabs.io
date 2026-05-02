@@ -1,3 +1,16 @@
+export type ServiceDemo = {
+  /** Path to the demo video file relative to /public (e.g. "/demos/missed-call-text-back.mp4"). */
+  videoPath: string;
+  /** Optional WebM source for better browser support / smaller file size. */
+  videoPathWebm?: string;
+  /** Path to a poster image shown before the video plays. */
+  posterPath: string;
+  /** Short caption shown beside the video on small screens. */
+  caption: string;
+  /** Approximate runtime in seconds, used for the modal label. */
+  durationSec: number;
+};
+
 export type Service = {
   id: string;
   title: string;
@@ -8,6 +21,13 @@ export type Service = {
   whatYouProvide: string[];
   whatIDeliver: string[];
   homepageBullets: string[];
+  /**
+   * Optional walkthrough demo. When present, ServiceCard renders a
+   * "Watch the demo" button that opens ServiceDemoModal.
+   * The component falls back to a "Demo coming soon" placeholder if the
+   * underlying video file is not yet on disk.
+   */
+  demo?: ServiceDemo;
 };
 
 export const services = [
@@ -21,6 +41,13 @@ export const services = [
     whatYouProvide: ["Your phone number"],
     whatIDeliver: ["Automated response system"],
     homepageBullets: ["Instant response to missed calls", "Keeps leads from calling the next guy", "Works 24/7 without extra effort"],
+    demo: {
+      videoPath: "/demos/missed-call-text-back.mp4",
+      videoPathWebm: "/demos/missed-call-text-back.webm",
+      posterPath: "/demos/missed-call-text-back.jpg",
+      caption: "Missed call \u2192 booked estimate in under 2 minutes.",
+      durationSec: 60,
+    },
   },
   {
     id: "chatbots",
@@ -32,6 +59,13 @@ export const services = [
     whatYouProvide: ["Your typical follow up timeline"],
     whatIDeliver: ["Automated text sequences"],
     homepageBullets: ["Automatic follow-ups on open quotes", "Revive old leads effortlessly", "Consistent communication"],
+    demo: {
+      videoPath: "/demos/automated-follow-ups.mp4",
+      videoPathWebm: "/demos/automated-follow-ups.webm",
+      posterPath: "/demos/automated-follow-ups.jpg",
+      caption: "A 4-day-old quote turns into a won job.",
+      durationSec: 60,
+    },
   },
   {
     id: "automation",
@@ -43,6 +77,13 @@ export const services = [
     whatYouProvide: ["None"],
     whatIDeliver: ["Mobile and web app access"],
     homepageBullets: ["One place for all messages", "Mobile app for on-the-go access", "Clear view of your pipeline"],
+    demo: {
+      videoPath: "/demos/simple-crm-dashboard.mp4",
+      videoPathWebm: "/demos/simple-crm-dashboard.webm",
+      posterPath: "/demos/simple-crm-dashboard.jpg",
+      caption: "Every lead, quote, and job in your pocket.",
+      durationSec: 75,
+    },
   },
   {
     id: "consulting",
@@ -71,5 +112,24 @@ export const services = [
       "Clear recommendations and practical scope",
       "Contact for quote",
     ],
+    demo: {
+      videoPath: "/demos/consulting-advisory.mp4",
+      videoPathWebm: "/demos/consulting-advisory.webm",
+      posterPath: "/demos/consulting-advisory.jpg",
+      caption: "Strategy first. Build second. No AI theater.",
+      durationSec: 75,
+    },
   },
 ] satisfies Service[];
+
+/**
+ * Top-level overview demo that ties every service together.
+ * Used in the homepage hero or a dedicated "/#demos" section.
+ */
+export const overviewDemo: ServiceDemo = {
+  videoPath: "/demos/bartlett-labs-overview.mp4",
+  videoPathWebm: "/demos/bartlett-labs-overview.webm",
+  posterPath: "/demos/bartlett-labs-overview.jpg",
+  caption: "Every call answered. Every quote followed up. Every customer asked for a review.",
+  durationSec: 90,
+};
