@@ -479,3 +479,84 @@
   object-fit: cover;
   object-position: center;
 }
+
+/* ---------------------------------------------------------------------------
+   Hero — Texas anvil takes the stage
+   ---------------------------------------------------------------------------
+   Override the flat dark gradient with a full-bleed background image.
+   The radial overlay darkens the lower-left where the kicker, headline,
+   and CTAs sit so text stays readable. Top and bottom get subtle fades
+   so the sticky header and the ticker bar don't clash with the image.
+   --------------------------------------------------------------------------- */
+
+.growth-hero {
+  background:
+    radial-gradient(
+      ellipse 65% 65% at 22% 78%,
+      rgba(8, 6, 5, 0.88) 0%,
+      rgba(8, 6, 5, 0.55) 35%,
+      rgba(8, 6, 5, 0.18) 65%,
+      transparent 80%
+    ),
+    linear-gradient(
+      to top,
+      rgba(8, 6, 5, 0.88) 0%,
+      rgba(8, 6, 5, 0.25) 14%,
+      transparent 26%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(8, 6, 5, 0.55) 0%,
+      transparent 12%
+    ),
+    url("/images/hero/anvil-forge.jpg") center / cover no-repeat,
+    #0a0807;
+}
+
+@media (max-width: 900px) {
+  .growth-hero {
+    background:
+      radial-gradient(
+        ellipse 100% 55% at 50% 75%,
+        rgba(8, 6, 5, 0.90) 0%,
+        rgba(8, 6, 5, 0.60) 55%,
+        rgba(8, 6, 5, 0.78) 100%
+      ),
+      url("/images/hero/anvil-forge-low.jpg") center / cover no-repeat,
+      #0a0807;
+  }
+}
+
+/* The existing right-side "live lead desk" widget is hidden in this
+   layout. Its content moves to a dedicated section below the hero in a
+   follow-up commit so the anvil can hold the stage by itself. */
+.growth-hero .growth-hero-system {
+  display: none;
+}
+
+/* With the right column gone, give the headline + CTAs a balanced max
+   width across breakpoints so they sit cleanly on the lower-left. */
+.growth-hero-copy {
+  max-width: 56rem;
+}
+
+@media (min-width: 900px) {
+  .growth-hero-copy {
+    max-width: 38rem;
+  }
+}
+
+/* The h1 looks slightly too large at desktop now that it's not competing
+   with the lead-desk widget on the right \u2014 nudge it down so it doesn't
+   crowd the anvil silhouette. */
+@media (min-width: 720px) {
+  .growth-hero h1 {
+    font-size: 4.6rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .growth-hero h1 {
+    font-size: 5.2rem;
+  }
+}
