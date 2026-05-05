@@ -1,13 +1,23 @@
 export type ServiceDemo = {
-  /** Path to the demo video file relative to /public (e.g. "/demos/missed-call-text-back.mp4"). */
-  videoPath: string;
+  /**
+   * Optional MP4 video path relative to /public. When omitted, the modal
+   * renders the poster image full-bleed instead of a video player —
+   * useful when the demo is a static UI mockup.
+   */
+  videoPath?: string;
   /** Optional WebM source for better browser support / smaller file size. */
   videoPathWebm?: string;
-  /** Path to a poster image shown before the video plays. */
+  /**
+   * Path to the poster image. Required. Used as the video poster when
+   * `videoPath` is set, or as the standalone hero image when it isn't.
+   */
   posterPath: string;
-  /** Short caption shown beside the video on small screens. */
+  /** Short caption shown below the visual. */
   caption: string;
-  /** Approximate runtime in seconds, used for the modal label. */
+  /**
+   * Approximate runtime in seconds for video demos, or a rough "read time"
+   * for image-only demos. Used for the modal eyebrow.
+   */
   durationSec: number;
 };
 
@@ -42,8 +52,8 @@ export const services = [
     whatIDeliver: ["Automated response system"],
     homepageBullets: ["Instant response to missed calls", "Keeps leads from calling the next guy", "Works 24/7 without extra effort"],
     demo: {
-      videoPath: "/demos/missed-call-text-back.mp4",
-      videoPathWebm: "/demos/missed-call-text-back.webm",
+      // videoPath: "/demos/missed-call-text-back.mp4",  // add when recorded
+      // videoPathWebm: "/demos/missed-call-text-back.webm",
       posterPath: "/demos/missed-call-text-back.jpg",
       caption: "Missed call \u2192 booked estimate in under 2 minutes.",
       durationSec: 60,
@@ -60,8 +70,8 @@ export const services = [
     whatIDeliver: ["Automated text sequences"],
     homepageBullets: ["Automatic follow-ups on open quotes", "Revive old leads effortlessly", "Consistent communication"],
     demo: {
-      videoPath: "/demos/automated-follow-ups.mp4",
-      videoPathWebm: "/demos/automated-follow-ups.webm",
+      // videoPath: "/demos/automated-follow-ups.mp4",  // add when recorded
+      // videoPathWebm: "/demos/automated-follow-ups.webm",
       posterPath: "/demos/automated-follow-ups.jpg",
       caption: "A 4-day-old quote turns into a won job.",
       durationSec: 60,
@@ -78,8 +88,8 @@ export const services = [
     whatIDeliver: ["Mobile and web app access"],
     homepageBullets: ["One place for all messages", "Mobile app for on-the-go access", "Clear view of your pipeline"],
     demo: {
-      videoPath: "/demos/simple-crm-dashboard.mp4",
-      videoPathWebm: "/demos/simple-crm-dashboard.webm",
+      // videoPath: "/demos/simple-crm-dashboard.mp4",  // add when recorded
+      // videoPathWebm: "/demos/simple-crm-dashboard.webm",
       posterPath: "/demos/simple-crm-dashboard.jpg",
       caption: "Every lead, quote, and job in your pocket.",
       durationSec: 75,
@@ -113,8 +123,8 @@ export const services = [
       "Contact for quote",
     ],
     demo: {
-      videoPath: "/demos/consulting-advisory.mp4",
-      videoPathWebm: "/demos/consulting-advisory.webm",
+      // videoPath: "/demos/consulting-advisory.mp4",  // add when recorded
+      // videoPathWebm: "/demos/consulting-advisory.webm",
       posterPath: "/demos/consulting-advisory.jpg",
       caption: "Strategy first. Build second. No AI theater.",
       durationSec: 75,
@@ -127,8 +137,8 @@ export const services = [
  * Used in the homepage hero or a dedicated "/#demos" section.
  */
 export const overviewDemo: ServiceDemo = {
-  videoPath: "/demos/bartlett-labs-overview.mp4",
-  videoPathWebm: "/demos/bartlett-labs-overview.webm",
+  // videoPath: "/demos/bartlett-labs-overview.mp4",  // add when recorded
+  // videoPathWebm: "/demos/bartlett-labs-overview.webm",
   posterPath: "/demos/bartlett-labs-overview.jpg",
   caption: "Every call answered. Every quote followed up. Every customer asked for a review.",
   durationSec: 90,

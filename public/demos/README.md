@@ -1,50 +1,40 @@
-# Demo videos
+# Demo assets
 
-Drop the recorded demo walkthroughs here. The Service Demo Modal will pick
-them up automatically — no code changes needed.
+The Service Demo Modal supports two display modes per service:
 
-## File naming
+1. **Image-only** (current default) — when `demo.posterPath` is set but `demo.videoPath` is not, the modal renders the static image full-bleed. Lightweight, instant load, no streaming dependency.
+2. **Video** — when `demo.videoPath` is set, the modal renders a `<video>` player with the poster image as the preview frame.
 
-For each service in `src/content/services.ts`, three files:
+The modal automatically picks whichever mode the data has configured. To upgrade a demo from image-only to video, just uncomment the `videoPath` line in `src/content/services.ts` (or `src/content/demoShowcase.ts` for the homepage demos) and drop the MP4 in this folder.
 
-| File | Purpose | Format |
-|------|---------|--------|
-| `<slug>.mp4` | Primary video source | MP4 (H.264 + AAC), 1080p, ≤ 90s |
-| `<slug>.webm` | Smaller secondary source | WebM (VP9), 1080p — optional |
-| `<slug>.jpg` | Poster frame shown before play | JPEG, 1920×1080 |
+## v1 ships with image-only demos
 
-Slugs map to the `videoPath` set in each service's `demo` field:
+Until Kyle's GHL business line clears A2P approval, we can't record real GoHighLevel walkthroughs. So v1 ships with AI-generated UI mockup images that look like real product screenshots. Real videos can be swapped in later with no code changes — just replace the JPG and add the MP4.
 
-- `missed-call-text-back.{mp4,webm,jpg}`
-- `automated-follow-ups.{mp4,webm,jpg}`
-- `simple-crm-dashboard.{mp4,webm,jpg}`
-- `consulting-advisory.{mp4,webm,jpg}`
-- `bartlett-labs-overview.{mp4,webm,jpg}` (top-level overview reel)
+## Filenames currently in use
 
-## Placeholder behavior
+- `missed-call-text-back.jpg` — Missed Call Text-Back service + homepage demo
+- `automated-follow-ups.jpg` — Automated Follow-Ups service + homepage Make.com demo
+- `simple-crm-dashboard.jpg` — Simple CRM Dashboard service + homepage CRM demo
+- `consulting-advisory.jpg` — Consulting & Advisory service
+- `bartlett-labs-overview.jpg` — top-level overview reel
 
-If a video file is missing, the modal automatically falls back to the
-"Walkthrough coming soon" placeholder treatment. This means it's safe to
-ship the site with a partial set of demos — the missing ones simply
-display the placeholder.
+## When you record real videos
 
-## Recording reference
+For each demo, drop three files (the modal picks them up automatically):
 
-See the recording shot list in the project context doc for what to film
-in each clip. Quick summary:
+| File | Format |
+|------|--------|
+| `<slug>.mp4` | MP4 (H.264 + AAC), 1080p, ≤ 90s, ≤ 4 Mbps |
+| `<slug>.webm` | WebM (VP9), optional but smaller, ≤ 2.5 Mbps |
+| `<slug>.jpg` | Poster (already exists from v1) |
+
+Then in `services.ts` / `demoShowcase.ts`, uncomment the `videoPath` and `videoPathWebm` lines for that demo.
+
+## Recording reference (for later)
 
 1. **missed-call-text-back** (~60s) — owner misses a call → auto-text fires → lead replies → estimate booked
 2. **automated-follow-ups** (~60s) — quote stuck 4 days → follow-up fires → reply → won
 3. **simple-crm-dashboard** (~75s) — sticky-note chaos → mobile inbox → desktop pipeline
 4. **consulting-advisory** (~75s) — whiteboard breakdown OR talking head OR document review
 5. **bartlett-labs-overview** (~90s) — sizzle reel tying all four engines together
-
-## Compression targets
-
-For homepage performance, target:
-
-- MP4 H.264 baseline profile, ≤ 4 Mbps bitrate
-- WebM VP9 ≤ 2.5 Mbps bitrate
-- Poster JPEG ≤ 200 KB (use `cwebp -q 80` or similar after encoding)
-
-A 60–90 second clip should land around 25–40 MB MP4 and 18–28 MB WebM.

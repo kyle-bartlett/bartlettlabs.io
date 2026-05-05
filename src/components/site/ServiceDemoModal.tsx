@@ -49,13 +49,15 @@ const FOCUSABLE_SELECTOR =
   'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable]';
 
 /**
- * Accessible modal that plays a single demo recording.
+ * Accessible modal that displays a single demo — either as a video
+ * walkthrough or, when no video is configured, as a full-bleed UI
+ * mockup image.
  *
  * Built on the native `<dialog>` element so we get browser-built focus
  * trap, escape-to-close, and backdrop dismiss out of the box. Layered on
  * top: spring-style animation, brand-consistent CTAs, and a graceful
- * "Walkthrough coming soon" state for demos whose video has not been
- * recorded yet.
+ * "Walkthrough coming soon" state for demos whose assets haven't been
+ * produced yet.
  */
 export function ServiceDemoModal({
   id,
@@ -140,9 +142,13 @@ export function ServiceDemoModal({
   }
 
   const titleId = `service-demo-${id}-title`;
-  const eyebrowSuffix = demo
-    ? `${demo.durationSec}s walkthrough`
-    : "Walkthrough coming soon";
+  const isVideoDemo = Boolean(demo?.videoPath);
+  const isImageDemo = Boolean(demo?.posterPath) && !isVideoDemo;
+  const eyebrowSuffix = !demo
+    ? "Walkthrough coming soon"
+    : isVideoDemo
+      ? `${demo.durationSec}s walkthrough`
+      : "Visual walkthrough";
 
   return (
     <dialog
@@ -180,7 +186,7 @@ export function ServiceDemoModal({
         <div className="service-demo-stage">
           {showPlaceholder || !demo ? (
             <DemoPlaceholder caption={demo?.caption ?? "Walkthrough coming soon."} />
-          ) : (
+          ) : isVideoDemo && demo.videoPath ? (
             <video
               ref={videoRef}
               className="service-demo-video"
@@ -196,6 +202,16 @@ export function ServiceDemoModal({
               <source src={demo.videoPath} type="video/mp4" />
               Your browser does not support embedded video.
             </video>
+          ) : isImageDemo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              className="service-demo-image"
+              src={demo.posterPath}
+              alt={`${title} demo`}
+              onError={() => setHasError(true)}
+            />
+          ) : (
+            <DemoPlaceholder caption={demo?.caption ?? "Walkthrough coming soon."} />
           )}
         </div>
 
