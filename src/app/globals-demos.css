@@ -470,3 +470,12 @@
     transition: opacity 0ms;
   }
 }
+
+/* Image-only demo display (when ServiceDemo has posterPath but no videoPath). */
+.service-demo-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
