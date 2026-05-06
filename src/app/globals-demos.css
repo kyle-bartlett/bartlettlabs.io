@@ -560,3 +560,98 @@
     font-size: 5.2rem;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Hero readability tweaks (post-anvil reactions)
+   ---------------------------------------------------------------------------
+   1. The orange kicker ("Built in Crosby...") gets eaten by the forge
+      glow. Wrap it in a dark pill so it always reads.
+   2. The "Watch the demos" ghost button disappears against the dark
+      image. Strengthen its border + add a backdrop blur so it pops.
+   3. Extend the lower-left vignette a touch further up so the kicker
+      sits in a darker band.
+   --------------------------------------------------------------------------- */
+
+.growth-hero .growth-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.95rem 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(8, 6, 5, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffd9bf;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.growth-hero .growth-kicker::before {
+  content: "";
+  width: 1rem;
+  height: 2px;
+  background: var(--color-burnt-orange);
+}
+
+.growth-hero .growth-btn-ghost {
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(8, 6, 5, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.growth-hero .growth-btn-ghost:hover {
+  background: rgba(8, 6, 5, 0.78);
+  border-color: rgba(255, 255, 255, 0.85);
+  transform: translateY(-2px);
+}
+
+/* Extend the radial vignette upward so the kicker pill sits in a
+   slightly darker band of the image (and the headline keeps its
+   strong contrast against the forge glow). */
+.growth-hero {
+  background:
+    radial-gradient(
+      ellipse 70% 80% at 22% 70%,
+      rgba(8, 6, 5, 0.92) 0%,
+      rgba(8, 6, 5, 0.62) 32%,
+      rgba(8, 6, 5, 0.22) 60%,
+      transparent 80%
+    ),
+    linear-gradient(
+      to top,
+      rgba(8, 6, 5, 0.92) 0%,
+      rgba(8, 6, 5, 0.28) 14%,
+      transparent 26%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(8, 6, 5, 0.6) 0%,
+      transparent 12%
+    ),
+    url("/images/hero/anvil-forge.jpg") center / cover no-repeat,
+    #0a0807;
+}
+
+@media (max-width: 900px) {
+  .growth-hero {
+    background:
+      radial-gradient(
+        ellipse 100% 60% at 50% 70%,
+        rgba(8, 6, 5, 0.92) 0%,
+        rgba(8, 6, 5, 0.65) 55%,
+        rgba(8, 6, 5, 0.82) 100%
+      ),
+      url("/images/hero/anvil-forge-low.jpg") center / cover no-repeat,
+      #0a0807;
+  }
+}
