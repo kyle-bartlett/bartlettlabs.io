@@ -655,3 +655,82 @@
       #0a0807;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   System Preview section
+   ---------------------------------------------------------------------------
+   The "live lead desk" widget used to sit in the right column of the
+   hero. After the anvil moved in as full-bleed background, the widget
+   needed its own home. This section sits between the hero and the
+   problem section, framing the widget as a product demonstration.
+   --------------------------------------------------------------------------- */
+
+.growth-system-preview {
+  position: relative;
+  padding: 4rem 0 5rem;
+  background:
+    linear-gradient(180deg, #0a0807 0%, #0f0c0a 60%, #0a0807 100%);
+  color: #ffffff;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .growth-system-preview {
+    padding: 6rem 0 7rem;
+  }
+}
+
+.growth-system-preview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 18% 0%, rgba(255, 89, 16, 0.08), transparent 45%),
+    radial-gradient(ellipse at 82% 100%, rgba(0, 122, 255, 0.06), transparent 55%);
+  pointer-events: none;
+}
+
+.growth-system-preview > .growth-container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 2.5rem;
+  justify-items: center;
+}
+
+.growth-system-preview .growth-section-heading {
+  max-width: 42rem;
+  text-align: center;
+  margin: 0;
+}
+
+.growth-system-preview .growth-section-heading h2 {
+  margin: 0.75rem 0 1rem;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2.2rem;
+  line-height: 1.05;
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .growth-system-preview .growth-section-heading h2 {
+    font-size: 3rem;
+  }
+}
+
+.growth-system-preview .growth-section-heading p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Override the widget's hero-context styles when it lives in the
+   preview section. The original .growth-hero-system was sized for the
+   right column of the hero; here we re-center it and let it breathe. */
+.growth-system-preview .growth-hero-system {
+  margin: 0;
+  width: 100%;
+  max-width: 44rem;
+}

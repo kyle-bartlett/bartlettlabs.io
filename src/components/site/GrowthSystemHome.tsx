@@ -50,7 +50,52 @@ export function GrowthSystemHome() {
             </div>
           </div>
 
-          <div className="growth-hero-system" aria-label="Bartlett Labs operating system preview">
+        </div>
+        <div className="growth-ticker" aria-label="Service highlights">
+          <div>
+            {[
+              "Missed-call text-back",
+              "AI voice intake",
+              "GoHighLevel CRM",
+              "Make.com workflows",
+              "Review requests",
+              "Quote follow-up",
+              "Owner alerts",
+              "Demo-first builds",
+              "Missed-call text-back",
+              "AI voice intake",
+              "GoHighLevel CRM",
+              "Make.com workflows",
+              "Review requests",
+              "Quote follow-up",
+              "Owner alerts",
+              "Demo-first builds",
+            ].map((item, index) => (
+              <span key={`${item}-${index}`}>{item}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="growth-system-preview"
+        aria-labelledby="system-preview-title"
+      >
+        <div className="growth-container">
+          <div className="growth-section-heading">
+            <span className="growth-eyebrow">The system, live</span>
+            <h2 id="system-preview-title">
+              What it actually looks like the day after launch.
+            </h2>
+            <p>
+              Three engines running together. Every call answered, every quote
+              followed up, every happy customer asked for a review.
+            </p>
+          </div>
+          <div
+            className="growth-hero-system"
+            aria-label="Bartlett Labs operating system preview"
+          >
             <div className="growth-live-pill">
               <span />
               Live lead desk
@@ -80,34 +125,12 @@ export function GrowthSystemHome() {
               </div>
             </div>
             <div className="growth-system-blocks">
-              {["Lead Capture", "AI Follow-Up", "Auto-Scheduling", "Reviews"].map((label) => (
-                <span key={label}>{label}</span>
-              ))}
+              {["Lead Capture", "AI Follow-Up", "Auto-Scheduling", "Reviews"].map(
+                (label) => (
+                  <span key={label}>{label}</span>
+                ),
+              )}
             </div>
-          </div>
-        </div>
-        <div className="growth-ticker" aria-label="Service highlights">
-          <div>
-            {[
-              "Missed-call text-back",
-              "AI voice intake",
-              "GoHighLevel CRM",
-              "Make.com workflows",
-              "Review requests",
-              "Quote follow-up",
-              "Owner alerts",
-              "Demo-first builds",
-              "Missed-call text-back",
-              "AI voice intake",
-              "GoHighLevel CRM",
-              "Make.com workflows",
-              "Review requests",
-              "Quote follow-up",
-              "Owner alerts",
-              "Demo-first builds",
-            ].map((item, index) => (
-              <span key={`${item}-${index}`}>{item}</span>
-            ))}
           </div>
         </div>
       </section>
