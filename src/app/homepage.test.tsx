@@ -36,7 +36,10 @@ describe("HomePage", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("GoHighLevel command center"),
+      screen.getByRole("heading", {
+        name: "GoHighLevel command center",
+        level: 3,
+      }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {

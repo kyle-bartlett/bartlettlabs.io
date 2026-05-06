@@ -37,7 +37,11 @@ describe("ServiceDemoModal", () => {
     expect(
       screen.getByRole("heading", { name: baseProps.title }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Walkthrough coming soon")).toBeInTheDocument();
+    expect(
+      screen.getByText("Walkthrough coming soon", {
+        selector: ".service-demo-placeholder-title",
+      }),
+    ).toBeInTheDocument();
     expect(screen.queryByText(/your browser does not support/i)).not.toBeInTheDocument();
   });
 
