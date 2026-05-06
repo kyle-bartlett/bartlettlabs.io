@@ -31,5 +31,32 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "prospect-demos",
+    "demo-sites",
+    "remotion",
+    "remotion.config.ts",
+    "src/index.ts",
+    "src/Root.tsx",
+    "src/theme.ts",
+    "src/compositions",
+    "src/scenes",
+    "src/components/AnimatedText.tsx",
+    "src/components/BackgroundMusic.tsx",
+    "src/components/GlowOrb.tsx",
+    "src/components/NoiseBackground.tsx",
+    "src/components/ParticleField.tsx",
+    "src/components/ProductImageBackground.tsx",
+    "src/components/TechBadge.tsx",
+    "src/components/TransitionSound.tsx",
+    "src/components/frames",
+    "src/components/mockups",
+    "src/lib/fonts.ts",
+    "src/lib/transitions.ts",
+    "clients",
+    "exports_2026-04-20",
+    "email-campaigns-claude",
+    "outreach"
+  ]
 }

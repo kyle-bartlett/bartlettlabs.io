@@ -1,0 +1,23 @@
+# Tell nixpacks to skip these directories when planning the build.
+# The website is a Next.js app at the root — these directories are
+# unrelated working trees and break project detection.
+
+# Vendored Remotion monorepo (contains binary .ts video files that
+# nixpacks misreads as TypeScript)
+remotion/
+
+# Local AI-agent working directories
+.agents/
+.claude/
+.cursor/
+
+# Build artifacts and dependencies (already in .gitignore but belt-and-braces)
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Logs and caches
+*.log
+.cache/

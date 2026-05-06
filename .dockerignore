@@ -1,0 +1,15 @@
+# Coolify also runs the build inside Docker. Skip the same noisy
+# directories from the build context to keep image size down and avoid
+# the same UTF-8 detection crashes.
+remotion/
+.agents/
+.claude/
+.cursor/
+node_modules/
+.next/
+out/
+build/
+dist/
+*.log
+.cache/
+.git/
