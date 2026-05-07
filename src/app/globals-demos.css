@@ -727,10 +727,34 @@
 }
 
 /* Override the widget's hero-context styles when it lives in the
-   preview section. The original .growth-hero-system was sized for the
-   right column of the hero; here we re-center it and let it breathe. */
+   preview section. The original .growth-hero-system uses
+   `position: absolute; right: 4vw; bottom: 6rem;` at desktop sizes to
+   pin itself to the lower-right of the hero. Outside the hero, those
+   rules cause the widget to escape its container and the parent
+   section collapses to the heading height. Reset positioning back to
+   normal flow and center the widget. */
 .growth-system-preview .growth-hero-system {
-  margin: 0;
+  position: relative;
+  inset: auto;
+  right: auto;
+  bottom: auto;
+  top: auto;
+  left: auto;
+  margin: 0 auto;
   width: 100%;
   max-width: 44rem;
+}
+
+@media (min-width: 980px) {
+  .growth-system-preview .growth-hero-system {
+    position: relative;
+    inset: auto;
+    right: auto;
+    bottom: auto;
+    top: auto;
+    left: auto;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 44rem;
+  }
 }
