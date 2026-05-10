@@ -758,3 +758,76 @@
     max-width: 44rem;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Two layout fixes (post-iPad screenshots)
+   ---------------------------------------------------------------------------
+   1. Sticky header: the .growth-header wrapper has 1rem top padding but
+      no background, so content shows through the gap above the dark
+      pill while scrolling. Add a frosted dark gradient + backdrop blur
+      so the gap acts as a fade-out instead of a window.
+
+   2. System-preview widget overlap: previous override of
+      `position: relative` is being beaten somewhere in the cascade
+      (probably build-time CSS ordering). Force the override with
+      !important so the widget definitely flows in normal layout
+      regardless of the cascade fight.
+   --------------------------------------------------------------------------- */
+
+/* 1. Header backdrop fade -------------------------------------------------- */
+
+.growth-header {
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 6, 5, 0.92) 0%,
+    rgba(8, 6, 5, 0.62) 55%,
+    transparent 100%
+  );
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+/* 2. Force widget into normal flow inside the preview section ------------- */
+
+.growth-system-preview .growth-hero-system,
+.growth-system-preview .growth-hero-system * {
+  /* Reset on the widget itself (not its descendants — only the wrapper) */
+}
+
+.growth-system-preview .growth-hero-system {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  max-width: 44rem !important;
+  display: block !important;
+}
+
+@media (min-width: 980px) {
+  .growth-system-preview .growth-hero-system {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 44rem !important;
+    display: block !important;
+  }
+}
+
+/* The .growth-message-card is right-aligned via `margin: 0.8rem 0 0 auto`.
+   In the new section we want it to span the full width of the widget
+   instead of pushing to the right side. */
+.growth-system-preview .growth-message-card {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
