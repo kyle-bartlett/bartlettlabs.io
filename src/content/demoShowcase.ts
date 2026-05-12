@@ -21,11 +21,11 @@ export const demoShowcase = [
       "Show a lead calling after hours, receiving an instant text, and landing in the pipeline with a callback task.",
     icon: PhoneCall,
     demo: {
-      // videoPath: "/demos/missed-call-text-back.mp4",  // add when recorded
-      // videoPathWebm: "/demos/missed-call-text-back.webm",
+      videoPath: "/demos/missed-call-text-back.mp4",
+      // videoPathWebm: "/demos/missed-call-text-back.webm",  // add when WebM encoded
       posterPath: "/demos/missed-call-text-back.jpg",
       caption: "Missed call \u2192 booked estimate in under 2 minutes.",
-      durationSec: 60,
+      durationSec: 12,
     },
   },
   {
