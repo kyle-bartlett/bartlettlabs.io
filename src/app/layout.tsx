@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter, Montserrat } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
+import { PostHogProvider } from "@/components/PostHogProvider";
 import { siteConfig } from "@/content/site";
 import "./globals.css";
 import "./globals-demos.css";
@@ -89,7 +90,11 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://formspree.io" />
         <JsonLd />
       </head>
-      <body>{children}</body>
+      <body>
+        <PostHogProvider>
+          {children}
+        </PostHogProvider>
+      </body>
     </html>
   );
 }
