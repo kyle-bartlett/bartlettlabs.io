@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter, Montserrat } from "next/font/google";
 import JsonLd from "@/components/JsonLd";
+import { MetaPixel } from "@/components/MetaPixel";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { siteConfig } from "@/content/site";
 import "./globals.css";
@@ -91,6 +92,7 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body>
+        <MetaPixel />
         <PostHogProvider>
           {children}
         </PostHogProvider>
