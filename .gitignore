@@ -43,3 +43,21 @@ next-env.d.ts
 core
 public/kyle-bartlett.png
 .design-extract/
+
+# Keep the site repo lean — these never belong here (data, scrapers, screenshots, exports).
+# Site assets go in /public; everything below is local working junk.
+/CleanShot*
+/ChatGPT*
+/Gemini_Generated_Image*
+*.rtf
+/*.zip
+/*.csv
+/scrape_*.py
+/verify_*.py
+/scrape_checkpoint.json
+/smartlead_*.json
+/exports_*/
+/walkthrough-videos/
+/email-campaigns-claude/
+/prospect-demos/
+/remotion/
