@@ -200,7 +200,7 @@ export default function ContactForm() {
             className="mb-1.5 block text-sm font-medium"
             style={{ color: "var(--color-text-primary)" }}
           >
-            Phone
+            Phone (optional)
           </label>
           <input
             type="tel"
@@ -214,8 +214,8 @@ export default function ContactForm() {
             className="mt-2 text-xs leading-6"
             style={{ color: "var(--color-text-muted)" }}
           >
-            Phone is optional. Share it if you want a call back or you want to
-            allow text follow-up about this inquiry.
+            Phone is optional — share it only if you&apos;d like a call back.
+            This form is not used to sign up for text messages.
           </p>
         </div>
 
@@ -274,50 +274,17 @@ export default function ContactForm() {
         className="rounded-2xl border p-5"
         style={{ borderColor: "var(--color-border)", backgroundColor: "rgba(255, 255, 255, 0.72)" }}
       >
-        <p
-          className="text-sm font-semibold"
-          style={{ color: "var(--color-text-heading)" }}
-        >
-          Optional SMS consent
-        </p>
-        <label
-          htmlFor="contact-sms-consent"
-          className="mt-4 flex items-start gap-3 text-sm leading-7"
-          style={{ color: "var(--color-text-muted)" }}
-        >
-          <input
-            type="checkbox"
-            id="contact-sms-consent"
-            name="sms_non_marketing_opt_in"
-            value="yes"
-            className="mt-1 h-4 w-4 rounded border"
-            style={{ accentColor: "var(--color-cyan-dark)" }}
-          />
-          <span>
-            I agree to receive non-marketing text messages from Bartlett Labs
-            about this inquiry, scheduling, project communication, or support.
-            Message frequency varies. Message and data rates may apply. Reply
-            STOP to opt out or HELP for help. See the{" "}
-            <a href="/privacy" className="site-link">
-              Privacy Policy
-            </a>
-            ,{" "}
-            <a href="/terms" className="site-link">
-              Terms of Service
-            </a>
-            , and{" "}
-            <a href="/sms-opt-out" className="site-link">
-              SMS Opt-Out
-            </a>
-            .
-          </span>
-        </label>
-        <p
-          className="mt-3 text-xs leading-6"
-          style={{ color: "var(--color-text-muted)" }}
-        >
-          Bartlett Labs does not use this form to collect promotional SMS
-          consent.
+        <p className="text-xs leading-6" style={{ color: "var(--color-text-muted)" }}>
+          This form does not sign you up for text messages. To opt in to SMS,
+          use the chat widget on our{" "}
+          <a href="/" className="site-link">
+            homepage
+          </a>
+          , which collects explicit SMS consent. See our{" "}
+          <a href="/sms-opt-in" className="site-link">
+            SMS Opt-In
+          </a>{" "}
+          policy for details.
         </p>
       </div>
 

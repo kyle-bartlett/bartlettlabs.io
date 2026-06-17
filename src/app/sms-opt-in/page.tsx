@@ -24,8 +24,8 @@ export const metadata: Metadata = {
 
 const collectionPaths = [
   {
-    title: "Contact form",
-    body: "If you share a mobile number on the contact page, Bartlett Labs only treats that as text-message permission when you explicitly check the SMS consent box.",
+    title: "Website chat widget",
+    body: "The chat widget on the Bartlett Labs homepage is the primary SMS opt-in. It presents an explicit text-message consent checkbox, and you confirm it before any phone number is submitted.",
   },
   {
     title: "Booking calendar",
