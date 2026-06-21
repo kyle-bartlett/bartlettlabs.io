@@ -20,7 +20,7 @@ export function PhotoPlaceholder({
       asset.fit === "contain" ? "object-contain object-top" : "object-cover object-top";
 
     return (
-      <div className="site-panel min-h-[24rem] overflow-hidden p-3">
+      <div className="site-panel min-h-[24rem] w-[28rem] max-w-full overflow-hidden p-3">
         <div className="relative h-full min-h-[21rem] overflow-hidden rounded-[1.4rem] bg-[rgba(247,242,233,0.78)]">
           <Image
             src={asset.publicPath}
