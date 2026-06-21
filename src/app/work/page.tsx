@@ -20,7 +20,7 @@ export default function WorkPage() {
             <SectionIntro
               eyebrow="Demo Work"
               title="Honest proof beats invented metrics."
-              description="The internet is full of fake agency dashboards and made-up statistics. These demo concepts are labeled honestly on purpose and built specifically for the types of trades and service businesses keeping the Houston area running."
+              description="The internet is full of fake agency dashboards and made-up statistics. These are fictional example builds — sample businesses created to show what the work looks like for different trades, not real clients, real results, or real reviews. Each concept is built for the kinds of service businesses keeping the Houston area running."
             />
           </div>
         </section>

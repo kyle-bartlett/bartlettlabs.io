@@ -271,8 +271,8 @@ export function GrowthSystemHome() {
             <span className="growth-eyebrow">Demo proof</span>
             <h2 id="demos-title">The part they are missing: show the system working.</h2>
             <p>
-              Your site should not just promise automation. It should show the phone,
-              CRM, and workflow doing the job in plain sight.
+              Most sites just promise automation. These short walkthroughs show the
+              calls, CRM, and follow-up actually doing the work.
             </p>
           </div>
           <HomepageDemoGrid />
@@ -368,8 +368,8 @@ export function GrowthSystemHome() {
             <span className="growth-eyebrow">Pricing</span>
             <h2 id="pricing-title">Pick the first system. Scale when it proves itself.</h2>
             <p>
-              Pricing should be clear enough to qualify serious buyers while leaving
-              room to scope the exact setup, call volume, and integrations.
+              Pick the plan that fits your shop today. Setup is scoped to your call
+              volume, integrations, and the exact system you need.
             </p>
           </div>
           <div className="growth-pricing-grid">

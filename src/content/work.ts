@@ -19,7 +19,7 @@ export type WorkItem = {
 export const workItems = [
   {
     id: "santiagos-auto-repair",
-    name: "Santiago's Auto Repair",
+    name: "Redline Auto Repair",
     label: "Demo",
     industry: "Auto Repair",
     location: "Crosby, TX",
@@ -38,7 +38,7 @@ export const workItems = [
   },
   {
     id: "five-stars-electric",
-    name: "5 Stars Electric",
+    name: "Voltline Electric",
     label: "Demo",
     industry: "Electrical",
     location: "Baytown, TX",
@@ -57,7 +57,7 @@ export const workItems = [
   },
   {
     id: "doggie-world-grooming",
-    name: "Doggie World Grooming",
+    name: "Wagtails Pet Grooming",
     label: "Demo",
     industry: "Pet Services",
     location: "Crosby, TX",
@@ -76,7 +76,7 @@ export const workItems = [
   },
   {
     id: "lake-houston-fitness",
-    name: "Lake Houston Fitness",
+    name: "Ironside Fitness",
     label: "Demo",
     industry: "Fitness",
     location: "Huffman, TX",
@@ -95,7 +95,7 @@ export const workItems = [
   },
   {
     id: "cycle-landscaping",
-    name: "CYCLE Landscaping",
+    name: "Greenline Landscaping",
     label: "Demo",
     industry: "Landscaping",
     location: "Mont Belvieu, TX",
@@ -114,7 +114,7 @@ export const workItems = [
   },
   {
     id: "straight-off-the-road-bbq",
-    name: "Straight Off the Road BBQ",
+    name: "Backroad BBQ Co.",
     label: "Demo",
     industry: "Restaurant",
     location: "Houston, TX",

@@ -10,6 +10,6 @@ describe("WorkPage", () => {
       screen.getByRole("heading", { name: "Honest proof beats invented metrics." }),
     ).toBeInTheDocument();
     expect(screen.getAllByText("Demo").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Demo preview slot").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Preview coming soon").length).toBeGreaterThan(0);
   });
 });

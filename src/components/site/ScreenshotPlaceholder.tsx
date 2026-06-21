@@ -29,14 +29,14 @@ export function ScreenshotPlaceholder({
 
   return (
     <div className="placeholder-panel min-h-[20rem]">
-      <span className="eyebrow">Screenshot Placeholder</span>
+      <span className="eyebrow">Demo Preview</span>
       <div className="space-y-4">
-        <h2 className="placeholder-title">Demo preview slot</h2>
+        <h2 className="placeholder-title">Preview coming soon</h2>
         <p className="placeholder-copy">{label}</p>
       </div>
       <div className="mt-auto flex flex-wrap gap-3">
-        <span className="proof-badge">Screenshot coming</span>
-        <span className="proof-badge">Designed for real asset swap-in</span>
+        <span className="proof-badge">Concept build</span>
+        <span className="proof-badge">Live walkthrough on a call</span>
       </div>
     </div>
   );

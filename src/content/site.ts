@@ -66,17 +66,17 @@ export const siteConfig = {
   },
   placeholders: {
     homePhoto: {
-      eyebrow: "Founder Photo",
-      title: "Homepage portrait slot",
+      eyebrow: "Founder",
+      title: "Kyle Bartlett",
       description:
-        "Add a strong founder portrait here once final photography is ready.",
+        "Founder of Bartlett Labs, based in Crosby, Texas.",
       asset: founderPhotoAssets.homeHero,
     },
     aboutPhoto: {
-      eyebrow: "About Photo",
-      title: "Personal portrait slot",
+      eyebrow: "Founder",
+      title: "Kyle Bartlett",
       description:
-        "Use a different photo here than the homepage so the story feels more personal.",
+        "Founder of Bartlett Labs, based in Crosby, Texas.",
       asset: founderPhotoAssets.aboutPage,
     },
   },

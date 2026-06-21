@@ -10,8 +10,6 @@ import {
   ShieldCheck,
   Star,
   TrendingUp,
-  Video,
-  Wrench,
 } from "lucide-react";
 
 export type SystemEngine = {
@@ -131,30 +129,6 @@ export const proofMetrics = [
     value: "3 engines",
     label: "one operating system",
     detail: "calls, follow-up, and reviews working together",
-  },
-] as const;
-
-export const demoShowcase = [
-  {
-    title: "Missed-call recovery",
-    label: "Phone + SMS demo",
-    description:
-      "Show a lead calling after hours, receiving an instant text, and landing in the pipeline with a callback task.",
-    icon: PhoneCall,
-  },
-  {
-    title: "GoHighLevel command center",
-    label: "CRM walkthrough",
-    description:
-      "Show the owner dashboard: open leads, booked jobs, stale quotes, review requests, and weekly follow-up tasks.",
-    icon: Video,
-  },
-  {
-    title: "Automation blueprint",
-    label: "Make.com build",
-    description:
-      "Show the real workflow logic that routes forms, sends alerts, creates calendar links, and tracks outcomes.",
-    icon: Wrench,
   },
 ] as const;
 

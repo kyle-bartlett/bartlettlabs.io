@@ -9,7 +9,7 @@ describe("asset manifest", () => {
       "/images/founder/kyle-home-portrait.jpg",
     );
     expect(founderPhotoAssets.aboutPage.publicPath).toBe(
-      "/images/founder/kyle-about-portrait.jpg",
+      "/images/founder/kyle-home-portrait.jpg",
     );
 
     expect(founderPhotoAssets.homeHero.aspectRatio).toBe("4:5");

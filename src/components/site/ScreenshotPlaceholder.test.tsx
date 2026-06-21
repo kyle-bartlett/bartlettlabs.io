@@ -29,7 +29,7 @@ describe("ScreenshotPlaceholder", () => {
       />,
     );
 
-    expect(screen.getByText("Demo preview slot")).toBeInTheDocument();
+    expect(screen.getByText("Preview coming soon")).toBeInTheDocument();
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 
@@ -44,6 +44,6 @@ describe("ScreenshotPlaceholder", () => {
     );
 
     expect(screen.getByRole("img", { name: asset.alt })).toBeInTheDocument();
-    expect(screen.queryByText("Demo preview slot")).not.toBeInTheDocument();
+    expect(screen.queryByText("Preview coming soon")).not.toBeInTheDocument();
   });
 });

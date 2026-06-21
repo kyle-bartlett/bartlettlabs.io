@@ -18,13 +18,13 @@ export const demoShowcase = [
     title: "Missed-call recovery",
     label: "Phone + SMS demo",
     description:
-      "Show a lead calling after hours, receiving an instant text, and landing in the pipeline with a callback task.",
+      "A lead calls after hours, gets an instant text back, and lands in your pipeline with a callback task waiting.",
     icon: PhoneCall,
     demo: {
       videoPath: "/demos/missed-call-text-back.mp4",
       // videoPathWebm: "/demos/missed-call-text-back.webm",  // add when WebM encoded
       posterPath: "/demos/missed-call-text-back.jpg",
-      caption: "Missed call \u2192 booked estimate in under 2 minutes.",
+      caption: "Missed call → booked estimate in under 2 minutes.",
       durationSec: 12,
     },
   },
@@ -33,7 +33,7 @@ export const demoShowcase = [
     title: "GoHighLevel command center",
     label: "CRM walkthrough",
     description:
-      "Show the owner dashboard: open leads, booked jobs, stale quotes, review requests, and weekly follow-up tasks.",
+      "The owner dashboard in one view: open leads, booked jobs, stale quotes, review requests, and this week's follow-ups.",
     icon: Video,
     demo: {
       // videoPath: "/demos/simple-crm-dashboard.mp4",  // add when recorded
@@ -48,7 +48,7 @@ export const demoShowcase = [
     title: "Automation blueprint",
     label: "Make.com build",
     description:
-      "Show the real workflow logic that routes forms, sends alerts, creates calendar links, and tracks outcomes.",
+      "The workflow behind the scenes: routing form submissions, sending alerts, creating calendar links, and tracking outcomes.",
     icon: Wrench,
     demo: {
       // videoPath: "/demos/automated-follow-ups.mp4",  // add when recorded
