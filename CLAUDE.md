@@ -1,5 +1,10 @@
 # PROJECT BRAIN: Bartlett Labs
 
+## ⚙️ Git & Deploy — READ FIRST (settled, do not re-litigate)
+- **This repo is on GitHub, NOT Forgejo.** Canonical: GitHub `kyle-bartlett/bartlettlabs.io`, branch `main`. Kyle uses Forgejo everywhere else — **this website is the one exception, because GitHub-based cloud agents need access to this repo** (and Coolify deploys it from GitHub). Repo-specific instructions win here.
+- **Ship:** `git push origin main` → then trigger Coolify (app `y088wgs44okc484kwowk88s8`; it does **not** auto-deploy on push) → verify the live site.
+- **Full instruction book:** `docs/GIT_HOSTING.md` + `AGENTS.md` §1. If you're ever unsure GitHub vs Forgejo here, the answer is **GitHub** — read those, don't ask again.
+
 ## 🎭 Brand Persona: The Nerdy Hillbilly
 - **Voice:** Purdue Engineer meets Small-Town Handshake. Direct, honest, no jargon.
 - **Visuals:** Modern Workshop. 

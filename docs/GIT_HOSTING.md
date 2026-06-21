@@ -9,8 +9,10 @@
 ## 1. The one-line answer
 
 **This website lives on GitHub, deploys from GitHub, and you push to GitHub.**
-Forgejo is **not** used for this site right now. Pushing to
-`origin` (GitHub `kyle-bartlett/bartlettlabs.io`, branch `main`) is correct.
+Forgejo is **not** used for this site. It is the **one exception** to Kyle's
+"Forgejo everywhere" rule, because GitHub-based **cloud agents need access to
+this repo**. Pushing to `origin` (GitHub `kyle-bartlett/bartlettlabs.io`, branch
+`main`) is correct.
 
 ```
 git push origin main        # GitHub — the canonical, deployed repo
@@ -81,15 +83,21 @@ collapsed to a single canonical repo:
 - `kyle-bartlett/bartlettlabs-site.git` (GitHub) — **ARCHIVED** (old stripped copy).
 - Forgejo `kyle/bartlettlabs`, `kyle/bartlettlabs-site` — **ARCHIVED** (stale, no live mirror).
 
-Coolify was already wired to the GitHub canonical repo, so GitHub stayed the
-production source. Forgejo simply never got a live mirror for this site. That's
-the whole "issue": the global preference is Forgejo, but this site was never
-migrated, and GitHub is load-bearing for the deploy.
+**Why it stays on GitHub (the actual reason):** GitHub-based **cloud agents**
+need to access this repo, so it must stay on GitHub — this is deliberate, not
+lag. On top of that, Coolify is wired to the GitHub repo, so GitHub is also
+load-bearing for the deploy. Kyle uses Forgejo for everything else; this one
+website is the single intentional exception. That's the whole "issue": the
+global default is Forgejo, but this repo is GitHub **on purpose**. Do not "fix"
+it to Forgejo.
 
 ## 7. If you ever move this site to Forgejo (migration runbook — NOT done yet)
 
-This is the deliberate path. **Decision pending Kyle** — do not start it
-casually. All steps must land together or the deploy breaks.
+**Not planned, and probably never.** This site is on GitHub on purpose —
+GitHub-based cloud agents need access to it — so migrating to Forgejo would cut
+those agents off. This runbook exists only for completeness if that requirement
+ever disappears. Don't start it casually; all steps must land together or the
+deploy breaks.
 
 1. **Create the Forgejo repo:** `git.bartlettlabs.io/kyle/bartlettlabs.io` (fresh, not the archived one).
 2. **Push the full history:** `git remote add forgejo https://git.bartlettlabs.io/kyle/bartlettlabs.io.git && git push forgejo main` (and tags).
