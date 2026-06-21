@@ -43,6 +43,14 @@ There used to be two divergent GitHub repos. This is now resolved:
 
 Make all website changes on the canonical repo. Do not resurrect the archived repos.
 
+**GitHub vs Forgejo — settled (do not re-litigate).** Kyle's GLOBAL rule
+(`/Volumes/Bart_26/.claude/CLAUDE.md`) says "No longer using GitHub. Git hosting is
+Forgejo." That is the default for his OTHER projects and **does not apply to this repo.**
+This site is on GitHub and Coolify deploys from GitHub — that overrides the global rule
+**here**. Push to `origin` (GitHub). Do not migrate the site to Forgejo to satisfy the
+global rule; that would break the deploy. Full story + the (pending, deliberate) Forgejo
+migration runbook: **`docs/GIT_HOSTING.md`**.
+
 ## 2. Deploy workflow (the ONLY supported way to ship)
 
 1. Commit your change to the canonical repo (`origin` / `bartlettlabs.io.git` `main`) and push.
