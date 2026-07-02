@@ -283,7 +283,7 @@ export function GrowthSystemHome() {
               preload="metadata"
               poster="/demos/service-tech-commercial.jpg"
             >
-              <source src="/demos/service-tech-commercial.mp4" type="video/mp4" />
+              <source src="/demos/service-tech-commercial-v2.mp4" type="video/mp4" />
             </video>
             <p className="growth-commercial-caption">
               The 15-second version: the AI answers, books the job, and the owner
