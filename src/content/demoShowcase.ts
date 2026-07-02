@@ -18,13 +18,13 @@ export const demoShowcase = [
     title: "Missed-call recovery",
     label: "Phone + SMS demo",
     description:
-      "A lead calls after hours, gets an instant text back, and lands in your pipeline with a callback task waiting.",
+      "A lead calls after hours. The AI answers, handles the conversation, and books the appointment on your calendar — you come back to a booked job, not a to-do list.",
     icon: PhoneCall,
     demo: {
-      videoPath: "/demos/missed-call-text-back.mp4",
-      // videoPathWebm: "/demos/missed-call-text-back.webm",  // add when WebM encoded
+      // videoPath: "/demos/missed-call-recovery.mp4",  // add when the real walkthrough is recorded
+      // videoPathWebm: "/demos/missed-call-recovery.webm",
       posterPath: "/demos/missed-call-text-back.jpg",
-      caption: "Missed call → booked estimate in under 2 minutes.",
+      caption: "Missed call → appointment booked automatically, zero tasks waiting.",
       durationSec: 12,
     },
   },

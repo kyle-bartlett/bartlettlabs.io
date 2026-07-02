@@ -52,10 +52,10 @@ export const services = [
     whatIDeliver: ["Automated response system"],
     homepageBullets: ["Instant response to missed calls", "Keeps leads from calling the next guy", "Works 24/7 without extra effort"],
     demo: {
-      videoPath: "/demos/missed-call-text-back.mp4",
-      // videoPathWebm: "/demos/missed-call-text-back.webm",  // add when WebM encoded
+      // videoPath: "/demos/missed-call-recovery.mp4",  // add when the real walkthrough is recorded
+      // videoPathWebm: "/demos/missed-call-recovery.webm",
       posterPath: "/demos/missed-call-text-back.jpg",
-      caption: "Missed call \u2192 booked estimate in under 2 minutes.",
+      caption: "Missed call \u2192 appointment booked automatically, zero tasks waiting.",
       durationSec: 12,
     },
   },

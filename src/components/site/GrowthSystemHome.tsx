@@ -271,8 +271,23 @@ export function GrowthSystemHome() {
             <span className="growth-eyebrow">Demo proof</span>
             <h2 id="demos-title">The part they are missing: show the system working.</h2>
             <p>
-              Most sites just promise automation. These short walkthroughs show the
-              calls, CRM, and follow-up actually doing the work.
+              Most sites just promise automation. Start with the 15-second version,
+              then dig into the walkthroughs below.
+            </p>
+          </div>
+          <div className="growth-commercial">
+            <video
+              className="growth-commercial-video"
+              controls
+              playsInline
+              preload="metadata"
+              poster="/demos/service-tech-commercial.jpg"
+            >
+              <source src="/demos/service-tech-commercial.mp4" type="video/mp4" />
+            </video>
+            <p className="growth-commercial-caption">
+              The 15-second version: the AI answers, books the job, and the owner
+              never stops working. Sound on.
             </p>
           </div>
           <HomepageDemoGrid />

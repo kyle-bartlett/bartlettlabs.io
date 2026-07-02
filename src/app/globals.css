@@ -1585,6 +1585,27 @@ select:focus-visible {
   background: #ffffff;
 }
 
+.growth-commercial {
+  margin: 0 auto 2.25rem;
+  max-width: 52rem;
+}
+
+.growth-commercial-video {
+  display: block;
+  width: 100%;
+  border: 1px solid #111827;
+  border-radius: 0.5rem;
+  background: #03202f;
+  box-shadow: 0 18px 40px rgba(3, 32, 47, 0.18);
+}
+
+.growth-commercial-caption {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.92rem;
+  color: rgba(3, 32, 47, 0.72);
+}
+
 .growth-demo-grid {
   display: grid;
   gap: 1rem;
