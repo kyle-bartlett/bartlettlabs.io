@@ -86,6 +86,7 @@ export default function RootLayout({
       className={`${inter.variable} ${ibmPlexMono.variable} ${montserrat.variable}`}
     >
       <head>
+        <GoogleAnalytics />
         <link rel="preconnect" href="https://api.leadconnectorhq.com" />
         <link rel="dns-prefetch" href="https://api.leadconnectorhq.com" />
         <link rel="dns-prefetch" href="https://link.msgsndr.com" />
@@ -93,7 +94,6 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body>
-        <GoogleAnalytics />
         <MetaPixel />
         <PostHogProvider>
           {children}
