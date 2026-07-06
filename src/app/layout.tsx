@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter, Montserrat } from "next/font/google";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import JsonLd from "@/components/JsonLd";
 import { MetaPixel } from "@/components/MetaPixel";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -92,6 +93,7 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body>
+        <GoogleAnalytics />
         <MetaPixel />
         <PostHogProvider>
           {children}
