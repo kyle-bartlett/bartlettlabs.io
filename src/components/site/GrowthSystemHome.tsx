@@ -21,12 +21,14 @@ import {
 } from "@/content/growth-system";
 import { siteConfig } from "@/content/site";
 import { GuaranteeCarousel } from "./GuaranteeCarousel";
+import { HeroForgeVideo } from "./HeroForgeVideo";
 import { HomepageDemoGrid } from "./HomepageDemoGrid";
 
 export function GrowthSystemHome() {
   return (
     <main className="growth-page">
       <section className="growth-hero" aria-labelledby="growth-hero-title">
+        <HeroForgeVideo />
         <div className="growth-hero-grid" aria-hidden="true" />
         <div className="growth-hero-inner">
           <div className="growth-hero-copy">
