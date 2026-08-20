@@ -15,8 +15,8 @@ export const siteConfig = {
   regionLabel: "Serving Houston and the surrounding area",
   email: "kyle@bartlettlabs.io",
   phone: {
-    raw: "+18326304317",
-    display: "(832) 630-4317",
+    raw: "+18307832470",
+    display: "(830) 783-2470",
   },
   booking: {
     path: "/book",

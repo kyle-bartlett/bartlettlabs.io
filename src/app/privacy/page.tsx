@@ -471,11 +471,11 @@ export default function PrivacyPolicyPage() {
                   <p>
                     Phone:{" "}
                     <a
-                      href="tel:+18326304317"
+                      href="tel:+18307832470"
                       className="underline transition-colors hover:text-navy"
                       style={{ color: "#06b6d4" }}
                     >
-                      (832) 630-4317
+                      (830) 783-2470
                     </a>
                   </p>
                 </div>

@@ -98,7 +98,7 @@ const demosStructuredData = [
         name: "Can I request a demo site for my business?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Absolutely. Contact us at kyle@bartlettlabs.io or call (832) 630-4317 and we will build a demo site for your business at no cost. We typically deliver demos within 3 to 5 business days.",
+          text: "Absolutely. Contact us at kyle@bartlettlabs.io or call (830) 783-2470 and we will build a demo site for your business at no cost. We typically deliver demos within 3 to 5 business days.",
         },
       },
       {

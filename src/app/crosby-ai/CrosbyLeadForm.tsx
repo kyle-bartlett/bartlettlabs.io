@@ -93,8 +93,8 @@ export function CrosbyLeadForm() {
           Thanks — your free Crosby AI Opportunity Audit request is in. Kyle will
           reach out personally within one business day to map your lead leaks.
           Prefer to talk now? Call{" "}
-          <a href="tel:+18326304317" style={{ color: "var(--color-burnt-orange)", fontWeight: 600 }}>
-            (832) 630-4317
+          <a href="tel:+18307832470" style={{ color: "var(--color-burnt-orange)", fontWeight: 600 }}>
+            (830) 783-2470
           </a>
           .
         </p>
@@ -174,7 +174,7 @@ export function CrosbyLeadForm() {
             id="crosby-phone"
             name="phone"
             type="tel"
-            placeholder="(832) 630-4317"
+            placeholder="(830) 783-2470"
             autoComplete="tel"
           />
         </div>

@@ -13,15 +13,15 @@ A competing lead/contact form on the same page = automatic rejection.
 
 ## Current setup (live, compliant)
 
-| Item | Value |
-|------|-------|
-| Chat widget | LeadConnector, widget-id `69f82390cc1c63b25b23ba6f`, beta loader (`https://beta.leadconnectorhq.com/loader.js`) |
-| Where it's installed | `src/app/page.tsx` — **HOMEPAGE ONLY**, via `next/script` (`afterInteractive`). NOT in `app/layout.tsx`. |
-| Homepage forms | **None.** Header, footer, carousel, and demo grid are all form-free. The widget is the sole opt-in. |
+| Item                      | Value                                                                                                             |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Chat widget               | LeadConnector, widget-id `69f82390cc1c63b25b23ba6f`, beta loader (`https://beta.leadconnectorhq.com/loader.js`)   |
+| Where it's installed      | `src/app/page.tsx` — **HOMEPAGE ONLY**, via `next/script` (`afterInteractive`). NOT in `app/layout.tsx`.          |
+| Homepage forms            | **None.** Header, footer, carousel, and demo grid are all form-free. The widget is the sole opt-in.               |
 | Contact form (`/contact`) | Phone is **optional** and explicitly **not** an SMS sign-up. **No SMS consent checkbox.** No widget on this page. |
-| `/sms-opt-in` | Disclosure page (no form). Names the chat widget as the primary opt-in. No widget on this page. |
-| Other form pages | `/book`, `/calculator`, `/contact` collect info but do **NOT** have the widget. |
-| Meta Pixel | `2282902429201629`, site-wide via `src/components/MetaPixel.tsx` (unrelated to SMS; fine to keep). |
+| `/sms-opt-in`             | Disclosure page (no form). Names the chat widget as the primary opt-in. No widget on this page.                   |
+| Other form pages          | `/book`, `/calculator`, `/contact` collect info but do **NOT** have the widget.                                   |
+| Meta Pixel                | `2282902429201629`, site-wide via `src/components/MetaPixel.tsx` (unrelated to SMS; fine to keep).                |
 
 ## DO-NOT-UNDO list (code)
 
@@ -40,23 +40,28 @@ A competing lead/contact form on the same page = automatic rejection.
 ## Approved A2P submission text (reuse verbatim if you ever resubmit)
 
 **Use Case Description:**
+
 > Bartlett Labs LLC sends both customer support and promotional messages to users who interact with the website https://bartlettlabs.io chat widget. Customer care messages may include responses to support requests, ticket updates, appointment coordination, or follow-up communications related to an existing inquiry. Promotional messages may include special offers, discounts, event promotions, and service announcements. Each message type requires separate, explicit consent collected through independent checkboxes in the chat widget. Marketing consent is not combined with transactional consent, and neither is shared with third parties.
 
 **Sample Message #1 (transactional):**
+
 > Hi! This is Bartlett Labs LLC. We received your recent inquiry and a team member will follow up shortly. Reply STOP to unsubscribe. Message and data rates may apply.
 
 **Sample Message #2 (promotional):**
+
 > Hello from Bartlett Labs LLC. We're excited to share a new promotion available for a limited time. Reply STOP to unsubscribe. Message and data rates may apply.
 
 **How do Contacts Opt-in to Messages?**
+
 > Users opt in through the chat widget at https://bartlettlabs.io, which presents an explicit SMS consent checkbox.
 
 **Opt-in Message:**
+
 > Bartlett Labs LLC: You've opted in to receive support and promotional messages. Msg frequency varies. Msg & data rates may apply. Reply STOP to opt out, HELP for help.
 
 ## Phone number
 
-- The site displays **(832) 630-4317** (`siteConfig.phone` → header + footer).
+- The site displays **(830) 783-2470** (`siteConfig.phone` → header + footer).
 - This must match the phone number registered to the A2P **brand**. Reviewers cross-check it.
 
 ## Carrier compliance checklist — how the site satisfies it

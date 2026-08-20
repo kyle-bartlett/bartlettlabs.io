@@ -19,7 +19,7 @@ export const SYSTEM_PROMPT = `You are the Bartlett Labs site assistant on bartle
 - Education: Purdue University
 - Location: Crosby, Texas, serving Houston and nearby areas
 - Email: kyle@bartlettlabs.io
-- Phone: (832) 630-4317
+- Phone: (830) 783-2470
 - Booking path: /book
 - Experience: 13 years post-college across Sears, Belk, Apple, and Anker
 - Automation count: 300+

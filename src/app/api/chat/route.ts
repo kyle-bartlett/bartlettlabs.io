@@ -55,7 +55,7 @@ const chatTools = {
     execute: async ({ daysAhead = 7 }) => {
       const days = await getAvailableSlots(Math.min(daysAhead, 14));
       if (days.length === 0) {
-        return "No available slots found in the next week. Suggest the visitor email Kyle@BartlettLabs.io or call (832) 630-4317 to schedule directly.";
+        return "No available slots found in the next week. Suggest the visitor email Kyle@BartlettLabs.io or call (830) 783-2470 to schedule directly.";
       }
 
       const summary = days
@@ -102,7 +102,7 @@ const chatTools = {
 
       const contact = await findOrCreateContact(contactInput);
       if (!contact) {
-        return "I wasn't able to create your contact record. Please try emailing Kyle@BartlettLabs.io or calling (832) 630-4317 to book directly.";
+        return "I wasn't able to create your contact record. Please try emailing Kyle@BartlettLabs.io or calling (830) 783-2470 to book directly.";
       }
 
       const result = await bookAppointment(contact.id, startTime);
