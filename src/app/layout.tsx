@@ -87,6 +87,12 @@ export default function RootLayout({
     >
       <head>
         <GoogleAnalytics />
+        <script
+          async
+          src="https://c.getopen.so/oa.js"
+          data-key="oa_pk_5sPR8FCNBI8myBzV1_PUZ_kpqDLylOZs"
+          data-collector="https://c.getopen.so"
+        ></script>
         <link rel="preconnect" href="https://api.leadconnectorhq.com" />
         <link rel="dns-prefetch" href="https://api.leadconnectorhq.com" />
         <link rel="dns-prefetch" href="https://link.msgsndr.com" />
