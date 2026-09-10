@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const collectionPaths = [
   {
     title: "Website chat widget",
-    body: "The Widgo chat on the Bartlett Labs homepage answers questions about our services. It does not collect SMS consent or sign you up for text messages.",
+    body: "The Widgo chat on the Bartlett Labs website answers questions about our services. It does not collect SMS consent or sign you up for text messages.",
   },
   {
     title: "Booking calendar",

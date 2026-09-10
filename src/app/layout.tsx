@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { IBM_Plex_Mono, Inter, Montserrat } from "next/font/google";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import JsonLd from "@/components/JsonLd";
@@ -86,6 +87,15 @@ export default function RootLayout({
       className={`${inter.variable} ${ibmPlexMono.variable} ${montserrat.variable}`}
     >
       <head>
+        <Script id="widgo-config" strategy="beforeInteractive">
+          {`window.widgoConfig = { orgId: "org_81eba270b80b4baa", aiUrl: "https://ai.widgo.ai" };`}
+        </Script>
+        <Script
+          id="widgo-loader"
+          strategy="beforeInteractive"
+          async
+          src="https://cdn.widgo.ai/widgo.js"
+        />
         <GoogleAnalytics />
         <script
           async

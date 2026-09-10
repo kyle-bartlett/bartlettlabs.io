@@ -2,13 +2,18 @@
 
 ## Current widget and calendar (2026-09-10)
 
-Kyle canceled GoHighLevel. Widgo replaces its homepage chat using
-`src/components/WidgoWidget.tsx`, rendered only by `src/app/page.tsx`.
+Kyle canceled GoHighLevel. On September 10, 2026, Kyle explicitly requested
+Widgo on every page in the `<head>`. This supersedes the earlier homepage-only
+placement restriction, including the older rule in `AGENTS.md`.
+
+Widgo now loads once from the shared `src/app/layout.tsx` head using
+`next/script` with `beforeInteractive`: configuration first, then the async
+loader. The homepage component and its forced-navigation reload were removed.
 The organization is `org_81eba270b80b4baa`; the loader is
 `https://cdn.widgo.ai/widgo.js`, with `https://ai.widgo.ai` as the API.
-Widgo is web chat, not the former GHL SMS opt-in. Keep it off form pages and
-out of the root layout. Leaving the homepage reloads the destination because
-the vendor has no teardown API for its widget and session recorder.
+Widgo is web chat, not the former GHL SMS opt-in. Chatting does not enroll
+visitors in SMS. Its chat and visitor-activity processing now apply site-wide,
+as disclosed on the privacy page.
 
 The GHL settings and carrier submission below are historical. Do not reuse
 them as a description of the current widget. Calendar booking must be connected

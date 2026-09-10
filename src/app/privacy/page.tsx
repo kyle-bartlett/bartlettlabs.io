@@ -190,7 +190,7 @@ export default function PrivacyPolicyPage() {
                 </p>
                 <ul className="list-disc list-inside text-sm leading-relaxed text-silver space-y-1.5 ml-2">
                   <li>
-                    <strong className="text-navy">Widgo:</strong> AI chat on our homepage.
+                    <strong className="text-navy">Widgo:</strong> AI chat across our website.
                     Widgo processes chat messages and visitor activity, including session replay,
                     to answer questions and help us respond to inquiries. See Widgo&apos;s{" "}
                     <a
