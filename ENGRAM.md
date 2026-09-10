@@ -10,11 +10,13 @@
 ## Completed Work (2026-03-25)
 
 ### Session 1 — Skills Architecture
+
 - Fetched YouTube transcript, created VIDEO_SUMMARY.md
 - Built 27 skill files as `.claude/commands/*.md`
 - Merged into `/Volumes/Bart_26/Dev_Expansion/Personal/Bartlett_Labs/`
 
 ### Session 3 — Automation Layer Build
+
 - Created `automation/` directory structure
 - 6 shell scripts, 5 system crontab entries, 5 Claude Code durable crons
 - 5 Ghost OS browser recipes installed
@@ -22,6 +24,7 @@
 - API key placeholders in ~/.zshrc
 
 ### Session 4 — Testing & Activation
+
 - All 6 shell scripts fixed and tested (bash/zsh compat, gws syntax, intent classifier ordering)
 - Webhook server tested (3 endpoints, Cloudflare Tunnel, intent classification)
 - Ghost OS recipes verified (5/5 installed and executing)
@@ -29,6 +32,7 @@
 - Outreach policy established: Resend (kyle@bartlettlabs.io), NOT Gmail. ON HOLD until videos built.
 
 ### Session 5 — Full Activation (2026-03-25 evening)
+
 - **All API keys configured and live**:
   - GHL: Sub-account key `pit-7211...bc9a` + Agency key `pit-28e5...805a`
   - SmartLead: `51b8...7o56b8j`
@@ -46,6 +50,7 @@
 - **Full morning briefing with live data**: Pipeline 100 contacts, 201 unread emails (10 urgent, 17 today), 7 stale leads
 
 ### Session 6 — Contact Pipeline (2026-03-25 late)
+
 - **GHL Contact Audit**: Sampled 500 of 12,500+ contacts
   - 40% have email, 60% missing email
   - 32% duplicate emails (160 dupes in 500 contacts)
@@ -68,22 +73,22 @@
 
 ## Key Files Modified/Created
 
-| File | Location | Purpose |
-|------|----------|---------|
-| CLAUDE.md | `Bartlett_Labs/` | Unified workspace context |
-| 27 skill files | `.claude/commands/` | Claude Code slash commands |
-| 6 shell scripts | `automation/scripts/` | Cron-callable automation scripts |
-| .env.sh | `automation/` | Bash-compatible env var loader |
-| server.js + 3 handlers | `automation/webhook-server/` | Express webhook listener |
-| ghl-reply.js | `automation/webhook-server/handlers/` | Async handler with GHL API enrichment (UPDATED Session 5) |
-| 5 recipe JSONs | `automation/recipes/` | Ghost OS recipe source files |
-| README.md | `automation/` | Full automation documentation |
-| ~/.cloudflared/config.yml | Home | webhooks.bartlettlabs.io ingress |
-| ~/.zshrc | Home | All API keys configured (UPDATED Session 5) |
-| System crontab | System | 5 Bartlett Labs cron entries |
-| contact-audit-2026-03-25.md | `automation/logs/` | GHL contact audit report (Session 6) |
-| index.html + logo.png | `bartlett-labs-landing/` | Cold outreach landing page — deployed to Cloudflare Pages (Session 10) |
-| pm2 LaunchAgent plist | `~/Library/LaunchAgents/` | pm2 auto-start on reboot (Session 10) |
+| File                        | Location                              | Purpose                                                                |
+| --------------------------- | ------------------------------------- | ---------------------------------------------------------------------- |
+| CLAUDE.md                   | `Bartlett_Labs/`                      | Unified workspace context                                              |
+| 27 skill files              | `.claude/commands/`                   | Claude Code slash commands                                             |
+| 6 shell scripts             | `automation/scripts/`                 | Cron-callable automation scripts                                       |
+| .env.sh                     | `automation/`                         | Bash-compatible env var loader                                         |
+| server.js + 3 handlers      | `automation/webhook-server/`          | Express webhook listener                                               |
+| ghl-reply.js                | `automation/webhook-server/handlers/` | Async handler with GHL API enrichment (UPDATED Session 5)              |
+| 5 recipe JSONs              | `automation/recipes/`                 | Ghost OS recipe source files                                           |
+| README.md                   | `automation/`                         | Full automation documentation                                          |
+| ~/.cloudflared/config.yml   | Home                                  | webhooks.bartlettlabs.io ingress                                       |
+| ~/.zshrc                    | Home                                  | All API keys configured (UPDATED Session 5)                            |
+| System crontab              | System                                | 5 Bartlett Labs cron entries                                           |
+| contact-audit-2026-03-25.md | `automation/logs/`                    | GHL contact audit report (Session 6)                                   |
+| index.html + logo.png       | `bartlett-labs-landing/`              | Cold outreach landing page — deployed to Cloudflare Pages (Session 10) |
+| pm2 LaunchAgent plist       | `~/Library/LaunchAgents/`             | pm2 auto-start on reboot (Session 10)                                  |
 
 ## Active Decisions
 
@@ -137,38 +142,39 @@
 
 ## SmartLead Campaign Details
 
-| Field | Value |
-|-------|-------|
-| Campaign ID | 3086101 |
-| Name | Bartlett Labs - Local Business Outreach Batch 1 |
-| Status | WARMING UP — launch target ~April 17, 2026 |
-| Email Account ID | 17060738 (kyle.bartlett@bartlett-labs.com) |
-| Warmup Key | pupil-union |
-| Campaign Association ID | 153738471 |
-| Warmup Settings | 15 emails/day, rampup 5, 35% reply rate |
-| Sequences | 4 (Day 0 Gift, Day 3 Nudge, Day 7 Value, Day 30 Close) |
-| Active Leads | 9 (7 verified valid, 2 Yahoo risky) |
-| Blocked Leads | 2 (invalid emails, globally unsubscribed) |
-| Schedule | Mon-Fri 8am-5pm CT, 15 leads/day |
-| API Key | `$SMARTLEAD_API_KEY` in ~/.zshrc |
+| Field                   | Value                                                  |
+| ----------------------- | ------------------------------------------------------ |
+| Campaign ID             | 3086101                                                |
+| Name                    | Bartlett Labs - Local Business Outreach Batch 1        |
+| Status                  | WARMING UP — launch target ~April 17, 2026             |
+| Email Account ID        | 17060738 (kyle.bartlett@bartlett-labs.com)             |
+| Warmup Key              | pupil-union                                            |
+| Campaign Association ID | 153738471                                              |
+| Warmup Settings         | 15 emails/day, rampup 5, 35% reply rate                |
+| Sequences               | 4 (Day 0 Gift, Day 3 Nudge, Day 7 Value, Day 30 Close) |
+| Active Leads            | 9 (7 verified valid, 2 Yahoo risky)                    |
+| Blocked Leads           | 2 (invalid emails, globally unsubscribed)              |
+| Schedule                | Mon-Fri 8am-5pm CT, 15 leads/day                       |
+| API Key                 | `$SMARTLEAD_API_KEY` in ~/.zshrc                       |
 
 ## MillionVerifier Results (SmartLead Batch 1)
 
-| Email | Result | Notes |
-|-------|--------|-------|
-| fmgexhaust@gmail.com | VALID | |
-| info@alfaplumbingservices.com | VALID | |
-| info@crosbytaxes.com | VALID | |
-| reyesfelipe32@gmail.com | VALID | |
-| oleethebarber@gmail.com | VALID | |
-| mgodom@gmail.com | VALID | |
-| sergiosceramictile@hotmail.com | VALID | |
-| backdraftbbq@yahoo.com | RISKY | Yahoo always returns unknown |
-| mmittag82@yahoo.com | RISKY | Yahoo always returns unknown |
-| lakehoustonfitness@gmail.com | INVALID | no_mailbox — BLOCKED |
-| tonyharrisbbq@yahoo.com | INVALID | mailbox_disabled — BLOCKED |
+| Email                          | Result  | Notes                        |
+| ------------------------------ | ------- | ---------------------------- |
+| fmgexhaust@gmail.com           | VALID   |                              |
+| info@alfaplumbingservices.com  | VALID   |                              |
+| info@crosbytaxes.com           | VALID   |                              |
+| reyesfelipe32@gmail.com        | VALID   |                              |
+| oleethebarber@gmail.com        | VALID   |                              |
+| mgodom@gmail.com               | VALID   |                              |
+| sergiosceramictile@hotmail.com | VALID   |                              |
+| backdraftbbq@yahoo.com         | RISKY   | Yahoo always returns unknown |
+| mmittag82@yahoo.com            | RISKY   | Yahoo always returns unknown |
+| lakehoustonfitness@gmail.com   | INVALID | no_mailbox — BLOCKED         |
+| tonyharrisbbq@yahoo.com        | INVALID | mailbox_disabled — BLOCKED   |
 
 ### Session 10 — Infrastructure Completion & GHL Cleanup (2026-03-27)
+
 - **pm2 startup configured**: LaunchAgent plist at `~/Library/LaunchAgents/pm2.kylebartlett.plist` — webhook server auto-starts on reboot
 - **Landing page deployed to Cloudflare Pages**: Project `bartlett-labs-landing`, custom domain bartlett-labs.com via CNAME, site live (HTTP 200). Free hosting — no Bluehost needed.
 - **Bluehost billing discovered**: $44.69 charge was Google Workspace resale (order #1877667495), duplicate of direct Google $7/mo subscription. Refund needed.
@@ -179,9 +185,16 @@
 ## Context for Next Session
 
 Session 10 completed all remaining infrastructure setup. Everything is LIVE and operational:
+
 - **Landing page**: https://bartlett-labs.com (Cloudflare Pages)
 - **Warmup**: SmartLead account 17060738 actively warming up. **DO NOT launch campaign until ~April 17, 2026.**
 - **Webhook server**: pm2 process `bartlett-webhooks`, auto-starts on reboot
 - **GHL contacts**: 169 clean, deduplicated contacts with consistent tags (77 unique tags)
 
 **Remaining before campaign launch**: (1) Wait for warmup (~April 17). (2) Build outreach videos. (3) Refund Bluehost $44.69 (order #1877667495). **Also pending**: Tomba plan decision ($29/mo for email enrichment), add more GHL workflow triggers, build GHL automation workflows.
+
+## 2026-09-10 Widgo follow-up package, prompt 1 (site copy) DONE
+- Commits f50c66e + 37be50c on GitHub main: GHL copy removed (ticker, demo showcase, LeadConnector/msgsndr prefetch), launch timing standardized ("Core missed-call text-back live within 48 hours of kickoff" / "Full system typically live within a week"), /pricing -> /#pricing redirect, Widgo snippet confirmed once in root layout head, plan prices verified, stale contact test fixed, claude-code-video-toolkit excluded from tsconfig.
+- NOT deployed: Coolify app y088wgs44okc484kwowk88s8 does not auto-deploy on push. Package said "do not deploy beyond what the push triggers". Trigger Coolify when Kyle says go.
+- Remaining package prompts: 2 (crm.bartlettlabs.io repo: POST /api/leads + /api/health), 3 (n8n workflow + Cal.com webhook, needs N8N_HOST/N8N_API_KEY/CAL_API_KEY/CRM_INBOUND_API_KEY), 4 (Widgo Sources PDF swap, browser), 5 (widget detection check, browser), 6 optional (Gmail hot-lead -> CRM). Package files unpacked at repo root: widgo-followup-terminal-prompts.md, n8n-calcom-to-bartlettlabs-crm.json, Bartlett-Labs-Approved-Knowledge-v2.pdf (all untracked).
+- Flags: src/lib/ghl.ts, api/chat, api/crosby-lead, ContactForm.tsx still POST to GHL (cancelled). Contact form falls back to mailto. services.ts still lists "$500 setup + $99/mo" for Missed Call Text-Back, which conflicts with the Widgo "only quote plan prices" rule. Pre-existing dirty tree (package.json next bump + htmx, prettier-formatted md files) left uncommitted, not mine.
