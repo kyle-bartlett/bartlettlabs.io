@@ -2,6 +2,11 @@ import { screen } from "@testing-library/react";
 import { renderWithProviders } from "@/test/render";
 import HomePage from "./page";
 
+// This content test does not exercise the canvas animation's browser APIs.
+vi.mock("@/components/site/HeroForgeVideo", () => ({
+  HeroForgeVideo: () => null,
+}));
+
 describe("HomePage", () => {
   it("uses the audit-first growth-system homepage and removes fake proof", () => {
     renderWithProviders(<HomePage />);

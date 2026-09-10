@@ -1,5 +1,21 @@
 # A2P / SMS Compliance Playbook — bartlettlabs.io
 
+## Current widget (2026-09-09)
+
+Kyle canceled GoHighLevel. Widgo replaces its homepage chat using
+`src/components/WidgoWidget.tsx`, rendered only by `src/app/page.tsx`.
+The organization is `org_81eba270b80b4baa`; the loader is
+`https://cdn.widgo.ai/widgo.js`, with `https://ai.widgo.ai` as the API.
+Widgo is web chat, not the former GHL SMS opt-in. Keep it off form pages and
+out of the root layout. Leaving the homepage reloads the destination because
+the vendor has no teardown API for its widget and session recorder.
+
+The GHL settings and carrier submission below are historical. Do not reuse
+them as a description of the current widget. Calendar booking must be connected
+in Widgo separately; installing the script does not connect a calendar.
+
+## Historical GHL SMS setup
+
 > **Why this file exists:** the A2P/SMS campaign was rejected ~10 times. This documents
 > the EXACT setup that makes the site compliant, the root causes of the rejections, and
 > the settings that must never be undone. If you are an agent or a future Kyle: read this

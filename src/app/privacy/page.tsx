@@ -190,6 +190,20 @@ export default function PrivacyPolicyPage() {
                 </p>
                 <ul className="list-disc list-inside text-sm leading-relaxed text-silver space-y-1.5 ml-2">
                   <li>
+                    <strong className="text-navy">Widgo:</strong> AI chat on our homepage.
+                    Widgo processes chat messages and visitor activity, including session replay,
+                    to answer questions and help us respond to inquiries. See Widgo&apos;s{" "}
+                    <a
+                      href="https://www.widgo.ai/legal/privacy-policy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline transition-colors hover:text-navy"
+                      style={{ color: "#06b6d4" }}
+                    >
+                      privacy policy
+                    </a>.
+                  </li>
+                  <li>
                     <strong className="text-navy">Google Analytics:</strong> Website traffic analysis
                     and usage statistics. Google&apos;s privacy policy is available at{" "}
                     <a

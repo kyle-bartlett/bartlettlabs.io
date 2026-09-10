@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   reactCompiler: true,
   compress: true,
-  poweredByHeader: false,
+  poweredByHeader: true,
   turbopack: {
     root: path.resolve(process.cwd()),
   },

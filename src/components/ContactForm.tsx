@@ -275,12 +275,7 @@ export default function ContactForm() {
         style={{ borderColor: "var(--color-border)", backgroundColor: "rgba(255, 255, 255, 0.72)" }}
       >
         <p className="text-xs leading-6" style={{ color: "var(--color-text-muted)" }}>
-          This form does not sign you up for text messages. To opt in to SMS,
-          use the chat widget on our{" "}
-          <a href="/" className="site-link">
-            homepage
-          </a>
-          , which collects explicit SMS consent. See our{" "}
+          This form and our homepage chat do not sign you up for text messages. See our{" "}
           <a href="/sms-opt-in" className="site-link">
             SMS Opt-In
           </a>{" "}
