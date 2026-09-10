@@ -121,9 +121,9 @@ export const proofMetrics = [
     detail: "for nights, weekends, and job-site busy hours",
   },
   {
-    value: "7 days",
-    label: "typical launch window",
-    detail: "for the first usable version of the system",
+    value: "48 hours",
+    label: "core text-back live",
+    detail: "Core missed-call text-back live within 48 hours of kickoff. Full system typically live within a week.",
   },
   {
     value: "3 engines",

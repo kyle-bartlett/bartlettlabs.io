@@ -42,7 +42,7 @@ describe("HomePage", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: "GoHighLevel command center",
+        name: "CRM command center",
         level: 3,
       }),
     ).toBeInTheDocument();

@@ -5,7 +5,7 @@ import { PhoneCall, Video, Wrench } from "lucide-react";
  *
  * `demo.posterPath` is required and points at the static UI mockup we
  * ship today. `demo.videoPath` is optional — when populated, the modal
- * upgrades from an image to a real video walkthrough. Until Kyle's GHL
+ * upgrades from an image to a real video walkthrough. Until the CRM
  * A2P is approved and real recordings come in, we ship image-only.
  *
  * Lives in its own file (rather than `growth-system.ts`) so the demo
@@ -29,8 +29,8 @@ export const demoShowcase = [
     },
   },
   {
-    id: "ghl-command-center",
-    title: "GoHighLevel command center",
+    id: "crm-command-center",
+    title: "CRM command center",
     label: "CRM walkthrough",
     description:
       "The owner dashboard in one view: open leads, booked jobs, stale quotes, review requests, and this week's follow-ups.",
@@ -46,7 +46,7 @@ export const demoShowcase = [
   {
     id: "automation-blueprint",
     title: "Automation blueprint",
-    label: "Make.com build",
+    label: "Make.com and n8n build",
     description:
       "The workflow behind the scenes: routing form submissions, sending alerts, creating calendar links, and tracking outcomes.",
     icon: Wrench,

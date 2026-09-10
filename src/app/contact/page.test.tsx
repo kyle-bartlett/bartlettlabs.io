@@ -30,7 +30,7 @@ describe("ContactPage", () => {
     ).toBe(true);
 
     expect(
-      screen.getByText(/This booking flow is powered by HighLevel\./i),
+      screen.getByText(/Cal\.com handles scheduling for your 15-minute call with Kyle\./i),
     ).toBeInTheDocument();
     expect(
       screen

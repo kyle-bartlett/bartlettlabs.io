@@ -17,6 +17,8 @@ const nextConfig: NextConfig = {
     return [
       // Clean short URL for the Alignable Crosby ad.
       { source: "/crosby", destination: "/crosby-ai", permanent: true },
+      // Old /pricing URL: pricing lives on the homepage.
+      { source: "/pricing", destination: "/#pricing", permanent: true },
     ];
   },
   // experimental: {

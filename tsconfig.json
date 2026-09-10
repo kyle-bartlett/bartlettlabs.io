@@ -33,6 +33,7 @@
   ],
   "exclude": [
     "node_modules",
+    "claude-code-video-toolkit",
     "prospect-demos",
     "demo-sites",
     "remotion",

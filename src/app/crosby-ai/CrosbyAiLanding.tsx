@@ -240,9 +240,10 @@ export function CrosbyAiLanding() {
               </div>
             </div>
             <div className={styles.proofItem}>
-              <div className={styles.proofValue}>~7 days</div>
+              <div className={styles.proofValue}>48 hours</div>
               <div className={styles.proofLabel}>
-                From kickoff to a live system on your number.
+                Core missed-call text-back live within 48 hours of kickoff. Full
+                system typically live within a week.
               </div>
             </div>
             <div className={styles.proofItem}>

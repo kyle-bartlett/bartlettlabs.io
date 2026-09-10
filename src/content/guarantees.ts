@@ -9,7 +9,7 @@ import {
 
 export type Guarantee = {
   id: string;
-  /** Short eyebrow shown above the headline (e.g. "48-hour launch"). */
+  /** Short eyebrow shown above the headline (e.g. "Launch window"). */
   eyebrow: string;
   /** The main promise — kept tight for use in a carousel slide. */
   headline: string;
@@ -29,9 +29,9 @@ export type Guarantee = {
 export const guarantees: Guarantee[] = [
   {
     id: "launch-window",
-    eyebrow: "48-hour launch",
-    headline: "Live in your hands in two days, not two months.",
-    body: "Every modular system ships fast. The Booking Engine, follow-up flows, and CRM dashboard are configured and tested in 48 hours.",
+    eyebrow: "Launch window",
+    headline: "Core missed-call text-back live within 48 hours of kickoff.",
+    body: "Full system typically live within a week. Follow-up flows, the CRM dashboard, and owner alerts come online right behind the text-back.",
     icon: Clock3,
   },
   {
