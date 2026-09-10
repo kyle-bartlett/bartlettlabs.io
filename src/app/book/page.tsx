@@ -8,7 +8,7 @@ import { siteConfig } from "@/content/site";
 export const metadata: Metadata = {
   title: "Book | Bartlett Labs",
   description:
-    "Book a strategy call with Bartlett Labs using the embedded calendar and review the related privacy and message-preference links.",
+    "Book a 15-minute AI and automation audit with Kyle Bartlett using the embedded calendar.",
   alternates: {
     canonical: "/book",
   },
@@ -22,8 +22,8 @@ const complianceLinks = [
 ] as const;
 
 const bookingNotes = [
-  "This calendar is powered by HighLevel but stays embedded inside Bartlett Labs so the related compliance pages remain easy to reach.",
-  "If you enter a mobile number, the consent language shown in the booking form governs text-message preferences for that scheduling flow.",
+  "Book a 15-minute video call with Kyle to discuss your business and a workflow you would like to improve. Cal.com handles scheduling and the calendar invitation.",
+  "Booking a call does not sign you up for text messages or marketing emails.",
   "If the embedded calendar gives you trouble, open it directly in a new tab or email Kyle instead.",
 ] as const;
 
@@ -34,7 +34,7 @@ export default function BookPage() {
         <PageHero
           eyebrow="Book"
           title="Pick a time without losing the context."
-          description="Use the calendar below to book a strategy call with Bartlett Labs. The booking flow stays on a Bartlett Labs page so privacy, terms, and message-preference links remain visible while you schedule."
+          description="Pick an available time for a 15-minute AI and automation audit with Kyle. Bring a workflow, business challenge, or project idea you would like to discuss."
           actions={
             <>
               <a
@@ -78,7 +78,7 @@ export default function BookPage() {
             <SectionIntro
               eyebrow="Calendar"
               title="Book directly on the Bartlett Labs site."
-              description="This keeps the booking experience simple while still giving you a direct path to the relevant compliance pages."
+              description="Available times are shown in your timezone. Your confirmed booking includes a calendar invitation and video link."
             />
             <div className="site-panel p-3 md:p-4">
               <iframe

@@ -10,7 +10,9 @@ describe("site content", () => {
     expect(siteConfig.metrics.automations).toBe("300+");
     expect(siteConfig.metrics.experienceYears).toBe("13");
     expect(siteConfig.booking.path).toBe("/book");
-    expect(siteConfig.booking.externalUrl).toContain("leadconnectorhq.com");
+    expect(siteConfig.booking.externalUrl).toBe(
+      "https://cal.com/kyle-bartlett-nrhzyw/ai-automation-audit",
+    );
   });
 
   it("uses the approved audit-first primary navigation", () => {

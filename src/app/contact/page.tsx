@@ -164,10 +164,10 @@ export default function ContactPage() {
               <span className="eyebrow">Calendar Note</span>
               <div className="mt-4 grid gap-4 text-sm leading-7">
                 <p style={{ color: "var(--color-text-muted)" }}>
-                  This booking flow is powered by HighLevel. If you enter a
-                  mobile number there, message preferences are managed inside
-                  that booking form and the related Bartlett Labs compliance
-                  pages below stay available any time.
+                  Cal.com handles scheduling for your 15-minute call with Kyle.
+                  Booking a call does not sign you up for text messages or
+                  marketing emails. Our privacy and message-preference pages
+                  remain available below.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link href="/privacy" className="site-link">

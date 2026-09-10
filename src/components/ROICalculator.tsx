@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
+import { siteConfig } from "@/content/site";
 
 /* ── Directional planning assumptions for service-business scenarios ── */
 const INDUSTRIES = [
@@ -320,7 +321,7 @@ export default function ROICalculator() {
                   </svg>
                 </Link>
                 <a
-                  href="https://api.leadconnectorhq.com/widget/booking/tnWattFiELBGpctlleU8"
+                  href={siteConfig.booking.externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary text-sm text-center"

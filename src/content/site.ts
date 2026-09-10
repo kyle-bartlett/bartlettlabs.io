@@ -21,7 +21,7 @@ export const siteConfig = {
   booking: {
     path: "/book",
     externalUrl:
-      "https://api.leadconnectorhq.com/widget/booking/tnWattFiELBGpctlleU8",
+      "https://cal.com/kyle-bartlett-nrhzyw/ai-automation-audit",
   },
   social: {
     linkedin: "https://www.linkedin.com/company/bartlett-labs",

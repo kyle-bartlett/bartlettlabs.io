@@ -29,7 +29,7 @@ const collectionPaths = [
   },
   {
     title: "Booking calendar",
-    body: "Calendar bookings run through HighLevel, where consent and message preferences are presented inside the booking flow itself.",
+    body: "Calendar bookings run through Cal.com. Scheduling a call does not collect SMS consent or sign you up for text messages.",
   },
   {
     title: "Direct written request",

@@ -1,6 +1,6 @@
 # A2P / SMS Compliance Playbook — bartlettlabs.io
 
-## Current widget (2026-09-09)
+## Current widget and calendar (2026-09-10)
 
 Kyle canceled GoHighLevel. Widgo replaces its homepage chat using
 `src/components/WidgoWidget.tsx`, rendered only by `src/app/page.tsx`.
@@ -13,6 +13,12 @@ the vendor has no teardown API for its widget and session recorder.
 The GHL settings and carrier submission below are historical. Do not reuse
 them as a description of the current widget. Calendar booking must be connected
 in Widgo separately; installing the script does not connect a calendar.
+
+The site's booking links and embedded calendars now use Cal.com:
+`https://cal.com/kyle-bartlett-nrhzyw/ai-automation-audit`.
+The event is a 15-minute AI and automation audit. Booking does not enroll
+visitors in SMS or marketing. The approved assistant knowledge is maintained
+in `docs/WIDGO_KNOWLEDGE.md` and uploaded to Widgo as a PDF source.
 
 ## Historical GHL SMS setup
 
