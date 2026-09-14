@@ -3,7 +3,7 @@
 ## 🏗️ Phase 1: Header & Global Palette
 - [ ] Global CSS: Implement Houston Navy (`#03202F`) and Astros Orange (`#FF5910`). 
 - [ ] Header: Change "Audit" link to "Tools" (anchor link to Services).
-- [ ] Header/Footer: Add GoHighLevel Business Phone Number as a click-to-call link.
+- [x] Header/Footer: Add the business phone number as a click-to-call link.
 
 ## 🧱 Phase 2: Hero 3D Overhaul
 - [ ] 3D Baseplate: Change color to macOS Mail Blue (`#007AFF`) with a glossy plastic sheen.

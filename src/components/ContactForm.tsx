@@ -4,14 +4,12 @@ import { useState, type FormEvent } from "react";
 import { services } from "@/content/services";
 import { siteConfig } from "@/content/site";
 
-type FormStatus = "idle" | "submitting" | "success";
+type FormStatus = "idle" | "success";
 
 const SERVICE_OPTIONS = [
   ...services.map((service) => service.title),
   "Not sure yet",
 ] as const;
-
-const GHL_FORM_URL = "https://services.leadconnectorhq.com/funnels/submit";
 
 const fieldStyle = {
   borderColor: "var(--color-border)",
@@ -22,44 +20,11 @@ const fieldStyle = {
 export default function ContactForm() {
   const [status, setStatus] = useState<FormStatus>("idle");
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setStatus("submitting");
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-
-    try {
-      const response = await fetch(GHL_FORM_URL, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        setStatus("success");
-        form.reset();
-        return;
-      }
-
-      const jsonBody: Record<string, string> = {};
-      formData.forEach((value, key) => {
-        jsonBody[key] = value.toString();
-      });
-
-      const jsonResponse = await fetch(GHL_FORM_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(jsonBody),
-      }).catch(() => null);
-
-      if (jsonResponse?.ok) {
-        setStatus("success");
-        form.reset();
-        return;
-      }
-    } catch {
-      // If GHL fails entirely, fall back to mailto below.
-    }
 
     const name = formData.get("name")?.toString() ?? "";
     const email = formData.get("email")?.toString() ?? "";
@@ -284,12 +249,8 @@ export default function ContactForm() {
       </div>
 
       <div className="flex flex-wrap items-center gap-4 pt-2">
-        <button
-          type="submit"
-          disabled={status === "submitting"}
-          className="btn-primary disabled:cursor-not-allowed disabled:opacity-70"
-        >
-          {status === "submitting" ? "Sending..." : "Send message"}
+        <button type="submit" className="btn-primary">
+          Send message
         </button>
         <p className="text-sm leading-7" style={{ color: "var(--color-text-muted)" }}>
           Prefer email? Write directly at{" "}

@@ -44,7 +44,7 @@ export const services = [
   {
     id: "websites",
     title: "Missed Call Text-Back",
-    priceRange: "$500 setup + $99/mo",
+    priceRange: "Included in every plan",
     summary: "If you don't answer, you don't get the job. Instantly text back missed calls and keep the lead warm while you finish your current job.",
     timeline: "Core missed-call text-back live within 48 hours of kickoff",
     whoItsFor: ["Local businesses missing calls", "Owners on the job site"],

@@ -22,7 +22,7 @@ Bartlett Labs is a specialized development and automation studio focused on buil
 - **3D/Graphics:** Three.js / React Three Fiber
 - **Testing:** Vitest + React Testing Library
 - **AI Integrations:** Anthropic (Vercel AI SDK)
-- **CRM/Automation:** GoHighLevel (GHL) Integration
+- **Chat and Booking:** Widgo web chat, Cal.com scheduling
 
 ---
 
@@ -34,16 +34,15 @@ Bartlett Labs is a specialized development and automation studio focused on buil
   - `/industries/`: Niche-specific pages (HVAC, Distribution, Healthcare, etc.).
   - `/quiz` & `/calculator`: Interactive tools for ROI and system qualification.
   - `/work`: Portfolio of featured builds.
-  - `/api/chat`: Backend logic for AI-driven interactions.
 - **`components/`**:
   - `site/`: High-level page sections and structural components (PageHero, ProofStrip, SiteHeader).
-  - `ContactForm.tsx`: Custom lead capture integrated with GoHighLevel.
+  - `ContactForm.tsx`: Contact form that opens a prefilled email to Kyle.
   - `ROICalculator.tsx`: Logic-heavy interactive component for business value estimation.
 - **`content/`**: **The SSOT (Single Source of Truth)** for site data.
   - `site.ts`: Global configuration, founder bio, and navigation links.
   - `services.ts` & `work.ts`: Catalog of offerings and past projects.
 - **`lib/`**: Utility layer.
-  - `ghl.ts`: GoHighLevel API client and form submission logic.
+  - `ghl.ts`: Legacy lead client used only by `/api/crosby-lead`. Remove once the CRM lead endpoint is live.
   - `ai-router.ts`: Intelligent routing and prompt management.
 
 ### 📚 Documentation & Strategy (`/docs`)
@@ -71,7 +70,7 @@ Bartlett Labs is shifting towards a narrow, high-impact niche: **Turning Missed 
 - **The "Flipped Dollar" Strategy:** All marketing focuses on the revenue **saved/recovered** for the client, rather than the cost of the system. ("This system recovered $4k for a plumber" vs "I charge $500 for this").
 
 ### 📧 Outreach Infrastructure
-- **System of Record:** GoHighLevel (GHL) manages the CRM, pipelines, and post-reply workflows.
+- **System of Record:** Postgres on Coolify (`bartlett-labs-outbound` repo) holds contacts, pipelines, and post-reply status.
 - **Sending Engine:** SmartLead handles cold outbound at scale using the `bartlett-labs.com` outreach domain (isolated to protect primary `.io` reputation).
 - **Lead Database:** 30,000+ verified Texas-area leads (Houston, Austin, Dallas, San Antonio).
 - **The Hook:** Personalized demo sites (e.g., `alfa-plumbing.bartlettlabs.io`) are built for top-tier targets before outreach.
@@ -88,7 +87,7 @@ Bartlett Labs is shifting towards a narrow, high-impact niche: **Turning Missed 
 1. **Modular Page Construction**: Most pages are built using `PageShell` and a series of "Sections" imported from `src/components/site`.
 2. **Data-Driven UI**: Content is separated from components in `src/content/`. Adding a new service or portfolio item only requires updating a TypeScript file.
 3. **Spring-Based Motion**: Consistent animation physics across the site for a "heavy/mechanical" feel.
-4. **GHL Integration**: Deep integration with GoHighLevel for booking, lead capture, and missed-call recovery automation.
+4. **Widgo and Cal.com**: Widgo loads once in the document head on every page, and Cal.com books the 15-minute audit at `/book`.
 
 ---
 

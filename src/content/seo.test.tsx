@@ -2,7 +2,6 @@ import fs from "node:fs";
 import path from "node:path";
 import JsonLd from "@/components/JsonLd";
 import sitemap from "@/app/sitemap";
-import { SYSTEM_PROMPT } from "@/lib/chatbot-prompt";
 import { siteConfig } from "@/content/site";
 import { renderWithProviders } from "@/test/render";
 
@@ -64,11 +63,11 @@ describe("SEO truth layer", () => {
     );
   });
 
-  it("keeps llms files and chatbot prompt aligned with approved facts", () => {
+  it("keeps llms files aligned with approved facts", () => {
     const llms = readPublicFile("llms.txt");
     const llmsFull = readPublicFile("llms-full.txt");
 
-    for (const value of [llms, llmsFull, SYSTEM_PROMPT]) {
+    for (const value of [llms, llmsFull]) {
       expect(value).toContain("300+");
       expect(value).toContain("13 years");
       expect(value).toContain("/book");
@@ -79,6 +78,8 @@ describe("SEO truth layer", () => {
       expect(value).not.toContain("testimonials");
       expect(value).not.toContain("/testimonials");
       expect(value).not.toContain("/portfolio");
+      expect(value).not.toContain("GoHighLevel");
+      expect(value).not.toContain("$500 setup");
     }
   });
 });

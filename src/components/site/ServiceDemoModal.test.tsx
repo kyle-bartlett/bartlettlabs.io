@@ -24,7 +24,7 @@ const baseProps = {
   title: "Missed Call Text-Back",
   description:
     "If you don't answer, you don't get the job. Instantly text back missed calls.",
-  eyebrow: "$500 setup + $99/mo",
+  eyebrow: "Included in every plan",
   detailsHref: "/services#websites",
 };
 

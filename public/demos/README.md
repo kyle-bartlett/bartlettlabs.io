@@ -9,12 +9,12 @@ The modal automatically picks whichever mode the data has configured. To upgrade
 
 ## v1 ships with image-only demos
 
-Until Kyle's GHL business line clears A2P approval, we can't record real GoHighLevel walkthroughs. So v1 ships with AI-generated UI mockup images that look like real product screenshots. Real videos can be swapped in later with no code changes — just replace the JPG and add the MP4.
+Until real walkthroughs are recorded, v1 ships with AI-generated UI mockup images that look like real product screenshots. Real videos can be swapped in later with no code changes: replace the JPG and add the MP4.
 
 ## Filenames currently in use
 
 - `missed-call-text-back.jpg` — Missed Call Text-Back service + homepage demo
-- `automated-follow-ups.jpg` — Automated Follow-Ups service + homepage Make.com demo
+- `automated-follow-ups.jpg` — Automated Follow-Ups service + homepage Make.com and n8n demo
 - `simple-crm-dashboard.jpg` — Simple CRM Dashboard service + homepage CRM demo
 - `consulting-advisory.jpg` — Consulting & Advisory service
 - `bartlett-labs-overview.jpg` — top-level overview reel

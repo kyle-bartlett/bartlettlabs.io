@@ -22,7 +22,7 @@ The studio is intentionally focused on practical operating-system offers:
 
 ### 1. Missed Call Text-Back
 
-- $500 setup + $99/mo
+- Included in every plan: Solo $497/mo, Crew $897/mo, Herd $1,297/mo, each plus setup
 - Best for owners who miss calls while doing the work
 - Focus: instant missed-call response, lead capture, and owner alerts
 

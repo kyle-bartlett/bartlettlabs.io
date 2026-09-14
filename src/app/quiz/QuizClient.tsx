@@ -116,7 +116,7 @@ const areaLabels: Record<string, string> = {
 
 const areaRecommendations: Record<string, string> = {
   "data-entry":
-    "Automate data entry with form integrations, OCR tools, or API connectors. Even simple Zapier or Make workflows can eliminate hours of manual input each week.",
+    "Automate data entry with form integrations, OCR tools, or API connectors. Even simple Zapier, Make.com, or n8n workflows can eliminate hours of manual input each week.",
   "customer-comms":
     "Set up automated email and text follow-ups so no lead falls through the cracks. An AI chatbot can handle after-hours inquiries and qualify leads 24/7.",
   scheduling:
