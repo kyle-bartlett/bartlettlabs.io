@@ -114,7 +114,8 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-14",
     readTime: "6 min read",
     author: "Kyle Bartlett",
-    coverAlt: "Business owner deciding whether AI automation is the right next step",
+    coverAlt:
+      "Business owner deciding whether AI automation is the right next step",
     content: `
 <p>After building 300+ automations, the pattern is pretty simple: the winning projects fix repeatable work. The losing ones try to automate confusion.</p>
 
@@ -230,7 +231,7 @@ export const blogPosts: BlogPost[] = [
 
 <p><strong>DIY or template builds</strong> cost less in cash but usually cost more in owner time. They can work when the business just needs a basic web presence and the stakes are low.</p>
 
-<p><strong>Custom local-business sites</strong> usually start around the same range shown on my current services page: about $2,500 and up, with the total climbing past $5,000 as the project adds pages, copy support, proof gathering, or more complex lead flow.</p>
+<p><strong>Custom local-business sites</strong> are quoted per project after a short scoping call, because the total climbs as the project adds pages, copy support, proof gathering, or more complex lead flow.</p>
 
 <p><strong>Integrated builds</strong> move higher when the site also needs booking, automation handoffs, calculators, or custom connections into the rest of the business stack.</p>
 
@@ -251,7 +252,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "5-signs-your-local-business-needs-ai-chatbot",
-    title: "5 Signs Your Local Business Needs an AI Chatbot (And What It Actually Costs)",
+    title:
+      "5 Signs Your Local Business Needs an AI Chatbot (And What It Actually Costs)",
     excerpt:
       "A chatbot is not for every business, but it can be a strong fit when inquiries are repetitive, response time slips, and the website is not turning enough visitors into conversations.",
     category: "AI & Technology",
@@ -287,7 +289,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2>What the cost usually depends on</h2>
 
-<p>At Bartlett Labs, chatbot work typically lives in the same range shown on the services page: roughly $5,000 to $15,000 depending on how much the bot needs to know, what systems it needs to connect to, and how far it should take the conversation before a human steps in.</p>
+<p>At Bartlett Labs, chatbot work is quoted per project after a short scoping call. The price depends on how much the bot needs to know, what systems it needs to connect to, and how far it should take the conversation before a human steps in.</p>
 
 <p>The cheapest version is usually question answering plus lead capture. The more expensive version includes booking logic, cleaner handoffs, and deeper integration into the business workflow.</p>
 
@@ -470,7 +472,8 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-12",
     readTime: "6 min read",
     author: "Kyle Bartlett",
-    coverAlt: "Structuring a website so answer engines can understand it clearly",
+    coverAlt:
+      "Structuring a website so answer engines can understand it clearly",
     content: `
 <p>Answer Engine Optimization is a simple idea: make your website easier for AI tools to understand, summarize, and trust.</p>
 

@@ -20,7 +20,7 @@ Framer, bypassing the real Next.js app on Coolify (which is healthy and running)
    temporary bridge, retire it after the native page ships.
 2. Build a **dedicated, native `/crosby-ai`** ad landing page. Leave `/areas/crosby` (evergreen
    SEO area page, 1 of 21) untouched.
-3. CTA → **on-page lead form → GoHighLevel**, A2P-compliant.
+3. CTA → **on-page lead form → Bartlett Labs CRM** (crm.bartlettlabs.io), A2P-compliant.
 4. **Expand** beyond the Framer design (add proof, how-it-works, local trust, FAQ).
 
 ## Part A — Reclaim the domain (urgent; fixes the down site)
@@ -51,9 +51,9 @@ Reuse the existing system: `.growth-*` utility classes + brand tokens in `src/ap
 - `src/components/site/CrosbyAiLanding.tsx` — section composition (server component where possible).
 - `src/components/site/CrosbyLeadForm.tsx` — client form, reusing ContactForm styling
   (`card-warm`, `btn-primary`, `eyebrow`, field styles). Anchor `#audit`; all CTAs scroll here.
-- `src/app/api/crosby-lead/route.ts` — server route → `findOrCreateContact()` from `src/lib/ghl.ts`
-  with `tags: ["crosby-ai","alignable"]`, `source: "crosby-ai-landing"` (attribution for ad ROI),
-  `companyName`, name/email/phone. JSON in, `{ok}` out, with error handling.
+- `src/app/api/crosby-lead/route.ts`: server route → CRM `POST https://crm-api.bartlettlabs.io/api/leads`
+  sending `x-api-key` (`CRM_INBOUND_API_KEY`) and `source: "Crosby AI landing page (Alignable ad)"` (attribution for ad ROI),
+  company, name/email/phone. JSON in, `{ok}` out, with error handling.
 
 **Sections (faithful design + expansions):**
 1. **Hero** (2-col, parchment): kicker "Built for Crosby, TX local operators", H1 "AI Automation
@@ -64,7 +64,7 @@ Reuse the existing system: `.growth-*` utility classes + brand tokens in `src/ap
    body + "first 5 minutes" callout + "A normal Crosby workday" card + "Thousands" revenue callout.
 3. **The Solution** (parchment): 3 cards — Instant Text-Back / Review Booster / Fully Managed + footer note.
 4. **Proof strip** *(expansion)*: capability stats via `ProofStrip` — under-2-min text-back, 24/7,
-   7-day launch, built & run for you. No fabricated results (compliance).
+   Core missed-call text-back live within 48 hours of kickoff, built & run for you. No fabricated results (compliance).
 5. **How it works** *(expansion)*: 3 steps — Map the leak → Build the system → Launch with you.
 6. **Local trust** *(expansion)*: "Serving all of Crosby" neighborhoods (Newport, Barrett, Lake
    Houston, FM 2100, Indian Shores, Crosby-Lynchburg) + "Proud Crosby community sponsor on Alignable."
@@ -92,7 +92,7 @@ Alignable ad at `https://bartlettlabs.io/crosby-ai`.
   `server: Framer`, real Next.js HTML; homepage renders. `crosby.bartlettlabs.io` serves Framer.
 - **Page:** `npm run build` clean; Interceptor visual check `/crosby-ai` on desktop/tablet/mobile —
   confirm frozen-right is gone, layout correct.
-- **Lead form:** submit a test lead → appears in GHL tagged `crosby-ai` + `alignable`, source
-  `crosby-ai-landing`. Meta Pixel `Lead` + PostHog event fire (verify in PostHog/Pixel Helper).
+- **Lead form:** submit a test lead → appears in the CRM as a contact with source
+  "Crosby AI landing page (Alignable ad)". Meta Pixel `Lead` + PostHog event fire (verify in PostHog/Pixel Helper).
 - **Redirect (if added):** `/crosby` → `/crosby-ai`.
 - Commit + push + Coolify deploy verified on the live URL.

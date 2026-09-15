@@ -61,3 +61,9 @@ public/kyle-bartlett.png
 /email-campaigns-claude/
 /prospect-demos/
 /remotion/
+
+# Third-party video tool checked out locally; not part of the site (also excluded in tsconfig.json)
+/claude-code-video-toolkit
+
+# Local-only mission logs and Codex evaluations (internal infrastructure details; this repo is public)
+/widgo_bartlettlabs/

@@ -14,7 +14,7 @@ Rebuild `bartlettlabs.io` as a trust-first founder site that reflects Kyle Bartl
 - Testimonials are not real and must be removed from UI, metadata, and schema.
 - Do not promise `24-hour quotes` site-wide.
 - Use photo and screenshot placeholders for now.
-- Public booking links should go through `/book`, which redirects to the active GHL calendar.
+- Public booking links should go through `/book`, which shows the Cal.com audit calendar.
 
 ## Information Architecture
 
@@ -39,7 +39,7 @@ Rebuild `bartlettlabs.io` as a trust-first founder site that reflects Kyle Bartl
 - `/portfolio` -> `/work`
 - `/demos` -> `/work`
 - `/testimonials` -> `/work`
-- `/book` -> external GHL booking URL
+- `/book` -> Cal.com audit booking page
 
 ## Visual System
 

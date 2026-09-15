@@ -87,5 +87,5 @@ playbook), config files. Homepage = `src/app/page.tsx` → `GrowthSystemHome`. H
   record. **Lesson: protect the apex; landing pages go on subdomains; platforms never touch DNS.**
 - **2026-06-17 — A2P/SMS compliance.** ~10 carrier rejections traced to: opt-in URL pointing
   to a form that didn't exist, a 2FA/use-case mismatch, pre-checked/"optional" consent, and
-  terms/privacy links to LeadConnector instead of our own pages. Fixed: widget is the single
+  terms/privacy links to the chat vendor's pages instead of our own. Fixed: widget is the single
   opt-in on the form-free homepage; contact form's SMS consent removed. See `docs/A2P_SMS_COMPLIANCE.md`.

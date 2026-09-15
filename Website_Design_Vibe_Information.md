@@ -46,13 +46,13 @@ Sub-headline: 'I’m an Industrial Engineer who grew up in a family Ford dealers
 
 CTA: 'Request a 15-Min Efficiency Audit'
 
-Remove all Calendly links from the website. Replace them with my new GoHighLevel Calendar. Ensure the calendar widget is styled to match our new Navy and Parchment 'Workshop' theme."
+Remove all Calendly links from the website. Replace them with the Cal.com audit calendar at /book. Ensure the calendar embed is styled to match our new Navy and Parchment 'Workshop' theme."
 
-##Calendar Link && Embed Code
-#Name: Client-Audit
--Scheduling Calendar Link: https://api.leadconnectorhq.com/widget/bookings/client-audit
--Permanent Link: https://api.leadconnectorhq.com/widget/booking/tnWattFiELBGpctlleU8
--Booking Calendar Embed Code: <iframe src="https://api.leadconnectorhq.com/widget/booking/tnWattFiELBGpctlleU8" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="dafuQebEYA0qSIt6qY2i_1771884803700"></iframe><br><script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+##Calendar Link
+#Name: 15-Minute AI and Automation Audit
+-Booking page: https://bartlettlabs.io/book
+-Cal.com event: https://cal.com/kyle-bartlett-nrhzyw/ai-automation-audit
+-Embed: the Cal.com inline embed on /book
 
 
 4. Design/CSS:
@@ -70,7 +70,7 @@ The McKinsey Mention: It’s a great credential, but to a guy running a plumbing
 
 Add a 'Why Crosby?' blurb at the bottom to ground it in the local community.
 
-4.2) The "Proof" Screenshots: Don't just show abstract blocks. Show a blurry but recognizable screenshot of a Make.com workflow or a GoHighLevel dashboard. It proves I'm not just using ChatGPT; I'm building actual infrastructure.
+4.2) The "Proof" Screenshots: Don't just show abstract blocks. Show a blurry but recognizable screenshot of a Make.com or n8n workflow or the CRM dashboard. It proves I'm not just using ChatGPT; I'm building actual infrastructure.
 
 4.3) The "Crosby" Touch: Please place a subtle image of a local landmark or a "Texas-grown" badge near the footer. It screams "I'm not a bot from overseas."
 
@@ -91,9 +91,9 @@ Highlight a "Prototype" I've built.
 
 4.6) The Tech Stack
 
-Make.com (The Brain): This is where we build the logic. It’s more visual and powerful than Zapier. It looks like "Engineering," which fits my brand.
+Make.com and n8n (The Brain): This is where we build the logic. It’s more visual and powerful than Zapier. It looks like "Engineering," which fits my brand.
 
-GoHighLevel (The Front-End): This is the CRM I'll sell to the clients. It handles the SMS, the calendars, and the lead tracking. Most "AI Agencies" are just white-labeling this and adding AI.
+The Bartlett Labs CRM (The Front-End): our own CRM at crm.bartlettlabs.io. It handles lead tracking, with Twilio for SMS and Cal.com for calendars.
 
 Eleven Lags/Vapi.ai or Retell AI (The Voice): Show them an AI that can actually answer their shop phone and book an appointment. It's the ultimate "Aha!" moment.
 
@@ -107,11 +107,11 @@ Create a dedicated section (or a clean popup) for the '5-Minute Shop-Efficiency 
 
 Copy: 'Don't know where to start? Take the 5-minute audit and get a custom automation blueprint for your shop.'
 
-Embed: Leave a placeholder div where I can paste my GoHighLevel Form/Survey iframe code.
+Embed: Link to the quiz at /quiz, which runs the audit on our own site.
 
 2. The Calendar Integration:
 
-Update all 'Book a Call' and 'Efficiency Audit' buttons to link directly to my GoHighLevel Calendar widget.
+Update all 'Book a Call' and 'Efficiency Audit' buttons to link directly to /book (the Cal.com audit calendar).
 
 Make sure the calendar loads in a clean modal or stays consistent with our 'Parchment' and 'Navy' workshop theme.
 
@@ -123,14 +123,14 @@ When someone submits the form, show a 'Building your Blueprint...' animation usi
 The "Auto-Response" Workflow: In the Automation tab, create a trigger: "When Form is Submitted" -> "Send Email with PDF Blueprint" -> "Wait 2 minutes" -> "Send SMS: 'Hey, it's Kyle. Just sent that blueprint over. If you have 2 minutes, the calendar link is here to walk through it.'"
 
 ####
-####THIS IS WHAT I'M DOING IN GHL **FOR YOUR REFERENCE TO KNOW HOW THE GHL PIECE WILL WORK:
+####FOR REFERENCE: HOW THE AUDIT SURVEY WAS PLANNED
 Gemini said
-Let’s get this engine idling! Since you're sitting on a GoHighLevel (GHL) account at 90% completion, this survey is the final piece of the "Lead Capture" puzzle.
+Let’s get this engine idling! This survey is the final piece of the "Lead Capture" puzzle.
 
 We want these questions to feel like a diagnostic check-up at a shop. We aren't asking about "API integrations"; we’re asking about where the grease is leaking in their business.
 
 📋 The "Shop Efficiency Audit" Questions
-In GoHighLevel, go to Sites > Surveys > Builder to create this.
+Build this as the site quiz at /quiz.
 
 Question 1: The Context
 
@@ -165,16 +165,16 @@ Fields: First Name | Email | Phone Number
 🗺️ The "Blueprint" Logic (What they get)
 You don't need to write a unique 20-page book for every person. You create three template responses based on their answer to Question 3:
 
-If they chose "Missing Leads": The Blueprint they get focuses on The Lead Wrangler (GHL's Auto-Missed Call Text Back and SMS Chatbots).
+If they chose "Missing Leads": The Blueprint they get focuses on The Lead Wrangler (missed-call text-back and SMS follow-up).
 
-If they chose "Invoices/Paperwork": The Blueprint focuses on The Weekend Recovery (GHL's Invoicing and Workflow Automations).
+If they chose "Invoices/Paperwork": The Blueprint focuses on The Weekend Recovery (invoicing and workflow automations in n8n and Make.com).
 
-If they chose "Scheduling": The Blueprint focuses on The Automated Calendar (That 0% item on your GHL dashboard!).
+If they chose "Scheduling": The Blueprint focuses on The Automated Calendar (the Cal.com audit calendar).
 
-🛠️ Setting it up in GoHighLevel
-Build the Survey: Use the questions above in the GHL Survey Builder.
+🛠️ Setting it up
+Build the Survey: Use the questions above in the site quiz at /quiz.
 
-The "Thank You" Page: After they hit submit, don't just say "Thanks." Redirect them to your GHL Calendar (the one that's currently at 0%) with a message: "Audit complete! Your blueprint is being generated. While you wait, let’s grab 10 minutes to walk through it."
+The "Thank You" Page: After they hit submit, don't just say "Thanks." Redirect them to the Cal.com audit calendar at /book with a message: "Audit complete! Your blueprint is being generated. While you wait, let’s grab 10 minutes to walk through it."
 
 The Automation: In the Automation tab, create a workflow:
 
@@ -259,7 +259,7 @@ Best For: Logistics, Health Clinics, Manufacturers.
 
 
 
-7) CRM/Lead Flow - I'm using Go High Level
+7) CRM/Lead Flow - our own CRM at crm.bartlettlabs.io
 
 📝 Website Integration)
 
@@ -269,7 +269,7 @@ Create a high-impact section titled: 'Find the Leaks in Your Business.'
 
 Add copy: 'Take the 5-Minute Efficiency Audit. I’ll send you a custom Blueprint showing exactly which tasks you can automate to save 10+ hours a week.'
 
-Embed the GoHighLevel Survey iframe here: [PASTE YOUR GHL SURVEY IFRAME CODE HERE].
+Link the section to the quiz at /quiz.
 
 Ensure the section looks like a 'Diagnostic Tool'—clean lines, high contrast, and tactile buttons."**
 
@@ -278,7 +278,7 @@ Why it works: It feels like a professional service, not a sales pitch. It also g
 
 7.2) The Calendar Integration:
 
-Update all 'Book a Call' and 'Efficiency Audit' buttons to link directly to my GoHighLevel Calendar widget.
+Update all 'Book a Call' and 'Efficiency Audit' buttons to link directly to /book (the Cal.com audit calendar).
 
 Make sure the calendar loads in a clean modal or stays consistent with our 'Parchment' and 'Navy' workshop theme.
 
@@ -341,7 +341,7 @@ The Brand: The "Nerdy Hillbilly" (Purdue Engineer + Ford Dealer).
 
 The Look: The Modern Workshop (3D LEGO Blocks, Navy/Orange, Parchment).
 
-The Engine: GoHighLevel (Automated Calendars, Surveys, and SMS).
+The Engine: the Bartlett Labs CRM, Cal.com calendars, the /quiz audit, and Twilio SMS.
 
 The Hook: The 5-Minute Efficiency Audit.
 

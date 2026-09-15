@@ -27,7 +27,7 @@ Animation: Solid 3D blocks with rounded corners sliding into place and stacking.
 
 Labels: High-contrast, bold text on the front-left plane of blocks: LEAD CAPTURE, AI FOLLOW-UP, AUTO-SCHEDULING, INVOICING.
 
-Action: All "Book Audit" buttons should link to: [PASTE YOUR GHL CALENDAR LINK HERE]
+Action: All "Book Audit" buttons should link to: /book (the Cal.com 15-minute audit)
 
 4. Core Sections & Copy
 
@@ -51,7 +51,7 @@ The Custom Lab Build: High-end engineering for complex operations.
 
 Process Section: Use the Timeline component to map out the 'Audit to Automation' journey.
 
-Efficiency Audit: Create a "Diagnostic Check-up" section. Embed the GoHighLevel Survey here: [PASTE YOUR GHL SURVEY EMBED CODE HERE].
+Efficiency Audit: Create a "Diagnostic Check-up" section. Link it to the quiz at /quiz.
 
 Silvy (Voice AI): Integrate the ElevenLabs widget in the bottom right. Use a Navy circle with a "Tools" icon as the launcher. [PASTE YOUR ELEVENLABS WIDGET CODE HERE].
 
@@ -639,7 +639,7 @@ The Persona: The "Nerdy Hillbilly" (Purdue Engineering degree + Ford Dealer hand
 
 The UI: A "Digital Workshop" using Spline for 3D blocks and Bento Grids for organized services.
 
-The Engine: GoHighLevel for the CRM, scheduling, and SMS "plumbing."
+The Engine: the Bartlett Labs CRM (crm.bartlettlabs.io) for leads, Cal.com for scheduling, Twilio for SMS, and n8n and Make.com for the "plumbing."
 
 The Voice: ElevenLabs (Silvy) for the human-sounding shop assistant.
 
@@ -662,7 +662,7 @@ It’s the Efficiency Audit. It’s a 5-minute quiz that finds the "leaks" in a 
 She is our Voice AI (from ElevenLabs). She lives on the website and the phone. She sounds like a friendly neighbor and helps people book meetings on our calendar.
 
 5. What is the "Brain"?
-GoHighLevel (GHL) is the brain. It holds all the phone numbers, sends the automatic "Thank You" texts, and manages the calendar so Kyle never has to play phone tag.
+The Bartlett Labs CRM is the brain. It holds every lead and follow-up, Twilio sends the automatic "Thank You" texts, and Cal.com manages the calendar so Kyle never has to play phone tag.
 
 6. What is the "Worker Bee"?
 Claude Code is the builder. He takes the ideas and writes the computer code to make the website work exactly as planned.

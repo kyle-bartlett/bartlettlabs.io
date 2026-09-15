@@ -23,14 +23,12 @@ Updated: 2026-03-23
 - The orphaned pre-rebuild marketing components have been removed from the repo, with a regression test guarding that cleanup.
 - The remaining utility and compliance pages now run on the rebuilt shell, and the old legacy shell files have been retired.
 - The footer now exposes compliance links directly, including a new `/email-opt-out` page.
-- A direct HighLevel compliance audit has now been captured in `docs/plans/2026-03-23-bartlettlabs-ghl-compliance-audit.md`.
 - Local SMS/contact consent copy has been tightened around the real Bartlett Labs flow instead of generic account-security template language.
-- The GHL booking widget consent copy has now been updated in the sub-account admin, while this repo keeps the embedded calendar on a first-party `/book` page with visible compliance links.
+- Booking now runs on Cal.com; this repo keeps the embedded calendar on a first-party `/book` page with visible compliance links.
 - Design source of truth remains:
   - `docs/plans/2026-03-22-bartlettlabs-site-rebuild-design.md`
   - `docs/plans/2026-03-22-bartlettlabs-site-status.md`
   - `docs/plans/2026-03-22-bartlettlabs-site-asset-checklist.md`
-  - `docs/plans/2026-03-23-bartlettlabs-ghl-compliance-audit.md`
 
 ### Verified
 
@@ -54,7 +52,7 @@ Updated: 2026-03-23
 - New shell/components built for the rebuilt marketing surface.
 - Homepage, Services, Work, About, Contact, Blog index, and Blog post pages moved to the new shell.
 - Legacy routes `/portfolio`, `/demos`, and `/testimonials` now redirect to `/work`.
-- `/book` now renders a Bartlett Labs booking page with the embedded GHL calendar.
+- `/book` now renders a Bartlett Labs booking page with the embedded Cal.com calendar.
 - Review/testimonial schema removed from JSON-LD.
 - AI-facing truth files updated to match approved facts.
 - Booking CTAs were normalized around the stable internal `/book` path, which now renders the first-party embedded calendar page.
@@ -78,7 +76,7 @@ Updated: 2026-03-23
 - Rebuilt `/sms-opt-out` around STOP-first guidance and removed the stale 2FA/account and `24 hours` template claims.
 - Updated the SMS sections in `/privacy` and `/terms` so they now match inquiry follow-up, scheduling, project communication, and support.
 - Added regression tests for the refreshed contact and SMS compliance copy.
-- Replaced the old `/book` redirect route with a dedicated booking page that embeds the GHL calendar and keeps Privacy, Terms, SMS Opt-Out, and Email Opt-Out links on-page.
+- Replaced the old `/book` redirect route with a dedicated booking page that embeds the Cal.com calendar and keeps Privacy, Terms, SMS Opt-Out, and Email Opt-Out links on-page.
 - Added test coverage for the new `/book` page and included `/book` in the sitemap.
 
 ### Known Follow-Up Work

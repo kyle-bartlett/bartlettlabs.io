@@ -7,7 +7,6 @@ Updated: 2026-03-23
 - Design: `docs/plans/2026-03-22-bartlettlabs-site-rebuild-design.md`
 - Implementation plan: `docs/plans/2026-03-22-bartlettlabs-site-rebuild.md`
 - Asset checklist: `docs/plans/2026-03-22-bartlettlabs-site-asset-checklist.md`
-- GHL compliance audit: `docs/plans/2026-03-23-bartlettlabs-ghl-compliance-audit.md`
 
 ## Current Position
 
@@ -22,7 +21,7 @@ The core public-site rebuild is complete and verified. The visible marketing sur
 - Next.js build root pinned to this repo to avoid workspace-root drift during builds
 - compliance and opt-out pages exposed from the rebuilt footer
 - local contact and SMS consent copy tightened around the real Bartlett Labs flow instead of generic compliance-template claims
-- HighLevel calendar consent wording updated in the sub-account admin to match the truthful operational SMS flow
+- Booking moved to the Cal.com calendar, which collects no SMS consent.
 
 ## Completed Work
 
@@ -47,7 +46,7 @@ The core public-site rebuild is complete and verified. The visible marketing sur
 - `/portfolio` -> `/work`
 - `/demos` -> `/work`
 - `/testimonials` -> `/work`
-- `/book` now renders a Bartlett Labs booking page with the embedded GHL calendar
+- `/book` now renders a Bartlett Labs booking page with the embedded Cal.com calendar
 - legacy `/industries/*` pages now redirect to `/services`
 - Replaced old JSON-LD with founder/business/service/FAQ schema that matches approved facts
 - Updated `llms.txt`, `llms-full.txt`, and chatbot prompt to remove stale offers and invented proof
@@ -90,8 +89,8 @@ The core public-site rebuild is complete and verified. The visible marketing sur
 
 ### Provider Compliance Audit
 
-- Audited the live HighLevel booking widget plus the current SMS-related site copy against the current Bartlett Labs flow.
-- Confirmed the public GHL booking widget was initially rendering a broad generic consent label outside this repo, then updated that consent copy directly in HighLevel.
+- Audited the booking widget plus the current SMS-related site copy against the current Bartlett Labs flow.
+- Replaced the old booking widget, whose generic consent label sat outside this repo, with the Cal.com calendar, which collects no SMS consent.
 - Added explicit non-marketing SMS consent copy to the local contact form and surfaced Privacy, Terms, SMS Opt-Out, and Email Opt-Out links next to the embedded calendar.
 - Rebuilt `/sms-opt-in` into a truthful explanation page and removed the fake standalone opt-in form.
 - Rebuilt `/sms-opt-out` around STOP-first guidance and removed stale 2FA/account language plus the old `24 hours` promise.

@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Live Demo Sites | Bartlett Labs | AI Automation & Web Design | Houston, TX",
+  title:
+    "Live Demo Sites | Bartlett Labs | AI Automation & Web Design | Houston, TX",
   description:
-    "Browse live demo websites built by Bartlett Labs for Houston-area businesses. Auto repair, electric, landscaping, fitness, grooming, and more. See what a custom website could look like for your business. Sites from $2,500.",
+    "Browse live demo websites built by Bartlett Labs for Houston-area businesses. Auto repair, electric, landscaping, fitness, grooming, and more. See what a custom website could look like for your business.",
   alternates: {
     canonical: "/demos",
   },
   openGraph: {
     title: "Live Demo Sites | Bartlett Labs | Houston TX",
     description:
-      "See live demo websites built for real Houston-area businesses. Auto repair, electric, landscaping, and more. Custom sites from $2,500.",
+      "See live demo websites built for real Houston-area businesses. Auto repair, electric, landscaping, and more.",
     url: "https://bartlettlabs.io/demos",
     siteName: "Bartlett Labs",
     type: "website",
@@ -90,7 +91,7 @@ const demosStructuredData = [
         name: "Are these demo sites free?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, the demo itself is completely free. We build it using public information about your business to show what is possible. If you like what you see and want to move forward with a custom version, standard websites start at $2,500. There is zero obligation to buy.",
+          text: "Yes, the demo itself is completely free. We build it using public information about your business to show what is possible. If you like what you see and want to move forward with a custom version, Kyle quotes it after a short scoping call. There is zero obligation to buy.",
         },
       },
       {

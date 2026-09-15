@@ -8,13 +8,32 @@ const bannedPatterns = [
   { pattern: /within 24 hours/i, reason: "24-hour turnaround promise" },
   { pattern: /within 48 hours/i, reason: "48-hour turnaround promise" },
   { pattern: /24hrs/i, reason: "24-hour turnaround shorthand" },
-  { pattern: /\bfree website audit\b/i, reason: "unsupported website audit offer" },
+  {
+    pattern: /\bfree website audit\b/i,
+    reason: "unsupported website audit offer",
+  },
   { pattern: /\bfree site review\b/i, reason: "unsupported site review offer" },
   { pattern: /\bAI agent team\b/i, reason: "AI-team framing" },
-  { pattern: /\bmulti-agent orchestration\b/i, reason: "unsupported orchestration proof" },
-  { pattern: /\b22 autonomous cron jobs\b/i, reason: "unsupported internal proof" },
-  { pattern: /\bover 200 autonomous features\b/i, reason: "unsupported shipped-feature proof" },
-  { pattern: /\btestimonials?\b/i, reason: "testimonial language from the old site" },
+  {
+    pattern: /\bmulti-agent orchestration\b/i,
+    reason: "unsupported orchestration proof",
+  },
+  {
+    pattern: /\b22 autonomous cron jobs\b/i,
+    reason: "unsupported internal proof",
+  },
+  {
+    pattern: /\bover 200 autonomous features\b/i,
+    reason: "unsupported shipped-feature proof",
+  },
+  {
+    pattern: /\btestimonials?\b/i,
+    reason: "testimonial language from the old site",
+  },
+  {
+    pattern: /\$\d/,
+    reason: "custom work is quoted after scoping, never with a dollar figure",
+  },
 ];
 
 describe("blogPosts truth audit", () => {

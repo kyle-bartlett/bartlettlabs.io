@@ -1,70 +1,51 @@
-# A2P / SMS Compliance Playbook — bartlettlabs.io
+# A2P and SMS Compliance Playbook: bartlettlabs.io
 
-## Current widget and calendar (2026-09-10)
+## Current state (2026-09-14)
 
-Kyle canceled GoHighLevel. On September 10, 2026, Kyle explicitly requested
-Widgo on every page in the `<head>`. This supersedes the earlier homepage-only
-placement restriction, including the older rule in `AGENTS.md`.
+The site collects no SMS consent anywhere. The earlier chat-widget SMS opt-in and its
+carrier campaign are retired along with the vendor that ran them.
 
-Widgo now loads once from the shared `src/app/layout.tsx` head using
-`next/script` with `beforeInteractive`: configuration first, then the async
-loader. The homepage component and its forced-navigation reload were removed.
-The organization is `org_81eba270b80b4baa`; the loader is
-`https://cdn.widgo.ai/widgo.js`, with `https://ai.widgo.ai` as the API.
-Widgo is web chat, not the former GHL SMS opt-in. Chatting does not enroll
-visitors in SMS. Its chat and visitor-activity processing now apply site-wide,
-as disclosed on the privacy page.
+- **Chat:** Widgo loads once from the shared `src/app/layout.tsx` head using `next/script`
+  with `beforeInteractive`: configuration first, then the async loader. The organization is
+  `org_81eba270b80b4baa`; the loader is `https://cdn.widgo.ai/widgo.js`, with
+  `https://ai.widgo.ai` as the API. Kyle asked for Widgo on every page on September 10, 2026,
+  which replaced the old homepage-only rule. Chatting does not enroll visitors in SMS. Chat and
+  visitor-activity processing apply site-wide, as the privacy page discloses.
+- **Booking:** every booking link and embedded calendar uses Cal.com
+  (`https://cal.com/kyle-bartlett-nrhzyw/ai-automation-audit`), a 15-minute AI and automation
+  audit. Booking does not enroll visitors in SMS or marketing. Widgo needs its own calendar
+  connection; installing the script does not connect one.
+- **Contact form (`/contact`):** opens a prefilled email to Kyle. Phone is optional and is not
+  an SMS sign-up.
+- **Crosby landing page form (`/crosby-ai`):** files the lead in the Bartlett Labs CRM through
+  `/api/crosby-lead`. It is not an SMS sign-up.
+- **`/sms-opt-in`:** a disclosure page with no form.
+- **Assistant knowledge:** `docs/WIDGO_KNOWLEDGE.md`, uploaded to Widgo as a PDF source.
 
-The GHL settings and carrier submission below are historical. Do not reuse
-them as a description of the current widget. Calendar booking must be connected
-in Widgo separately; installing the script does not connect a calendar.
+## If SMS opt-in comes back
 
-The site's booking links and embedded calendars now use Cal.com:
-`https://cal.com/kyle-bartlett-nrhzyw/ai-automation-audit`.
-The event is a 15-minute AI and automation audit. Booking does not enroll
-visitors in SMS or marketing. The approved assistant knowledge is maintained
-in `docs/WIDGO_KNOWLEDGE.md` and uploaded to Widgo as a PDF source.
+These rules come from about 10 carrier rejections in June 2026. Apply them before any new
+SMS campaign is submitted.
 
-## Historical GHL SMS setup
+1. **One opt-in per page.** On a page with an SMS opt-in, no other form may collect a phone
+   number or SMS consent.
+2. **Consent boxes start unchecked.** Pre-checked consent is invalid and was a top rejection
+   reason. Never label consent "optional".
+3. **Separate the two kinds of consent.** One box for transactional or informational messages,
+   one for promotional messages.
+4. **Link our own legal pages.** Terms go to `https://bartlettlabs.io/terms` and privacy to
+   `https://bartlettlabs.io/privacy`, never a vendor's generic pages.
+5. **Every consent disclosure names:** the business (Bartlett Labs LLC), the message types,
+   "Msg/data rates apply", "msg frequency varies", "Consent is not a condition of purchase",
+   "Text HELP for help and STOP to unsubscribe", and the terms and privacy links.
+6. **The opt-in URL in the submission must show the opt-in.** A submission once pointed at
+   `/sms-opt-in`, a page with no form, and was rejected.
+7. **The opt-in message must match the campaign.** An opt-in message that mentioned 2FA on a
+   support and promotional campaign was rejected.
 
-> **Why this file exists:** the A2P/SMS campaign was rejected ~10 times. This documents
-> the EXACT setup that makes the site compliant, the root causes of the rejections, and
-> the settings that must never be undone. If you are an agent or a future Kyle: read this
-> before touching the chat widget, the contact form, or the SMS pages. Last verified 2026-06-17.
+## Submission text that carriers approved (June 2026)
 
-## The one rule that matters most
-
-**On any page where the chat widget is embedded, there must be ZERO forms that collect a
-phone number or SMS consent.** The chat widget must be the ONLY SMS opt-in method on that page.
-A competing lead/contact form on the same page = automatic rejection.
-
-## Current setup (live, compliant)
-
-| Item                      | Value                                                                                                             |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Chat widget               | LeadConnector, widget-id `69f82390cc1c63b25b23ba6f`, beta loader (`https://beta.leadconnectorhq.com/loader.js`)   |
-| Where it's installed      | `src/app/page.tsx` — **HOMEPAGE ONLY**, via `next/script` (`afterInteractive`). NOT in `app/layout.tsx`.          |
-| Homepage forms            | **None.** Header, footer, carousel, and demo grid are all form-free. The widget is the sole opt-in.               |
-| Contact form (`/contact`) | Phone is **optional** and explicitly **not** an SMS sign-up. **No SMS consent checkbox.** No widget on this page. |
-| `/sms-opt-in`             | Disclosure page (no form). Names the chat widget as the primary opt-in. No widget on this page.                   |
-| Other form pages          | `/book`, `/calculator`, `/contact` collect info but do **NOT** have the widget.                                   |
-| Meta Pixel                | `2282902429201629`, site-wide via `src/components/MetaPixel.tsx` (unrelated to SMS; fine to keep).                |
-
-## DO-NOT-UNDO list (code)
-
-1. **Never move the widget into `app/layout.tsx`** or any shared/global component — that would put it on every page, including the form pages, and break compliance.
-2. **Never add the widget to** `/contact`, `/book`, `/calculator`, `/sms-opt-in`, or any page with a phone/SMS form.
-3. **Never add a phone- or SMS-collecting form to the homepage** (`src/app/page.tsx` / `GrowthSystemHome`).
-4. **Never re-add an SMS consent checkbox to the contact form** (`src/components/ContactForm.tsx`). The widget is the single opt-in.
-
-## GHL chat-widget settings that MUST stay set (these live in GoHighLevel, NOT in code)
-
-1. **Both consent checkboxes default to UNCHECKED.** Pre-checked SMS consent is invalid (TCPA/CTIA require an affirmative act) and a top rejection reason.
-2. **Two separate checkboxes** — one transactional/informational, one promotional. Marketing consent is not bundled with transactional.
-3. **Terms link → `https://bartlettlabs.io/terms`** and **Privacy link → `https://bartlettlabs.io/privacy`** — your OWN pages, never LeadConnector's generic pages. (Your pages already carry full SMS/opt-out/data language.)
-4. Each consent disclosure must contain: business name (Bartlett Labs LLC), message types, "Msg/data rates apply," "msg frequency varies," "Consent is not a condition of purchase," "Text HELP for help and STOP to unsubscribe," and the terms + privacy links.
-
-## Approved A2P submission text (reuse verbatim if you ever resubmit)
+Update the opt-in method to whatever the new opt-in is before reusing any of this.
 
 **Use Case Description:**
 
@@ -88,21 +69,13 @@ A competing lead/contact form on the same page = automatic rejection.
 
 ## Phone number
 
-- The site displays **(830) 783-2470** (`siteConfig.phone` → header + footer).
-- This must match the phone number registered to the A2P **brand**. Reviewers cross-check it.
+- The site displays **(830) 783-2470** (`siteConfig.phone`, header and footer).
+- A future A2P brand registration must use the same number. Reviewers cross-check it.
 
-## Carrier compliance checklist — how the site satisfies it
+## Carrier checklist the site already meets
 
-- Site is live, no 404s ✓
-- TOS + Privacy linked in the footer (`/terms`, `/privacy`) ✓
-- Business name, address (Crosby, TX), email (`kyle@bartlettlabs.io`), clickable phone present in footer ✓
-- No affiliate / lead-buying language ✓
-- Chat widget integrated ✓
-- No forms collecting phone/SMS on the widget page ✓
-
-## Root causes of the earlier ~10 rejections (all fixed)
-
-1. **Opt-in URL pointed to a form that didn't exist** — the submission said opt-in was "a form at /sms-opt-in," but that page is a disclosure page with no form. Reviewer found nothing → rejected. Fixed: opt-in is now the chat widget on the homepage, and the submission says so.
-2. **2FA mismatch** — the opt-in message said "2FA and account security notifications" while the campaign is support + promotional. Fixed.
-3. **Pre-checked / "optional" consent** — boxes now default unchecked; "optional" wording removed.
-4. **Terms/Privacy links pointed to LeadConnector** instead of Bartlett Labs' own pages. Fixed in widget settings.
+- Site is live with no 404s on linked pages.
+- Terms and privacy are linked in the footer (`/terms`, `/privacy`).
+- Business name, Crosby, TX address, `kyle@bartlettlabs.io`, and a clickable phone number are
+  in the footer.
+- No affiliate or lead-buying language.

@@ -1,8 +1,8 @@
 # ENGRAM — Bartlett Labs Crash Recovery
 
-> Last updated: 2026-03-27 (Session 10 — Landing Page LIVE, GHL Cleaned, pm2 Persistent)
+> Last updated: 2026-09-14. Active work: `widgo_bartlettlabs/MISSION_LOG.md`. Everything under "Archive" is the March 2026 outreach state, kept as history only: GoHighLevel is fully cancelled (keys dead) and leads now live in the CRM at crm.bartlettlabs.io.
 
-## Current State
+## Archive: 2026-03 outreach state (superseded 2026-09-14)
 
 **Phase**: Infrastructure COMPLETE. Warmup RUNNING. Campaign launch target: ~April 17, 2026.
 **What was just completed**: (1) Landing page deployed to Cloudflare Pages (NOT Bluehost — no hosting plan exists). Site live at https://bartlett-labs.com. (2) pm2 startup configured — webhook server auto-starts on reboot. (3) GHL contact deduplication: 2 duplicates removed (FMG Exhaust, Crosby Transmission), tags merged to keeper records. 169 clean contacts remain. (4) GHL tag cleanup: 12 tag variants merged across 135 contacts (88→77 unique tags). All inconsistent tags resolved. (5) Discovered Bluehost $44.69 charge was Google Workspace resale (duplicate of direct Google subscription) — refund needed. **NEXT**: Build outreach videos, wait for warmup (~April 17), refund Bluehost $44.69.
@@ -34,7 +34,6 @@
 ### Session 5 — Full Activation (2026-03-25 evening)
 
 - **All API keys configured and live**:
-  - GHL: Sub-account key `pit-7211...bc9a` + Agency key `pit-28e5...805a`
   - SmartLead: `51b8...7o56b8j`
   - Stripe: Publishable + Secret + Webhook signing secret (`whsec_bgLk...K4lF`)
   - Tomba: API key + Secret key
@@ -194,16 +193,18 @@ Session 10 completed all remaining infrastructure setup. Everything is LIVE and 
 **Remaining before campaign launch**: (1) Wait for warmup (~April 17). (2) Build outreach videos. (3) Refund Bluehost $44.69 (order #1877667495). **Also pending**: Tomba plan decision ($29/mo for email enrichment), add more GHL workflow triggers, build GHL automation workflows.
 
 ## 2026-09-10 Widgo follow-up package, prompt 1 (site copy) DONE
+
 - Commits f50c66e + 37be50c on GitHub main: GHL copy removed (ticker, demo showcase, LeadConnector/msgsndr prefetch), launch timing standardized ("Core missed-call text-back live within 48 hours of kickoff" / "Full system typically live within a week"), /pricing -> /#pricing redirect, Widgo snippet confirmed once in root layout head, plan prices verified, stale contact test fixed, claude-code-video-toolkit excluded from tsconfig.
 - NOT deployed: Coolify app y088wgs44okc484kwowk88s8 does not auto-deploy on push. Package said "do not deploy beyond what the push triggers". Trigger Coolify when Kyle says go.
 - Remaining package prompts: 2 (crm.bartlettlabs.io repo: POST /api/leads + /api/health), 3 (n8n workflow + Cal.com webhook, needs N8N_HOST/N8N_API_KEY/CAL_API_KEY/CRM_INBOUND_API_KEY), 4 (Widgo Sources PDF swap, browser), 5 (widget detection check, browser), 6 optional (Gmail hot-lead -> CRM). Package files unpacked at repo root: widgo-followup-terminal-prompts.md, n8n-calcom-to-bartlettlabs-crm.json, Bartlett-Labs-Approved-Knowledge-v2.pdf (all untracked).
 - Flags: src/lib/ghl.ts, api/chat, api/crosby-lead, ContactForm.tsx still POST to GHL (cancelled). Contact form falls back to mailto. services.ts still lists "$500 setup + $99/mo" for Missed Call Text-Back, which conflicts with the Widgo "only quote plan prices" rule. Pre-existing dirty tree (package.json next bump + htmx, prettier-formatted md files) left uncommitted, not mine.
 
 ## 2026-09-14 Widgo package prompt 1, second pass DONE (commit 0b0c2cb, pushed, NOT deployed)
+
 - Removed: orphaned GHL chat route (src/app/api/chat/route.ts, had "next 7 days" + GHL calls) and src/lib/chatbot-prompt.ts ($500/$99 pricing); seo.test.tsx now guards llms files against "GoHighLevel" and "$500 setup".
 - ContactForm.tsx no longer POSTs visitor data to leadconnectorhq.com; it goes straight to the existing prefilled mailto.
 - Pricing: Missed Call Text-Back priceRange "$500 setup + $99/mo" -> "Included in every plan" (services.ts, public/llms.txt, public/llms-full.txt with Solo/Crew/Herd prices). Knowledge doc v2 rule: never quote a setup fee amount.
 - n8n added next to Make.com in QuizClient.tsx and public/demos/README.md (that README is publicly served at /demos/README.md). README.md/ROADMAP.md GHL lines corrected (only these hunks staged; other session's prettier md reformat still uncommitted).
-- Verified: bun run test 25 files/43 pass; bun run build exit 0; Widgo loader + config exactly once, in head, on all 62 real prerendered pages (7 others are redirect-only routes, plus _global-error); live /book renders Cal.com "15-Minute AI & Automation Audit" (Iris screenshot).
+- Verified: bun run test 25 files/43 pass; bun run build exit 0; Widgo loader + config exactly once, in head, on all 62 real prerendered pages (7 others are redirect-only routes, plus \_global-error); live /book renders Cal.com "15-Minute AI & Automation Audit" (Iris screenshot).
 - Still GHL: src/lib/ghl.ts + src/app/api/crosby-lead/route.ts (Crosby ad LP form). Replace with CRM POST /api/leads (prompt 2), then delete ghl.ts. Off-list prices left for Kyle: blog posts.ts lines 233 ($2,500+ sites) and 290 ($5,000-$15,000 chatbots); demos/layout.tsx $2,500 is unreachable (/demos 307 -> /work).
 - Live still old deploy: /pricing 404 until Coolify app y088wgs44okc484kwowk88s8 is triggered.
