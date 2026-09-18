@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Bartlett Labs AI Growth System",
+    "quality_profile": "showcase",
+    "viewBox": [1380, 720],
+    "views": [
+      {
+        "id": "visitor_path",
+        "label": "Visitor to conversation",
+        "focus": ["visitor", "cloudflare", "website", "widgo", "knowledge"],
+        "note": "A production website turns anonymous traffic into an informed AI conversation."
+      },
+      {
+        "id": "booked_path",
+        "label": "Booked audit",
+        "focus": ["widgo", "cal", "n8n", "crm", "crm_db", "owner"],
+        "note": "Confirmed bookings become durable CRM records with the right pipeline stage."
+      },
+      {
+        "id": "unbooked_path",
+        "label": "Unbooked hot lead",
+        "focus": ["widgo", "gmail", "n8n", "crm", "pushover", "owner"],
+        "note": "High-intent chats are captured even when the visitor never books."
+      }
+    ]
+  },
+  "components": [
+    { "id": "visitor", "type": "external", "label": "Prospect", "sublabel": "website visitor", "pos": [20, 350], "size": [135, 68] },
+    { "id": "cloudflare", "type": "security", "label": "Cloudflare", "sublabel": "DNS + protected edge", "pos": [190, 350], "size": [150, 68] },
+    { "id": "website", "type": "frontend", "label": "bartlettlabs.io", "sublabel": "Next.js on Coolify", "pos": [385, 350], "size": [155, 68], "tag": "production" },
+    { "id": "widgo", "type": "backend", "label": "Widgo AI", "sublabel": "conversation + scoring", "pos": [585, 350], "size": [155, 68], "tag": "detected" },
+    { "id": "knowledge", "type": "database", "label": "Approved Knowledge", "sublabel": "indexed PDF + guardrails", "pos": [785, 65], "size": [165, 70] },
+    { "id": "cal", "type": "external", "label": "Cal.com", "sublabel": "audit booking", "pos": [785, 235], "size": [165, 70], "tag": "connected" },
+    { "id": "gmail", "type": "external", "label": "Gmail", "sublabel": "hot-lead alerts", "pos": [785, 455], "size": [165, 70], "tag": "OAuth" },
+    { "id": "pushover", "type": "external", "label": "Pushover", "sublabel": "priority phone alerts", "pos": [995, 65], "size": [160, 70], "tag": "live" },
+    { "id": "n8n", "type": "messagebus", "label": "n8n Automation", "sublabel": "n8n.bartlettlabs.io", "pos": [980, 350], "size": [175, 72], "tag": "self-hosted" },
+    { "id": "crm", "type": "backend", "label": "Bartlett Labs CRM", "sublabel": "authenticated lead API", "pos": [1210, 350], "size": [160, 72], "tag": "production" },
+    { "id": "crm_db", "type": "database", "label": "CRM Data", "sublabel": "contacts + companies + deals", "pos": [1210, 605], "size": [160, 72] },
+    { "id": "owner", "type": "external", "label": "Kyle + Team", "sublabel": "follow-up and delivery", "pos": [1210, 65], "size": [160, 72] }
+  ],
+  "connections": [
+    { "from": "visitor", "to": "cloudflare", "label": "HTTPS", "variant": "security" },
+    { "from": "cloudflare", "to": "website", "label": "production origin", "variant": "emphasis", "labelDy": 58 },
+    { "from": "website", "to": "widgo", "label": "loads AI widget", "variant": "emphasis", "labelDy": -28 },
+    { "from": "widgo", "to": "knowledge", "label": "grounded answers" },
+    { "from": "widgo", "to": "cal", "label": "books audit", "variant": "emphasis", "labelDx": 70 },
+    { "from": "cal", "to": "n8n", "label": "BOOKING_CREATED webhook", "variant": "emphasis" },
+    { "from": "widgo", "to": "gmail", "label": "hot lead email", "variant": "dashed", "labelDx": -70 },
+    { "from": "gmail", "to": "n8n", "label": "OAuth poll / 5 min", "variant": "dashed" },
+    { "from": "n8n", "to": "crm", "label": "POST /api/leads", "variant": "security", "labelDy": 60 },
+    { "from": "n8n", "to": "pushover", "label": "after CRM success", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "from": "crm", "to": "crm_db", "label": "dedupe + pipeline stage", "labelAt": [1290, 436] },
+    { "from": "crm", "to": "owner", "label": "qualified follow-up", "variant": "emphasis" },
+    { "from": "pushover", "to": "owner", "label": "phone alert", "variant": "emphasis", "labelDy": -28 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Two Lead Paths", "items": ["Booked audits enter the CRM at Audit booked", "Unbooked hot chats enter at Chat lead", "Both paths preserve source context and prevent duplicate activity"] },
+    { "dot": "cyan", "title": "Production Controls", "items": ["Cloudflare keeps the apex on the production origin", "n8n and CRM use authenticated endpoints", "Gmail OAuth and CRM keys stay outside the repository"] },
+    { "dot": "violet", "title": "Operational Status", "items": ["Website, AI widget, Cal booking, Gmail trigger, n8n, and CRM are operational", "Pushover phone delivery is live and confirmed on both lead paths", "Prompts 1 through 6 passed their evidence gates"] }
+  ]
+}

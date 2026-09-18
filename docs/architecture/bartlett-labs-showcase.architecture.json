@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "From Website Visit to Qualified Follow-Up",
+    "quality_profile": "showcase",
+    "visual_preset": "signal-flow",
+    "animation": "trace",
+    "viewBox": [1380, 720],
+    "views": [
+      { "id": "experience", "label": "AI customer experience", "focus": ["visitor", "cloudflare", "website", "widgo", "knowledge"], "note": "A protected production site opens a grounded, context-aware conversation." },
+      { "id": "conversion", "label": "Two conversion paths", "focus": ["widgo", "cal", "gmail", "n8n", "pushover"], "note": "Booked and unbooked intent travel through independent, observable signals." },
+      { "id": "operations", "label": "Revenue operations", "focus": ["n8n", "crm", "crm_db", "owner"], "note": "Authenticated automation creates clean CRM state and a clear human next action." }
+    ]
+  },
+  "components": [
+    { "id": "visitor", "type": "external", "label": "Prospect", "sublabel": "website visitor", "pos": [20, 350], "size": [135, 68] },
+    { "id": "cloudflare", "type": "security", "label": "Protected Edge", "sublabel": "Cloudflare", "pos": [190, 350], "size": [150, 68] },
+    { "id": "website", "type": "frontend", "label": "Digital Front Door", "sublabel": "Next.js on Coolify", "pos": [385, 350], "size": [155, 68], "tag": "production" },
+    { "id": "widgo", "type": "backend", "label": "AI Sales Agent", "sublabel": "answers + qualification", "pos": [585, 350], "size": [155, 68], "tag": "Widgo" },
+    { "id": "knowledge", "type": "database", "label": "Knowledge Layer", "sublabel": "approved facts + guardrails", "pos": [785, 65], "size": [165, 70] },
+    { "id": "cal", "type": "external", "label": "Booking Signal", "sublabel": "Cal.com", "pos": [785, 235], "size": [165, 70], "tag": "connected" },
+    { "id": "gmail", "type": "external", "label": "Intent Signal", "sublabel": "Gmail hot-lead alert", "pos": [785, 455], "size": [165, 70], "tag": "OAuth" },
+    { "id": "pushover", "type": "external", "label": "Phone Signal", "sublabel": "Pushover priority alert", "pos": [995, 65], "size": [160, 70], "tag": "live" },
+    { "id": "n8n", "type": "messagebus", "label": "Orchestration", "sublabel": "self-hosted n8n", "pos": [980, 350], "size": [175, 72], "tag": "observable" },
+    { "id": "crm", "type": "backend", "label": "Revenue System", "sublabel": "authenticated CRM API", "pos": [1210, 350], "size": [160, 72], "tag": "production" },
+    { "id": "crm_db", "type": "database", "label": "Durable Context", "sublabel": "contacts + deals", "pos": [1210, 605], "size": [160, 72] },
+    { "id": "owner", "type": "external", "label": "Human Judgment", "sublabel": "follow-up + delivery", "pos": [1210, 65], "size": [160, 72] }
+  ],
+  "connections": [
+    { "from": "visitor", "to": "cloudflare", "label": "HTTPS", "variant": "security" },
+    { "from": "cloudflare", "to": "website", "label": "production origin", "variant": "emphasis", "labelDy": 58 },
+    { "from": "website", "to": "widgo", "label": "opens AI experience", "variant": "emphasis", "labelDy": -28 },
+    { "from": "widgo", "to": "knowledge", "label": "grounded answers" },
+    { "from": "widgo", "to": "cal", "label": "books audit", "variant": "emphasis", "labelDx": 70 },
+    { "from": "cal", "to": "n8n", "label": "event webhook", "variant": "emphasis" },
+    { "from": "widgo", "to": "gmail", "label": "captures hot intent", "variant": "dashed", "labelDx": -70 },
+    { "from": "gmail", "to": "n8n", "label": "OAuth poll", "variant": "dashed" },
+    { "from": "n8n", "to": "crm", "label": "authenticated lead API", "variant": "security", "labelDy": 60 },
+    { "from": "n8n", "to": "pushover", "label": "after CRM success", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "from": "crm", "to": "crm_db", "label": "dedupe + pipeline state", "labelAt": [1290, 436] },
+    { "from": "crm", "to": "owner", "label": "qualified next action", "variant": "emphasis" },
+    { "from": "pushover", "to": "owner", "label": "phone alert", "variant": "emphasis", "labelDy": -28 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Customer Experience", "items": ["Answers stay grounded in approved knowledge", "Visitors can book without leaving the conversation", "High intent survives even when no meeting is booked"] },
+    { "dot": "cyan", "title": "Engineering Controls", "items": ["Production edge and origin remain isolated", "OAuth and API credentials stay outside source control", "Authenticated APIs and dedupe protect CRM quality"] },
+    { "dot": "violet", "title": "Business Outcome", "items": ["Every strong signal becomes durable context", "Pipeline stages reflect the lead's real behavior", "Automation accelerates the handoff without removing human judgment"] }
+  ]
+}

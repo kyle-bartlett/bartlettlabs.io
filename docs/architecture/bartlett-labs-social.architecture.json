@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "One Website. Two Lead Paths. Zero Lost Intent.",
+    "quality_profile": "showcase",
+    "visual_preset": "editorial",
+    "viewBox": [1320, 720],
+    "views": [
+      { "id": "booked", "label": "Booked audit", "focus": ["prospect", "site", "widgo", "cal", "n8n", "crm", "owner"], "note": "A confirmed audit becomes an actionable CRM record." },
+      { "id": "unbooked", "label": "Hot chat", "focus": ["prospect", "site", "widgo", "gmail", "n8n", "crm", "owner"], "note": "High intent is preserved even when no meeting is booked." }
+    ]
+  },
+  "components": [
+    { "id": "prospect", "type": "external", "label": "Prospect", "sublabel": "arrives with intent", "pos": [20, 270], "size": [125, 70] },
+    { "id": "site", "type": "frontend", "label": "Website", "sublabel": "bartlettlabs.io", "pos": [180, 270], "size": [150, 70] },
+    { "id": "widgo", "type": "backend", "label": "AI Conversation", "sublabel": "answers + qualifies", "pos": [380, 270], "size": [165, 70], "tag": "Widgo" },
+    { "id": "cal", "type": "external", "label": "Booked Audit", "sublabel": "Cal.com event", "pos": [610, 100], "size": [155, 70] },
+    { "id": "gmail", "type": "external", "label": "Hot Chat", "sublabel": "Gmail signal", "pos": [610, 440], "size": [155, 70] },
+    { "id": "n8n", "type": "messagebus", "label": "Automation", "sublabel": "n8n orchestration", "pos": [840, 270], "size": [165, 70] },
+    { "id": "crm", "type": "backend", "label": "CRM", "sublabel": "deduped lead record", "pos": [1045, 270], "size": [145, 70] },
+    { "id": "owner", "type": "external", "label": "Human", "sublabel": "follow-up", "pos": [1220, 270], "size": [90, 70] }
+  ],
+  "connections": [
+    { "from": "prospect", "to": "site", "label": "visits", "variant": "emphasis" },
+    { "from": "site", "to": "widgo", "label": "starts a conversation", "variant": "emphasis", "labelDy": -29 },
+    { "from": "widgo", "to": "cal", "label": "books", "variant": "emphasis" },
+    { "from": "cal", "to": "n8n", "label": "webhook", "variant": "emphasis" },
+    { "from": "widgo", "to": "gmail", "label": "scores hot", "variant": "dashed" },
+    { "from": "gmail", "to": "n8n", "label": "OAuth poll", "variant": "dashed" },
+    { "from": "n8n", "to": "crm", "label": "authenticated lead API", "variant": "security", "labelDy": -29 },
+    { "from": "crm", "to": "owner", "label": "next action", "variant": "emphasis", "labelDy": 59 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "The Result", "items": ["Booked prospects enter as Audit booked", "Unbooked high-intent chats enter as Chat lead", "Duplicate activity is suppressed before follow-up"] },
+    { "dot": "cyan", "title": "Built for Action", "items": ["AI handles the first conversation", "Automation preserves context", "A human owns the outcome"] }
+  ]
+}

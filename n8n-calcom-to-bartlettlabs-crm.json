@@ -1,0 +1,179 @@
+{
+  "name": "Cal.com audit booking -> Bartlett Labs CRM",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "calcom-booking",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "a1",
+      "name": "Cal.com Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "calcom-booking"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": false },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.body.triggerEvent }}",
+              "rightValue": "BOOKING_CREATED",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a2",
+      "name": "Only BOOKING_CREATED",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "name",
+              "value": "={{ $json.body.payload.attendees[0].name }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "email",
+              "value": "={{ $json.body.payload.attendees[0].email }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "phone",
+              "value": "={{ $json.body.payload.responses?.phone?.value || $json.body.payload.attendees[0].phoneNumber || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "company",
+              "value": "={{ $json.body.payload.responses?.company?.value || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "source",
+              "value": "Widgo chat / Cal.com audit",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "stage",
+              "value": "Audit booked",
+              "type": "string"
+            },
+            {
+              "id": "7",
+              "name": "meeting_start",
+              "value": "={{ $json.body.payload.startTime }}",
+              "type": "string"
+            },
+            {
+              "id": "8",
+              "name": "meeting_url",
+              "value": "={{ $json.body.payload.metadata?.videoCallUrl || $json.body.payload.location || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "notes",
+              "value": "={{ $json.body.payload.responses?.notes?.value || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "10",
+              "name": "calcom_uid",
+              "value": "={{ $json.body.payload.uid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a3",
+      "name": "Map lead fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [440, -80]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://crm.bartlettlabs.io/api/leads",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "a4",
+      "name": "POST to Bartlett Labs CRM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [660, -80],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_ME",
+          "name": "Bartlett Labs CRM API key"
+        }
+      }
+    },
+    {
+      "id": "cal-pushover-alert",
+      "name": "Push booked-audit alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, -80],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.pushover.net/1/messages.json",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpCustomAuth",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ { title: '📅 Audit booked: ' + ($('Map lead fields').item.json.name || $('Map lead fields').item.json.company || 'New prospect'), message: (['Company: ' + ($('Map lead fields').item.json.company || 'Not captured'), 'Email: ' + ($('Map lead fields').item.json.email || 'Not captured'), 'Phone: ' + ($('Map lead fields').item.json.phone || 'Not captured'), 'Start: ' + ($('Map lead fields').item.json.meeting_start || 'See Cal.com'), '', $('Map lead fields').item.json.notes || 'No notes captured'].join('\\n')).slice(0, 1024), url: $('Map lead fields').item.json.meeting_url || 'https://crm.bartlettlabs.io', url_title: $('Map lead fields').item.json.meeting_url ? 'Open meeting' : 'Open CRM', priority: 1 } }}",
+        "options": {}
+      },
+      "credentials": {
+        "httpCustomAuth": {
+          "id": "REPLACE_ME",
+          "name": "Pushover Bartlett Labs Alerts"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Cal.com Webhook": {
+      "main": [[{ "node": "Only BOOKING_CREATED", "type": "main", "index": 0 }]]
+    },
+    "Only BOOKING_CREATED": {
+      "main": [[{ "node": "Map lead fields", "type": "main", "index": 0 }], []]
+    },
+    "Map lead fields": {
+      "main": [
+        [{ "node": "POST to Bartlett Labs CRM", "type": "main", "index": 0 }]
+      ]
+    },
+    "POST to Bartlett Labs CRM": {
+      "main": [[{ "node": "Push booked-audit alert", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" }
+}
