@@ -16,8 +16,8 @@ describe("ContactPage", () => {
     ).toBe(true);
     expect(
       screen
-        .getAllByRole("link", { name: "(830) 783-2470" })
-        .some((link) => link.getAttribute("href") === "tel:+18307832470"),
+        .getAllByRole("link", { name: "(979) 987-4241" })
+        .some((link) => link.getAttribute("href") === "tel:+19799874241"),
     ).toBe(true);
     expect(
       screen.queryByRole("option", { name: /Social Media Management/i }),

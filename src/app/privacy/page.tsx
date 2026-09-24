@@ -506,11 +506,11 @@ export default function PrivacyPolicyPage() {
                   <p>
                     Phone:{" "}
                     <a
-                      href="tel:+18307832470"
+                      href="tel:+19799874241"
                       className="underline transition-colors hover:text-navy"
                       style={{ color: "#06b6d4" }}
                     >
-                      (830) 783-2470
+                      (979) 987-4241
                     </a>
                   </p>
                 </div>
