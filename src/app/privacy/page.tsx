@@ -60,7 +60,7 @@ export default function PrivacyPolicyPage() {
               Privacy Policy
             </h1>
             <p className="text-lg leading-relaxed text-silver">
-              Last updated: March 14, 2026
+              Last updated: September 24, 2026
             </p>
           </div>
 
@@ -132,6 +132,16 @@ export default function PrivacyPolicyPage() {
                     <strong className="text-navy">Server logs:</strong> Our hosting infrastructure
                     automatically records IP addresses, access times, and requested URLs for security
                     and performance monitoring.
+                  </li>
+                  <li>
+                    <strong className="text-navy">Visitor identification:</strong> A script from
+                    our visitor identification provider records the pages you view, the page that
+                    referred you, your browser and device type, and how long you stay. The provider
+                    and its identity partners may use cookies to match that visit to business contact
+                    details, such as your name, company, and work email. We use these matches to see
+                    which businesses visit our site and to follow up about our services. To opt out,
+                    email kyle@bartlettlabs.io and we&apos;ll delete any record we hold that ties you
+                    to a visit.
                   </li>
                 </ul>
               </section>
@@ -217,6 +227,12 @@ export default function PrivacyPolicyPage() {
                     </a>.
                   </li>
                   <li>
+                    <strong className="text-navy">Visitor identification provider:</strong> Runs a
+                    script on our pages and works with identity partners, including LiveIntent, to
+                    link site visits to business contact information. See the visitor identification
+                    entry above for what it collects and how to opt out.
+                  </li>
+                  <li>
                     <strong className="text-navy">Shopify:</strong> Our online store at
                     shop.bartlettlabs.io is powered by Shopify. Shopify processes order and payment
                     information in accordance with their{" "}
@@ -282,6 +298,11 @@ export default function PrivacyPolicyPage() {
                     <strong className="text-navy">Analytics cookies:</strong> Used by Google Analytics
                     to understand how visitors interact with our website. These cookies collect
                     information in an aggregated form.
+                  </li>
+                  <li>
+                    <strong className="text-navy">Visitor identification cookies:</strong> Set by our
+                    visitor identification provider and its partners to recognize returning browsers
+                    and match visits to business contact information.
                   </li>
                   <li>
                     <strong className="text-navy">Security cookies:</strong> Used by Cloudflare to
