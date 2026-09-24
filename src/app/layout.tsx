@@ -96,6 +96,16 @@ export default function RootLayout({
           async
           src="https://cdn.widgo.ai/widgo.js"
         />
+        <Script id="rdcdn-pixel" strategy="beforeInteractive">
+          {`(function (w, d, s, u, dbg) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  window.rdcndbg = dbg;
+  js = d.createElement(s);
+  js.async = true;
+  js.src = u;
+  fjs.parentNode.insertBefore(js, fjs);
+})(window, document, 'script', 'https://rdcdn.com/rtjs?aid=35760', false);`}
+        </Script>
         <GoogleAnalytics />
         <script
           async
@@ -108,9 +118,7 @@ export default function RootLayout({
       </head>
       <body>
         <MetaPixel />
-        <PostHogProvider>
-          {children}
-        </PostHogProvider>
+        <PostHogProvider>{children}</PostHogProvider>
       </body>
     </html>
   );
