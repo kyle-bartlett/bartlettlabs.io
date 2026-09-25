@@ -5,7 +5,7 @@ import { DemoCallWidget } from "@/components/DemoCallWidget";
 export const metadata: Metadata = {
   title: "Live Demo | Bartlett Labs",
   description:
-    "Hear the Bartlett Labs AI receptionist answer a call and book an appointment. Call our demo line, or have it call you and book you by name.",
+    "Hear the Bartlett Labs AI receptionist answer a call and book an appointment. Call our demo line to hear it live.",
   alternates: {
     canonical: "/demo",
   },
@@ -26,8 +26,8 @@ export default function DemoPage() {
             </h1>
             <p className="mt-5 text-base leading-8" style={{ color: "var(--color-text-muted)" }}>
               This is the same AI receptionist Bartlett Labs installs for service businesses. Call our
-              demo line, or have it call you and book you an appointment by name — exactly how it
-              answers for your customers.
+              demo line and hear it book an appointment — exactly how it answers for your
+              customers.
             </p>
           </div>
           <div className="mt-12">
