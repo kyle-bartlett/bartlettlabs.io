@@ -108,6 +108,12 @@ export default function RootLayout({
         </Script>
         <GoogleAnalytics />
         <script
+          src="https://crm.bartlettlabs.io/t/crm.js"
+          data-site="cmp_5c313e8b"
+          async
+          defer
+        ></script>
+        <script
           async
           src="https://c.getopen.so/oa.js"
           data-key="oa_pk_5sPR8FCNBI8myBzV1_PUZ_kpqDLylOZs"
