@@ -703,6 +703,11 @@ export const prospects: Prospect[] = [
   },
 ];
 
+/** "AAGS Solutions'" and "GOAT Fence's", never "Solutions's". */
+export function possessive(name: string): string {
+  return name.endsWith("s") ? `${name}'` : `${name}'s`;
+}
+
 export function getProspect(slug: string): Prospect | undefined {
   return prospects.find((p) => p.slug === slug);
 }

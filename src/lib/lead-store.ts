@@ -37,7 +37,13 @@ let ready: Promise<unknown> | null = null;
 export function db(): ReturnType<typeof postgres> | null {
   const url = process.env.LEADS_DATABASE_URL?.trim();
   if (!url) return null;
-  sql ??= postgres(url, { max: 3, idle_timeout: 20, connect_timeout: 5 });
+  // onnotice: "relation already exists, skipping" from the create-if-missing calls is not news.
+  sql ??= postgres(url, {
+    max: 3,
+    idle_timeout: 20,
+    connect_timeout: 5,
+    onnotice: () => {},
+  });
   return sql;
 }
 

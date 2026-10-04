@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { ProspectChat } from "./ProspectChat";
 import type { Prospect } from "./prospects";
 import { markOwnerFromUrl, track, trackViewWhenSeen } from "./track";
 
@@ -285,6 +286,8 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
           )}
         </div>
       </section>
+
+      <ProspectChat prospect={p} />
 
       <section className="prospect-repbot" id="missed-calls">
         <div className="prospect-repbot-copy">
