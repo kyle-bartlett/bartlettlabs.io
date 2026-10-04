@@ -2,6 +2,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { POST } from "./route";
 
+// `after` needs a live request scope; route tests call POST directly.
+vi.mock("next/server", () => ({ after: vi.fn() }));
+
 const crmKey = "test-crm-inbound-key";
 const fetchMock = vi.fn();
 
@@ -123,7 +126,7 @@ describe("POST /api/crosby-lead", () => {
       lead({ name: "Dana Reyes", email: "dana@example.com" }),
     );
 
-    expect(res.status).toBe(500);
+    expect(res.status).toBe(502);
     expect(JSON.stringify(await res.json())).not.toContain(crmKey);
     const logged = vi
       .mocked(console.error)
@@ -140,7 +143,7 @@ describe("POST /api/crosby-lead", () => {
       lead({ name: "Dana Reyes", email: "dana@example.com" }),
     );
 
-    expect(res.status).toBe(503);
+    expect(res.status).toBe(502);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 });

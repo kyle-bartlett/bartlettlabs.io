@@ -1,12 +1,13 @@
 /**
  * Crosby AI landing page lead capture.
- * Files the submission in the Bartlett Labs CRM, sourced to the Alignable
- * Crosby ad so leads from that paid placement are attributable.
+ * Stores the lead, then files it in the Bartlett Labs CRM (src/lib/leads.ts), sourced to the
+ * Alignable Crosby ad so leads from that paid placement are attributable.
  */
+import { after } from "next/server";
+import { retryPendingLeads, submitLead } from "@/lib/leads";
+
 export const runtime = "nodejs";
 
-const CRM_LEADS_URL = "https://crm-api.bartlettlabs.io/api/leads";
-const CRM_TIMEOUT_MS = 10_000;
 const LEAD_SOURCE = "Crosby AI landing page (Alignable ad)";
 const SAVE_FAILED = "We couldn't save that. Please email kyle@bartlettlabs.io.";
 
@@ -60,12 +61,6 @@ export async function POST(req: Request) {
     );
   }
 
-  const crmKey = process.env.CRM_INBOUND_API_KEY;
-  if (!crmKey) {
-    console.error("Crosby lead error: CRM_INBOUND_API_KEY is not set.");
-    return Response.json({ ok: false, error: SAVE_FAILED }, { status: 503 });
-  }
-
   const notes = [
     "Requested the free Crosby AI Opportunity Audit.",
     trade ? `Trade: ${trade}` : "",
@@ -73,35 +68,16 @@ export async function POST(req: Request) {
     .filter(Boolean)
     .join("\n");
 
-  try {
-    const res = await fetch(CRM_LEADS_URL, {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-api-key": crmKey },
-      body: JSON.stringify({
-        name,
-        email,
-        phone,
-        company: business,
-        source: LEAD_SOURCE,
-        notes,
-      }),
-      signal: AbortSignal.timeout(CRM_TIMEOUT_MS),
-    });
-
-    if (!res.ok) {
-      console.error(`Crosby lead error: CRM answered ${res.status}.`);
-      return Response.json({ ok: false, error: SAVE_FAILED }, { status: 502 });
-    }
-
-    return Response.json({ ok: true });
-  } catch (err) {
-    // Never log err.message: a rejected header value is echoed there, and that value is the key.
-    console.error(
-      `Crosby lead error: CRM request failed (${err instanceof Error ? err.name : "unknown"}).`,
-    );
-    return Response.json(
-      { ok: false, error: "Something went wrong. Please try again." },
-      { status: 500 },
-    );
-  }
+  const { ok } = await submitLead("crosby-lead", {
+    name,
+    email,
+    phone,
+    company: business,
+    source: LEAD_SOURCE,
+    notes,
+  });
+  after(() => retryPendingLeads().catch(() => {}));
+  return ok
+    ? Response.json({ ok: true })
+    : Response.json({ ok: false, error: SAVE_FAILED }, { status: 502 });
 }

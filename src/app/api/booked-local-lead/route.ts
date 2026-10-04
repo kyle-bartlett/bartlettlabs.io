@@ -1,14 +1,15 @@
 /**
  * Booked Local proposal page lead capture (/for/<slug>).
- * Files the "Claim this build" request in the Bartlett Labs CRM. The business comes from
- * the server-side prospect list, never from the request body.
+ * Stores the "Claim this build" request, then files it in the Bartlett Labs CRM
+ * (src/lib/leads.ts). The business comes from the server-side prospect list, never from
+ * the request body.
  */
+import { after } from "next/server";
 import { getProspect } from "@/app/for/prospects";
+import { retryPendingLeads, submitLead } from "@/lib/leads";
 
 export const runtime = "nodejs";
 
-const CRM_LEADS_URL = "https://crm-api.bartlettlabs.io/api/leads";
-const CRM_TIMEOUT_MS = 10_000;
 const SAVE_FAILED = "We couldn't save that. Please email kyle@bartlettlabs.io.";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -55,12 +56,6 @@ export async function POST(req: Request) {
   if (!EMAIL_RE.test(email))
     return fail("Please enter a valid email address.", 400);
 
-  const crmKey = process.env.CRM_INBOUND_API_KEY;
-  if (!crmKey) {
-    console.error("Booked Local lead error: CRM_INBOUND_API_KEY is not set.");
-    return fail(SAVE_FAILED, 503);
-  }
-
   const notes = [
     `Claimed the Booked Local build for ${prospect.name}: ${prospect.packageName}.`,
     "Offer on the page: $995 build ($250 to start, $745 after approval), then $199/month.",
@@ -68,30 +63,14 @@ export async function POST(req: Request) {
     `Business phone on file: ${prospect.phone}`,
   ].join("\n");
 
-  try {
-    const res = await fetch(CRM_LEADS_URL, {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-api-key": crmKey },
-      body: JSON.stringify({
-        name,
-        email,
-        phone,
-        company: prospect.name,
-        source: "Booked Local fence proposal page",
-        notes,
-      }),
-      signal: AbortSignal.timeout(CRM_TIMEOUT_MS),
-    });
-    if (!res.ok) {
-      console.error(`Booked Local lead error: CRM answered ${res.status}.`);
-      return fail(SAVE_FAILED, 502);
-    }
-    return Response.json({ ok: true });
-  } catch (err) {
-    // Never log err.message: a rejected header value is echoed there, and that value is the key.
-    console.error(
-      `Booked Local lead error: CRM request failed (${err instanceof Error ? err.name : "unknown"}).`,
-    );
-    return fail("Something went wrong. Please try again.", 500);
-  }
+  const { ok } = await submitLead("booked-local-lead", {
+    name,
+    email,
+    phone,
+    company: prospect.name,
+    source: "Booked Local fence proposal page",
+    notes,
+  });
+  after(() => retryPendingLeads().catch(() => {}));
+  return ok ? Response.json({ ok: true }) : fail(SAVE_FAILED, 502);
 }

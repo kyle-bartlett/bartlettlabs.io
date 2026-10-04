@@ -2,6 +2,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { POST } from "./route";
 
+// `after` needs a live request scope; route tests call POST directly.
+vi.mock("next/server", () => ({ after: vi.fn() }));
+
 const fetchMock = vi.fn();
 
 function lead(body: Record<string, string>) {
@@ -73,11 +76,11 @@ describe("POST /api/booked-local-lead", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("reports a failure when the CRM is down or the key is missing", async () => {
+  it("reports a failure only when the CRM is down and no store or text kept the lead", async () => {
     fetchMock.mockResolvedValue(new Response("", { status: 500 }));
     expect((await POST(lead(valid))).status).toBe(502);
 
     vi.stubEnv("CRM_INBOUND_API_KEY", "");
-    expect((await POST(lead(valid))).status).toBe(503);
+    expect((await POST(lead(valid))).status).toBe(502);
   });
 });
