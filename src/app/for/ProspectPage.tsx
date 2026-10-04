@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import type { Prospect } from "./prospects";
+import { markOwnerFromUrl, track, trackViewWhenSeen } from "./track";
 
 // The shared RepBot demo line. It answers as the sample business Summit Heating and Air,
 // so the section below says so instead of implying it answers as the prospect.
@@ -25,6 +26,11 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
 
+  useEffect(() => {
+    markOwnerFromUrl();
+    return trackViewWhenSeen(p.slug);
+  }, [p.slug]);
+
   const accentStyle = {
     "--preview-accent": p.accent,
     "--preview-accent-dark": p.accentDark,
@@ -33,6 +39,7 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
   function buildPlan() {
     if (!service || !qualifier) return;
     setShowPlan(true);
+    track(p.slug, "estimate");
     window.setTimeout(() => {
       document
         .getElementById("project-plan")
@@ -291,6 +298,7 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
           <a
             className="prospect-button prospect-button-primary"
             href={`tel:${DEMO_NUMBER_TEL}`}
+            onClick={() => track(p.slug, "demo_tap")}
           >
             Call the live demo {DEMO_NUMBER_DISPLAY} <span>→</span>
           </a>

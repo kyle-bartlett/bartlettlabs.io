@@ -75,15 +75,26 @@ describe("website leads survive a CRM outage", () => {
     fetchMock.mockReset();
   });
 
-  it("stores the lead before calling the CRM, and marks it sent when the CRM takes it", async () => {
+  it("stores the lead before calling the CRM, marks it sent, and texts Kyle to call now", async () => {
     fetchMock.mockImplementation(
       async () => (events.push("crm"), Response.json({ ok: true })),
     );
 
     expect(await submitLead("crosby-lead", lead, deps)).toEqual({ ok: true });
     expect(events).toEqual(["store", "crm"]);
-    expect(rows[0].status).toBe("sent");
-    expect(texts).toEqual([]);
+    expect(rows[0]).toMatchObject({ status: "sent", alerted: true });
+    expect(texts).toEqual([
+      "NEW LEAD, call now: Dana Reyes, Reyes HVAC, 8305550142, dana@example.com. Requested the free Crosby AI Opportunity Audit. From Crosby AI landing page (Alignable ad).",
+    ]);
+  });
+
+  it("still texts Kyle to call now when only the CRM has the lead", async () => {
+    deps = { store: null, text: async (body) => (texts.push(body), true) };
+    fetchMock.mockResolvedValue(Response.json({ ok: true }));
+
+    expect(await submitLead("crosby-lead", lead, deps)).toEqual({ ok: true });
+    expect(texts).toHaveLength(1);
+    expect(texts[0]).toMatch(/^NEW LEAD, call now: Dana Reyes/);
   });
 
   it("keeps the lead pending, texts Kyle once, and still tells the visitor it worked when the CRM is down", async () => {

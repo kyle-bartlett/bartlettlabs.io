@@ -1,8 +1,8 @@
 /**
  * One path for every website lead form, so no lead is lost when the CRM is down.
  *
- * submitLead: store the lead in site_leads first, then forward it to the CRM.
- *  - Stored + CRM ok: done.
+ * submitLead: store the lead in site_leads first, then forward it to the CRM, and text Kyle.
+ *  - Stored + CRM ok: Kyle gets a "call now" text (speed to lead: nobody checks the CRM).
  *  - Stored + CRM failed: the row stays pending for retryPendingLeads, and Kyle gets one text.
  *  - Not stored (database down or unset): the CRM alone is enough; if that fails too, Kyle gets
  *    the whole lead by text. Only when all three fail does the visitor see an error.
@@ -58,6 +58,18 @@ function contactLine(lead: CrmLead): string {
     .join(", ");
 }
 
+/** The "call now" text for a lead the CRM took. First line of the notes says what they asked for. */
+export function newLeadText(lead: CrmLead): string {
+  const asked = lead.notes.split("\n")[0]?.trim();
+  return [
+    `NEW LEAD, call now: ${contactLine(lead)}.`,
+    asked,
+    `From ${lead.source}.`,
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
 function log(what: string) {
   return (err: unknown) =>
     console.error(
@@ -83,6 +95,8 @@ export async function submitLead(
   if (id !== null && deps.store) {
     if (crm.ok) {
       await deps.store.markSent(id).catch(log("mark sent"));
+      if (await deps.text(newLeadText(lead)))
+        await deps.store.markAlerted(id).catch(log("mark alerted"));
       return { ok: true };
     }
     await deps.store.markFailed(id, crm.error).catch(log("mark failed"));
@@ -93,7 +107,10 @@ export async function submitLead(
     return { ok: true };
   }
 
-  if (crm.ok) return { ok: true };
+  if (crm.ok) {
+    await deps.text(newLeadText(lead));
+    return { ok: true };
+  }
 
   const texted = await deps.text(
     `WEBSITE LEAD NOT SAVED ANYWHERE ELSE, keep this text. ${lead.source}: ${contactLine(lead)}. ${lead.notes}`,

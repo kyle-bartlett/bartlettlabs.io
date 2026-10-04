@@ -33,7 +33,8 @@ export type LeadStore = {
 let sql: ReturnType<typeof postgres> | null = null;
 let ready: Promise<unknown> | null = null;
 
-function db(): ReturnType<typeof postgres> | null {
+/** The outbound Postgres client (shared pool), or null when LEADS_DATABASE_URL is unset. */
+export function db(): ReturnType<typeof postgres> | null {
   const url = process.env.LEADS_DATABASE_URL?.trim();
   if (!url) return null;
   sql ??= postgres(url, { max: 3, idle_timeout: 20, connect_timeout: 5 });
