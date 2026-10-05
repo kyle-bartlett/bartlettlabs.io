@@ -62,7 +62,6 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
           slug: p.slug,
           contactName: data.get("contactName"),
           email: data.get("email"),
-          phone: data.get("phone"),
           companySite: data.get("companySite"),
         }),
       });
@@ -418,17 +417,6 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
                 required
                 maxLength={160}
                 autoComplete="email"
-              />
-            </label>
-            <label>
-              <span>
-                Phone <small>(optional)</small>
-              </span>
-              <input
-                name="phone"
-                type="tel"
-                maxLength={30}
-                autoComplete="tel"
               />
             </label>
             <label className="honeypot" aria-hidden="true">

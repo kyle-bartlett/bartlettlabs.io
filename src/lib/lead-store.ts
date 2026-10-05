@@ -28,7 +28,15 @@ export type LeadStore = {
   markAlerted: (id: number) => Promise<void>;
   /** Claims up to `limit` pending rows whose retry time has come; each row goes to one caller. */
   claimDue: (limit: number) => Promise<StoredLead[]>;
+  /**
+   * Whether row `id` may text Kyle: false when the same email or phone already texted in the
+   * last day, or when LEAD_TEXTS_PER_HOUR lead texts went out in the last hour. The form is
+   * public, so this is what keeps a bot from flooding his phone; the lead is stored either way.
+   */
+  textAllowed: (id: number, lead: CrmLead) => Promise<boolean>;
 };
+
+export const LEAD_TEXTS_PER_HOUR = 6;
 
 let sql: ReturnType<typeof postgres> | null = null;
 let ready: Promise<unknown> | null = null;
@@ -102,6 +110,20 @@ export function leadStore(): LeadStore | null {
     },
     async markAlerted(id) {
       await s`update site_leads set alerted_at = now() where id = ${id}`;
+    },
+    async textAllowed(id, lead) {
+      const digits = lead.phone.replace(/\D/g, "").slice(-10);
+      const [row] = await s<{ hour: number; same: number }[]>`
+        select
+          count(*) filter (where alerted_at > now() - interval '1 hour')::int as hour,
+          count(*) filter (
+            where alerted_at > now() - interval '1 day'
+              and (lower(email) = lower(${lead.email})
+                or (${digits} <> '' and right(regexp_replace(coalesce(phone, ''), '[^0-9]', '', 'g'), 10) = ${digits}))
+          )::int as same
+        from site_leads
+        where alerted_at is not null and id <> ${id}`;
+      return row.hour < LEAD_TEXTS_PER_HOUR && row.same === 0;
     },
     async claimDue(limit) {
       await ensureTable(s);

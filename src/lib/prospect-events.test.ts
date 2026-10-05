@@ -1,9 +1,11 @@
 // @vitest-environment node
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { getProspect } from "@/app/for/prospects";
+import { getProspect, prospects } from "@/app/for/prospects";
 import {
   alertText,
+  MAX_TEXTS_PER_HOUR,
   recordProspectEvent,
+  resetProspectAlertMemory,
   type EventDeps,
   type EventStore,
   type ProspectEvent,
@@ -56,6 +58,7 @@ describe("recordProspectEvent", () => {
   let recorded: ProspectEvent[];
 
   beforeEach(() => {
+    resetProspectAlertMemory();
     texts = [];
     alerted = [];
     recorded = [];
@@ -101,6 +104,21 @@ describe("recordProspectEvent", () => {
     expect(
       await recordProspectEvent(goat, { ...demo, visitor: "zzz98765" }, deps),
     ).toBe(true);
+  });
+
+  it("caps texts per page and overall when made-up device ids hammer the beacon", async () => {
+    deps.store = null;
+    for (const p of prospects)
+      for (let i = 0; i < 6; i++)
+        await recordProspectEvent(
+          p,
+          { ...view, slug: p.slug, visitor: `spoof${p.slug.length}${i}xx` },
+          deps,
+        );
+    expect(texts).toHaveLength(MAX_TEXTS_PER_HOUR);
+    expect(texts.filter((t) => t.startsWith(prospects[0].name))).toHaveLength(
+      4,
+    );
   });
 });
 

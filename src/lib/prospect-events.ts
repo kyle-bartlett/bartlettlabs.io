@@ -11,7 +11,8 @@
  * Every event goes to prospect_events in the outbound Postgres (same database as site_leads).
  * Kyle gets a text at most once per device, slug and kind per window, so ten minutes of
  * reading is one text, and his own unmarked visit can't swallow the prospect's. A slug
- * never sends more than MAX_TEXTS_PER_SLUG_HOUR texts an hour, whatever the device ids say.
+ * never sends more than MAX_TEXTS_PER_SLUG_HOUR texts an hour, and all slugs together never more
+ * than MAX_TEXTS_PER_HOUR, whatever the device ids say.
  * Without a database the window is kept in memory and texts still go out.
  */
 import type { Prospect } from "@/app/for/prospects";
@@ -23,6 +24,11 @@ export type EventKind = (typeof EVENT_KINDS)[number];
 
 const HOUR = 60 * 60 * 1000;
 export const MAX_TEXTS_PER_SLUG_HOUR = 4;
+/**
+ * Across all slugs. The beacon is public and device ids are the caller's to choose, so this
+ * is the ceiling on what anyone can make Kyle's phone do: ten real prospects never come close.
+ */
+export const MAX_TEXTS_PER_HOUR = 8;
 /** Minimum gap between two texts for one slug and kind; null = stored, never texted. */
 export const ALERT_WINDOW_MS: Record<EventKind, number | null> = {
   view: 6 * HOUR,
@@ -112,8 +118,16 @@ export function alertText(p: Prospect, e: ProspectEvent, prior: Prior): string {
   return `${p.name} is on their page right now (${visit}${devices}). ${call}`;
 }
 
-// Fallback dedupe when there is no database: slug:kind -> last text time.
+// Fallback dedupe when there is no database: slug:kind:visitor -> last text time, plus the
+// times of recent texts for the same per-slug and overall hourly caps.
 const lastAlert = new Map<string, number>();
+let recentTexts: { slug: string; at: number }[] = [];
+
+/** Test hook: forget the in-memory alert history. */
+export function resetProspectAlertMemory(): void {
+  lastAlert.clear();
+  recentTexts = [];
+}
 
 /**
  * Stores the event and texts Kyle when the window allows. Never throws.
@@ -142,9 +156,17 @@ export async function recordProspectEvent(
       );
     const key = `${e.slug}:${e.kind}:${e.visitor ?? ""}`;
     const last = lastAlert.get(key);
+    recentTexts = recentTexts.filter((t) => now - t.at < HOUR);
     shouldText =
-      windowMs !== null && (last === undefined || now - last >= windowMs);
-    if (shouldText) lastAlert.set(key, now);
+      windowMs !== null &&
+      (last === undefined || now - last >= windowMs) &&
+      recentTexts.length < MAX_TEXTS_PER_HOUR &&
+      recentTexts.filter((t) => t.slug === e.slug).length <
+        MAX_TEXTS_PER_SLUG_HOUR;
+    if (shouldText) {
+      lastAlert.set(key, now);
+      recentTexts.push({ slug: e.slug, at: now });
+    }
   }
 
   return shouldText ? deps.text(alertText(p, e, prior)) : false;
@@ -222,6 +244,10 @@ export function eventStore(): EventStore | null {
             select count(*) from prospect_events
             where slug = ${e.slug} and alerted_at > now() - interval '1 hour'
           ) < ${MAX_TEXTS_PER_SLUG_HOUR}
+          and (
+            select count(*) from prospect_events
+            where alerted_at > now() - interval '1 hour'
+          ) < ${MAX_TEXTS_PER_HOUR}
         returning id`;
       return rows.length > 0;
     },

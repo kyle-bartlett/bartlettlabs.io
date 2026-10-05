@@ -50,7 +50,6 @@ export async function POST(req: Request) {
 
   const name = field(body, "contactName", 80);
   const email = field(body, "email", 160);
-  const phone = field(body, "phone", 30);
 
   if (!name || !email) return fail("Name and email are required.", 400);
   if (!EMAIL_RE.test(email))
@@ -66,7 +65,8 @@ export async function POST(req: Request) {
   const { ok } = await submitLead("booked-local-lead", {
     name,
     email,
-    phone,
+    // The page asks for no phone (AGENTS.md rule 4: it carries a chat); the business line is on file.
+    phone: prospect.phone,
     company: prospect.name,
     source: "Booked Local fence proposal page",
     notes,

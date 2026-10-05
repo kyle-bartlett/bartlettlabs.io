@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import JsonLd from "@/components/JsonLd";
 import { MetaPixel } from "@/components/MetaPixel";
 import { PostHogProvider } from "@/components/PostHogProvider";
+import { WidgoLoader } from "@/components/WidgoLoader";
 import { siteConfig } from "@/content/site";
 import "./globals.css";
 import "./globals-demos.css";
@@ -87,15 +88,6 @@ export default function RootLayout({
       className={`${inter.variable} ${ibmPlexMono.variable} ${montserrat.variable}`}
     >
       <head>
-        <Script id="widgo-config" strategy="beforeInteractive">
-          {`window.widgoConfig = { orgId: "org_81eba270b80b4baa", aiUrl: "https://ai.widgo.ai" };`}
-        </Script>
-        <Script
-          id="widgo-loader"
-          strategy="beforeInteractive"
-          async
-          src="https://cdn.widgo.ai/widgo.js"
-        />
         <Script id="rdcdn-pixel" strategy="beforeInteractive">
           {`(function (w, d, s, u, dbg) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -125,6 +117,8 @@ export default function RootLayout({
       <body>
         <MetaPixel />
         <PostHogProvider>{children}</PostHogProvider>
+        {/* Widgo chat: every page except phone and SMS consent pages (AGENTS.md rule 4). */}
+        <WidgoLoader />
       </body>
     </html>
   );

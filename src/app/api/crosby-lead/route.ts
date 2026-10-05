@@ -14,9 +14,9 @@ const SAVE_FAILED = "We couldn't save that. Please email kyle@bartlettlabs.io.";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // The body comes from the open internet: anything that is not a string counts as empty.
-function field(body: Record<string, unknown>, key: string): string {
+function field(body: Record<string, unknown>, key: string, max = 200): string {
   const value = body[key];
-  return typeof value === "string" ? value.trim() : "";
+  return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
 
 export async function POST(req: Request) {
@@ -42,10 +42,10 @@ export async function POST(req: Request) {
     return Response.json({ ok: true });
   }
 
-  const name = field(body, "name");
-  const email = field(body, "email");
-  const business = field(body, "business");
-  const phone = field(body, "phone");
+  const name = field(body, "name", 80);
+  const email = field(body, "email", 160);
+  const business = field(body, "business", 120);
+  const phone = field(body, "phone", 30);
   const trade = field(body, "trade").slice(0, 40);
 
   if (!name || !email) {

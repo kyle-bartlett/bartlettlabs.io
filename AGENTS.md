@@ -16,10 +16,13 @@
    e.g. `get.bartlettlabs.io`, `lp.bartlettlabs.io`. Never replace the main site.
 3. **The website lives in code, not in a no-code platform.** Kyle + Claude Code own
    the website. Other platforms (e.g. Polsia) must not touch the site, repos, DNS, or Cloudflare.
-4. **SMS/A2P: the chat widget goes on form-free pages ONLY.** Never put it on a page
-   that collects a phone number or SMS consent, and never make it global (it must NOT
-   be in `app/layout.tsx`). It currently lives in `src/app/page.tsx` (homepage only).
-   See `docs/A2P_SMS_COMPLIANCE.md`. This is why the carrier kept rejecting the campaign.
+4. **SMS/A2P: no chat widget on a page that collects a phone number or SMS consent.**
+   Widgo loads through `src/components/WidgoLoader.tsx`, which skips `NO_CHAT_ROUTES`
+   (`/contact`, `/crosby-ai`, `/sms-opt-in`, `/sms-opt-out`). Never load it straight from
+   `app/layout.tsx`'s head. A new page with a phone field goes in `NO_CHAT_ROUTES`;
+   `WidgoLoader.test.ts` fails until it does. The `/for/<slug>` pages carry the demo chat, so
+   they must not ask for a phone. See `docs/A2P_SMS_COMPLIANCE.md`. A chat next to the
+   opt-in form is why the carrier kept rejecting the campaign.
 5. **Verify before claiming done.** After any deploy, confirm the LIVE site
    (`https://bartlettlabs.io`) serves the real site (title contains "Bartlett Labs",
    Meta Pixel `2282902429201629`, header `x-powered-by: Next.js`).

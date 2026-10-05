@@ -58,6 +58,27 @@ function contactLine(lead: CrmLead): string {
     .join(", ");
 }
 
+/** Phone and email first: when the text is the only copy, a cut at TEXT_MAX_CHARS must never lose them. */
+function reachFirst(lead: CrmLead): string {
+  return [lead.phone, lead.email, lead.name, lead.company]
+    .filter(Boolean)
+    .join(", ");
+}
+
+// Without a database, lead texts are capped in memory instead (per process, per hour).
+const MEMORY_TEXTS_PER_HOUR = 10;
+let memoryTexts: number[] = [];
+function memoryTextAllowed(now = Date.now()): boolean {
+  memoryTexts = memoryTexts.filter((t) => now - t < 60 * 60 * 1000);
+  if (memoryTexts.length >= MEMORY_TEXTS_PER_HOUR) return false;
+  memoryTexts.push(now);
+  return true;
+}
+/** Test hook: forget the in-memory text history. */
+export function resetLeadTextCap(): void {
+  memoryTexts = [];
+}
+
 /** The "call now" text for a lead the CRM took. First line of the notes says what they asked for. */
 export function newLeadText(lead: CrmLead): string {
   const asked = lead.notes.split("\n")[0]?.trim();
@@ -93,27 +114,35 @@ export async function submitLead(
   if (!crm.ok) console.error(`Lead CRM forward failed: ${crm.error}.`);
 
   if (id !== null && deps.store) {
+    const store = deps.store;
+    // A failed check texts anyway: the cap guards against floods, not against Kyle hearing.
+    const allowed = await store.textAllowed(id, lead).catch(() => true);
     if (crm.ok) {
-      await deps.store.markSent(id).catch(log("mark sent"));
-      if (await deps.text(newLeadText(lead)))
-        await deps.store.markAlerted(id).catch(log("mark alerted"));
+      await store.markSent(id).catch(log("mark sent"));
+      if (allowed && (await deps.text(newLeadText(lead))))
+        await store.markAlerted(id).catch(log("mark alerted"));
       return { ok: true };
     }
-    await deps.store.markFailed(id, crm.error).catch(log("mark failed"));
-    const texted = await deps.text(
-      `Website lead (${lead.source}): ${contactLine(lead)}. CRM didn't take it (${crm.error}); it's saved and will retry.`,
-    );
-    if (texted) await deps.store.markAlerted(id).catch(log("mark alerted"));
+    await store.markFailed(id, crm.error).catch(log("mark failed"));
+    const texted =
+      allowed &&
+      (await deps.text(
+        `Website lead (${lead.source}): ${contactLine(lead)}. CRM didn't take it (${crm.error}); it's saved and will retry.`,
+      ));
+    if (texted) await store.markAlerted(id).catch(log("mark alerted"));
     return { ok: true };
   }
 
   if (crm.ok) {
-    await deps.text(newLeadText(lead));
+    if (memoryTextAllowed()) await deps.text(newLeadText(lead));
     return { ok: true };
   }
 
+  // Not stored and not in the CRM: the text is the only copy. Past the cap the visitor sees
+  // the error (and the email address) rather than the lead vanishing silently.
+  if (!memoryTextAllowed()) return { ok: false };
   const texted = await deps.text(
-    `WEBSITE LEAD NOT SAVED ANYWHERE ELSE, keep this text. ${lead.source}: ${contactLine(lead)}. ${lead.notes}`,
+    `WEBSITE LEAD NOT SAVED ANYWHERE ELSE, keep this text. ${reachFirst(lead)}. ${lead.source}. ${lead.notes}`,
   );
   return { ok: texted };
 }

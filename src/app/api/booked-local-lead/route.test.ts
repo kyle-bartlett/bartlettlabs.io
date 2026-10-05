@@ -19,6 +19,7 @@ const valid = {
   slug: "goat-fence-company",
   contactName: "Dana Reyes",
   email: "dana@example.com",
+  // An old page could still post a phone; the route ignores it and files the business line.
   phone: "8305550142",
 };
 
@@ -52,7 +53,7 @@ describe("POST /api/booked-local-lead", () => {
     expect(sent).toMatchObject({
       name: "Dana Reyes",
       email: "dana@example.com",
-      phone: "8305550142",
+      phone: "(713) 294-1300",
       company: "GOAT Fence Company",
       source: "Booked Local fence proposal page",
     });

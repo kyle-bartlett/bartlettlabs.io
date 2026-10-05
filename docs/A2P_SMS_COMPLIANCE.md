@@ -1,16 +1,23 @@
 # A2P and SMS Compliance Playbook: bartlettlabs.io
 
-## Current state (2026-09-14)
+## Current state (2026-10-05)
 
 The site collects no SMS consent anywhere. The earlier chat-widget SMS opt-in and its
 carrier campaign are retired along with the vendor that ran them.
 
-- **Chat:** Widgo loads once from the shared `src/app/layout.tsx` head using `next/script`
-  with `beforeInteractive`: configuration first, then the async loader. The organization is
-  `org_81eba270b80b4baa`; the loader is `https://cdn.widgo.ai/widgo.js`, with
-  `https://ai.widgo.ai` as the API. Kyle asked for Widgo on every page on September 10, 2026,
-  which replaced the old homepage-only rule. Chatting does not enroll visitors in SMS. Chat and
-  visitor-activity processing apply site-wide, as the privacy page discloses.
+- **Chat:** Widgo loads from `src/components/WidgoLoader.tsx` (rendered in the root layout)
+  on every page except the ones that collect a phone number or describe SMS consent:
+  `/contact`, `/crosby-ai`, `/sms-opt-in`, `/sms-opt-out` (`NO_CHAT_ROUTES`). Kyle asked for
+  Widgo on every page on September 10, 2026; on October 5, 2026 it came off those pages again
+  so no chat sits next to a phone field (AGENTS.md rule 4). `WidgoLoader.test.ts` fails when a
+  new phone field appears on a route that still loads the chat. Arriving on a no-chat route by
+  client-side navigation forces a full page load, since Widgo has no teardown API. The
+  organization is `org_81eba270b80b4baa`; the loader is `https://cdn.widgo.ai/widgo.js`, with
+  `https://ai.widgo.ai` as the API. Chatting does not enroll visitors in SMS. Chat and
+  visitor-activity processing apply on the pages that load it, as the privacy page discloses.
+- **Fence proposal pages (`/for/<slug>`):** carry the demo chat assistant, so their "Claim
+  this build" form asks for name and email only; the lead is filed with the business phone
+  already on file.
 - **Booking:** every booking link and embedded calendar uses Cal.com
   (`https://cal.com/kyle-bartlett-nrhzyw/ai-automation-audit`), a 15-minute AI and automation
   audit. Booking does not enroll visitors in SMS or marketing. Widgo needs its own calendar

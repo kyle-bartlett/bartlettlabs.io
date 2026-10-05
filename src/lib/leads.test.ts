@@ -1,7 +1,12 @@
 // @vitest-environment node
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { CrmLead, LeadStore, StoredLead } from "@/lib/lead-store";
-import { retryPendingLeads, submitLead, type LeadDeps } from "@/lib/leads";
+import {
+  resetLeadTextCap,
+  retryPendingLeads,
+  submitLead,
+  type LeadDeps,
+} from "@/lib/leads";
 
 const lead: CrmLead = {
   name: "Dana Reyes",
@@ -42,6 +47,11 @@ function memoryStore(events: string[]) {
     async claimDue(limit) {
       return rows.filter((r) => r.status === "pending").slice(0, limit);
     },
+    // Same rule as site_leads: one text per email a day, LEAD_TEXTS_PER_HOUR an hour.
+    async textAllowed(id, l) {
+      const others = rows.filter((r) => r.id !== id && r.alerted);
+      return others.length < 6 && !others.some((r) => r.email === l.email);
+    },
   };
   return { store, rows };
 }
@@ -55,6 +65,7 @@ describe("website leads survive a CRM outage", () => {
   let rows: Row[];
 
   beforeEach(() => {
+    resetLeadTextCap();
     events = [];
     texts = [];
     const mem = memoryStore(events);
@@ -131,6 +142,45 @@ describe("website leads survive a CRM outage", () => {
     expect(await submitLead("crosby-lead", lead, deps)).toEqual({ ok: true });
     expect(texts[0]).toContain("NOT SAVED ANYWHERE ELSE");
     expect(texts[0]).toContain("dana@example.com");
+  });
+
+  it("stores every lead but stops texting a repeat sender or a flood", async () => {
+    fetchMock.mockResolvedValue(Response.json({ ok: true }));
+
+    await submitLead("crosby-lead", lead, deps);
+    await submitLead("crosby-lead", lead, deps); // same email again
+    for (let i = 0; i < 10; i++)
+      await submitLead(
+        "crosby-lead",
+        { ...lead, email: `bot${i}@example.com`, phone: "" },
+        deps,
+      );
+
+    expect(rows).toHaveLength(12);
+    expect(rows.every((r) => r.status === "sent")).toBe(true);
+    expect(texts).toHaveLength(6);
+  });
+
+  it("puts the phone and email first when the text is the only copy", async () => {
+    deps = { store: null, text: async (body) => (texts.push(body), true) };
+    fetchMock.mockResolvedValue(new Response("", { status: 502 }));
+
+    await submitLead("crosby-lead", { ...lead, name: "x".repeat(80) }, deps);
+    expect(texts[0]).toMatch(
+      /^WEBSITE LEAD NOT SAVED ANYWHERE ELSE, keep this text\. 8305550142, dana@example\.com, /,
+    );
+  });
+
+  it("caps texts in memory when there is no database", async () => {
+    deps = { store: null, text: async (body) => (texts.push(body), true) };
+    fetchMock.mockResolvedValue(new Response("", { status: 502 }));
+
+    const results = [];
+    for (let i = 0; i < 12; i++)
+      results.push(await submitLead("crosby-lead", lead, deps));
+    expect(texts).toHaveLength(10);
+    // past the cap the visitor sees the error and the email address instead
+    expect(results.at(-1)).toEqual({ ok: false });
   });
 
   it("only fails the visitor when the store, the CRM and the text all fail", async () => {
