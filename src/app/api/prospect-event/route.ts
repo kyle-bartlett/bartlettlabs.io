@@ -2,14 +2,15 @@
  * Beacon from the fence proposal pages (/for/<slug>): view, demo_tap, estimate.
  * Always answers 204 at once; the work runs after the response (src/lib/prospect-events.ts).
  *
- * Not counted: Kyle's own devices (the bl_owner cookie, set by /api/owner or by opening any
- * /for/ page with ?me=1), crawlers by user agent, and more than EVENTS_PER_WINDOW beacons from
+ * Not counted: Kyle's own devices (a signed bl_owner cookie, src/lib/owner.ts), crawlers by user
+ * agent, and more than EVENTS_PER_WINDOW beacons from
  * one address.
  *
  * Smoke test: an `x-smoke-test: <LEADS_RETRY_KEY>` header stores the event as visitor
  * "smoketest" and prefixes the text "TEST, ignore:". Delete the row afterwards so it doesn't
  * count as a visit.
  */
+import { isOwnerRequest } from "@/lib/owner";
 import { after } from "next/server";
 import { getProspect } from "@/app/for/prospects";
 import {
@@ -34,10 +35,6 @@ function overLimit(ip: string, now: number): boolean {
     return false;
   }
   return ++entry.count > EVENTS_PER_WINDOW;
-}
-
-function isOwnerRequest(req: Request): boolean {
-  return /(?:^|;\s*)bl_owner=1(?:;|$)/.test(req.headers.get("cookie") ?? "");
 }
 
 const done = () => new Response(null, { status: 204 });

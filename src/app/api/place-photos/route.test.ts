@@ -1,5 +1,6 @@
 // @vitest-environment node
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ownerCookieValue } from "@/lib/owner";
 import { GET } from "./route";
 
 function get(slug: string, headers: Record<string, string>) {
@@ -35,6 +36,7 @@ describe("GET /api/place-photos", () => {
   beforeEach(() => {
     vi.stubEnv("LEADS_DATABASE_URL", "");
     vi.stubEnv("GOOGLE_PLACES_API_KEY", "");
+    vi.stubEnv("OWNER_MARK_SECRET", "test-secret");
   });
 
   afterEach(() => {
@@ -132,7 +134,10 @@ describe("GET /api/place-photos", () => {
     const view = (i: number) =>
       fresh(
         new Request("http://localhost/api/place-photos?slug=n2-fencing", {
-          headers: { "x-real-ip": `10.0.1.${i}`, cookie: "a=1; bl_owner=1" },
+          headers: {
+            "x-real-ip": `10.0.1.${i}`,
+            cookie: `a=1; bl_owner=${ownerCookieValue("test-secret")}`,
+          },
         }),
       );
     for (let i = 0; i < 10; i++)
@@ -156,7 +161,10 @@ describe("GET /api/place-photos", () => {
     vi.stubGlobal("fetch", googleWithOnePhoto());
     vi.resetModules();
     const { GET: fresh } = await import("./route");
-    const owner = { "x-real-ip": "10.0.0.8", cookie: "bl_owner=1" };
+    const owner = {
+      "x-real-ip": "10.0.0.8",
+      cookie: `bl_owner=${ownerCookieValue("test-secret")}`,
+    };
     const call = () =>
       fresh(
         new Request(

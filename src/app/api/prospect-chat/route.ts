@@ -4,6 +4,7 @@
  * tries it (src/lib/prospect-events.ts). Kyle's own devices (bl_owner cookie) can chat but
  * aren't recorded.
  */
+import { isOwnerRequest } from "@/lib/owner";
 import { after } from "next/server";
 import { getProspect } from "@/app/for/prospects";
 import { chatReply, defaultChatDeps, parseMessages } from "@/lib/prospect-chat";
@@ -59,9 +60,7 @@ export async function POST(req: Request) {
     defaultChatDeps(),
   );
 
-  const owner = /(?:^|;\s*)bl_owner=1(?:;|$)/.test(
-    req.headers.get("cookie") ?? "",
-  );
+  const owner = isOwnerRequest(req);
   if (!owner) {
     const visitor =
       typeof body.visitor === "string" && /^[a-z0-9]{8,32}$/i.test(body.visitor)

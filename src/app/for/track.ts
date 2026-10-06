@@ -1,24 +1,15 @@
 /**
  * Browser side of the prospect activity alerts (src/lib/prospect-events.ts).
- * Kyle marks a device as his once by opening any /for/ page with ?me=1; that device never
- * sends events, so his own checks don't text him.
+ * Kyle's devices carry the signed bl_owner cookie (src/lib/owner.ts), set when he taps a
+ * proposal link in RepBot's dial list. A device with any bl_owner cookie sends no events; the
+ * server checks the signature before treating anyone as Kyle.
  */
 type BeaconKind = "view" | "demo_tap" | "estimate";
 
-const OWNER_COOKIE = "bl_owner=1";
 const VISITOR_KEY = "bl_vid";
 
-/** Reads ?me=1 into a year-long cookie and drops it from the address bar. */
-export function markOwnerFromUrl(): void {
-  const url = new URL(window.location.href);
-  if (url.searchParams.get("me") !== "1") return;
-  document.cookie = `${OWNER_COOKIE}; max-age=31536000; path=/; samesite=lax`;
-  url.searchParams.delete("me");
-  window.history.replaceState(null, "", url.pathname + url.search + url.hash);
-}
-
 export function isOwnerDevice(): boolean {
-  return document.cookie.split(/;\s*/).includes(OWNER_COOKIE);
+  return document.cookie.split(/;\s*/).some((c) => c.startsWith("bl_owner="));
 }
 
 /** A random id per browser, so the text can say "2 devices so far". */

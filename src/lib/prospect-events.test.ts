@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { getProspect, prospects } from "@/app/for/prospects";
+import { ownerCookieValue } from "@/lib/owner";
 import {
   alertText,
   MAX_TEXTS_PER_HOUR,
@@ -125,6 +126,7 @@ describe("recordProspectEvent", () => {
 describe("POST /api/prospect-event", () => {
   const send = vi.fn();
   beforeEach(() => {
+    vi.stubEnv("OWNER_MARK_SECRET", "test-secret");
     vi.resetModules();
     vi.doMock("@/lib/prospect-events", async (orig) => ({
       ...(await orig<typeof import("@/lib/prospect-events")>()),
@@ -132,6 +134,7 @@ describe("POST /api/prospect-event", () => {
     }));
   });
   afterEach(() => {
+    vi.unstubAllEnvs();
     send.mockReset();
     vi.doUnmock("@/lib/prospect-events");
   });
@@ -154,10 +157,16 @@ describe("POST /api/prospect-event", () => {
       expect.anything(),
     );
 
-    await POST(beacon(ok, { cookie: "x=1; bl_owner=1" }));
+    await POST(
+      beacon(ok, {
+        cookie: `x=1; bl_owner=${ownerCookieValue("test-secret")}`,
+      }),
+    );
+    // The old unsigned mark no longer counts as Kyle.
+    await POST(beacon(ok, { cookie: "bl_owner=1" }));
     await POST(beacon(ok, { "user-agent": "Googlebot/2.1" }));
     await POST(beacon({ ...ok, kind: "chat" }));
     await POST(beacon({ ...ok, slug: "nobody" }));
-    expect(send).toHaveBeenCalledTimes(1);
+    expect(send).toHaveBeenCalledTimes(2);
   });
 });

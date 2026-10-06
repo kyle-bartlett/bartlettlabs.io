@@ -6,12 +6,13 @@
  *
  * Limits, in order: PER_IP_PER_DAY page loads per visitor, then the daily and monthly caps in
  * Postgres every request counts against, then Google's quota on the bartlett-crm project.
- * Devices marked with the bl_owner cookie (/api/owner) skip the per-visitor limit but share
- * one OWNER_PER_DAY pool. Anyone can set that cookie, so the pool, not the cookie, is what
- * keeps a spoofed owner from spending the prospects' share of the daily cap.
+ * Kyle's signed devices (src/lib/owner.ts) skip the per-visitor limit but share
+ * one OWNER_PER_DAY pool, so even a leaked owner cookie can't spend the prospects' share of
+ * the daily cap.
  */
 import { getProspect } from "@/app/for/prospects";
 import { clientIp, ipBucket } from "@/lib/client-ip";
+import { isOwnerRequest } from "@/lib/owner";
 import { defaultPhotoDeps, placePhotos } from "@/lib/place-photos";
 
 export const runtime = "nodejs";
@@ -35,9 +36,6 @@ function overDailyLimit(key: string, now: number, limit: number): boolean {
   return ++entry.count > limit;
 }
 
-const isOwner = (req: Request) =>
-  /(?:^|;\s*)bl_owner=1(?:;|$)/.test(req.headers.get("cookie") ?? "");
-
 const reply = (body: unknown, status = 200) =>
   Response.json(body, {
     status,
@@ -49,7 +47,7 @@ export async function GET(req: Request) {
   if (!prospect) return reply({ ok: false, error: "Invalid request." }, 400);
 
   const ip = clientIp(req.headers);
-  const over = isOwner(req)
+  const over = isOwnerRequest(req)
     ? overDailyLimit("owner", Date.now(), OWNER_PER_DAY)
     : overDailyLimit(ip ? ipBucket(ip) : "unknown", Date.now(), PER_IP_PER_DAY);
   if (over) return reply({ ok: false, reason: "limit" });

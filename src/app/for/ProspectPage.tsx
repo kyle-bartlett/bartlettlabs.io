@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { ShownPhoto } from "@/lib/place-photos";
 import { ProspectChat } from "./ProspectChat";
 import type { Prospect } from "./prospects";
-import { markOwnerFromUrl, track, trackViewWhenSeen } from "./track";
+import { track, trackViewWhenSeen } from "./track";
 import { useGooglePhotos } from "./useGooglePhotos";
 
 // The shared RepBot demo line. It answers as the sample business Summit Heating and Air,
@@ -114,10 +114,7 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
   const ownerRef = useRef<HTMLElement>(null);
   const google = useGooglePhotos(p.slug, ownerRef);
 
-  useEffect(() => {
-    markOwnerFromUrl();
-    return trackViewWhenSeen(p.slug);
-  }, [p.slug]);
+  useEffect(() => trackViewWhenSeen(p.slug), [p.slug]);
 
   const accentStyle = {
     "--preview-accent": p.accent,
