@@ -23,13 +23,13 @@ git push origin main        # GitHub — the canonical, deployed repo
 
 There are two instruction sources that disagree, on purpose:
 
-| Source | Says | Scope |
-|--------|------|-------|
-| Global `/Volumes/Bart_26/.claude/CLAUDE.md` | "No longer using GitHub. Git hosting is Forgejo (`git.bartlettlabs.io`)." | **General default** across Kyle's projects |
-| This repo's `AGENTS.md` §1 + this doc + the live Coolify config | Canonical = **GitHub** `kyle-bartlett/bartlettlabs.io`; Forgejo archived/no live mirror. | **This repo specifically** |
+| Source                                                          | Says                                                                                     | Scope                                      |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------ |
+| Global `/Volumes/Bart_26/.claude/CLAUDE.md`                     | "No longer using GitHub. Git hosting is Forgejo (`git.bartlettlabs.io`)."                | **General default** across Kyle's projects |
+| This repo's `AGENTS.md` §1 + this doc + the live Coolify config | Canonical = **GitHub** `kyle-bartlett/bartlettlabs.io`; Forgejo archived/no live mirror. | **This repo specifically**                 |
 
 **Repo-specific instructions win for this repo.** The global rule is the
-default direction for Kyle's *other* projects (and possibly this one in the
+default direction for Kyle's _other_ projects (and possibly this one in the
 future), but the production website is on GitHub today because that is what
 Coolify actually builds and serves. Don't "fix" the site to Forgejo to satisfy
 the global rule — that would break the deploy. If you migrate it later, do §7
@@ -37,16 +37,16 @@ deliberately and update **both** files.
 
 ## 3. Current reality (verified 2026-06-21)
 
-| Thing | Value |
-|-------|-------|
-| Canonical repo (PRODUCTION) | GitHub `kyle-bartlett/bartlettlabs.io.git`, branch `main` |
-| Local `origin` | the canonical GitHub repo (only remote configured) |
-| What deploys the site | Coolify app `y088wgs44okc484kwowk88s8` — clones the **GitHub** repo `main` and builds it |
-| Auto-deploy on push? | **No.** Coolify must be triggered after every push (see §4) |
-| Production origin server | `149.28.249.119` (Vultr; Coolify + Traefik) |
-| Live domain | `https://bartlettlabs.io` (+ `www` → apex), Cloudflare-proxied → origin |
-| GitHub auth | `gh` CLI authed as `kyle-bartlett` (scopes incl. `repo`, `workflow`) |
-| Forgejo server | `git.bartlettlabs.io` is **up** (HTTP 200) but holds only **archived/stale** copies of this site; it is **not** in the deploy path |
+| Thing                       | Value                                                                                                                                                                             |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Canonical repo (PRODUCTION) | GitHub `kyle-bartlett/bartlettlabs.io.git`, branch `main`                                                                                                                         |
+| Local `origin`              | the canonical GitHub repo (only remote configured)                                                                                                                                |
+| What deploys the site       | Coolify app `y088wgs44okc484kwowk88s8` — clones the **GitHub** repo `main` and builds it                                                                                          |
+| Auto-deploy on push?        | **No.** Coolify must be triggered after every push (see §4)                                                                                                                       |
+| Production origin server    | `149.28.249.119` (Vultr; Coolify + Traefik)                                                                                                                                       |
+| Live domain                 | `https://bartlettlabs.io` (+ `www` → apex). DNS at Cloudflare, proxy OFF: the A record points straight at the origin, where Coolify's Traefik terminates TLS and sets `X-Real-Ip` |
+| GitHub auth                 | `gh` CLI authed as `kyle-bartlett` (scopes incl. `repo`, `workflow`)                                                                                                              |
+| Forgejo server              | `git.bartlettlabs.io` is **up** (HTTP 200) but holds only **archived/stale** copies of this site; it is **not** in the deploy path                                                |
 
 ## 4. How to ship (the only supported way)
 

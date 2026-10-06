@@ -29,17 +29,19 @@
 
 ## 1. Source of truth (canonical)
 
-| Thing | Value |
-|-------|-------|
-| **Canonical repo (PRODUCTION)** | GitHub `kyle-bartlett/bartlettlabs.io.git`, branch `main` |
-| **What deploys the site** | Coolify (app uuid `y088wgs44okc484kwowk88s8`) builds the canonical repo and serves it |
-| **Production origin server** | `149.28.249.119` (Vultr, runs Coolify + Traefik) |
-| **Live domain** | `https://bartlettlabs.io` (+ `www` redirects to apex). Cloudflare-proxied → origin above |
-| **Coolify dashboard** | `https://coolify.bartlettlabs.io` (API is at `http://149.28.249.119:8000/api/v1`, NOT the dashboard host) |
-| **Local working dir** | `/Volumes/Bart_26/Dev_Expansion/Personal/Bartlett_Labs/bartlettlabs-site` — its `origin` is the canonical repo |
+| Thing                           | Value                                                                                                                                                                                                                                      |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Canonical repo (PRODUCTION)** | GitHub `kyle-bartlett/bartlettlabs.io.git`, branch `main`                                                                                                                                                                                  |
+| **What deploys the site**       | Coolify (app uuid `y088wgs44okc484kwowk88s8`) builds the canonical repo and serves it                                                                                                                                                      |
+| **Production origin server**    | `149.28.249.119` (Vultr, runs Coolify + Traefik)                                                                                                                                                                                           |
+| **Live domain**                 | `https://bartlettlabs.io` (+ `www` redirects to apex). DNS at Cloudflare with the proxy OFF: the apex A record points straight at the origin above, and Coolify's Traefik terminates TLS and sets `X-Real-Ip` (see `src/lib/client-ip.ts`) |
+| **Coolify dashboard**           | `https://coolify.bartlettlabs.io` (API is at `http://149.28.249.119:8000/api/v1`, NOT the dashboard host)                                                                                                                                  |
+| **Local working dir**           | `/Volumes/Bart_26/Dev_Expansion/Personal/Bartlett_Labs/bartlettlabs-site` — its `origin` is the canonical repo                                                                                                                             |
 
 ### Repo history (collapse done 2026-06-16)
+
 There used to be two divergent GitHub repos. This is now resolved:
+
 - `kyle-bartlett/bartlettlabs.io.git` — **CANONICAL**, deployed, and what the local folder tracks.
 - `kyle-bartlett/bartlettlabs-site.git` — **ARCHIVED** (read-only). Old stripped-down copy. Do not use.
 - Forgejo `kyle/bartlettlabs` and `kyle/bartlettlabs-site` — **ARCHIVED** (stale). Forgejo has no live mirror right now.
