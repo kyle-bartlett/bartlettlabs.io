@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import type { ShownPhoto } from "@/lib/place-photos";
 import { ProspectChat } from "./ProspectChat";
-import type { Prospect } from "./prospects";
+import { possessive, type Prospect } from "./prospects";
 import { markOwnerFromUrl, track, trackViewWhenSeen } from "./track";
+import { useGooglePhotos } from "./useGooglePhotos";
 
 // The shared RepBot demo line. It answers as the sample business Summit Heating and Air,
 // so the section below says so instead of implying it answers as the prospect.
@@ -20,12 +22,56 @@ function initials(name: string): string {
     .join("");
 }
 
+/**
+ * Google requires each Places photo to credit its author and link to the photo on Google Maps,
+ * with "Google Maps" spelled out as-is when there's no map on the page.
+ */
+function PhotoCredit({
+  photo,
+  fallback,
+}: {
+  photo: ShownPhoto;
+  fallback: string;
+}) {
+  const author = photo.author;
+  return (
+    <div className="photo-credit">
+      {author?.avatar ? (
+        // eslint-disable-next-line @next/next/no-img-element -- Google-hosted avatar, never cached or proxied
+        <img src={author.avatar} alt="" width={16} height={16} />
+      ) : null}
+      {author ? (
+        author.uri ? (
+          <a href={author.uri} target="_blank" rel="noreferrer">
+            {author.name}
+          </a>
+        ) : (
+          <strong>{author.name}</strong>
+        )
+      ) : null}
+      {author ? <b aria-hidden="true">·</b> : null}
+      <a
+        className="photo-credit-maps"
+        href={photo.mapsUri ?? fallback}
+        target="_blank"
+        rel="noreferrer"
+        translate="no"
+      >
+        Google Maps
+      </a>
+    </div>
+  );
+}
+
 export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
   const [service, setService] = useState("");
   const [qualifier, setQualifier] = useState("");
   const [showPlan, setShowPlan] = useState(false);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
+  const servicesRef = useRef<HTMLElement>(null);
+  const googlePhotos = useGooglePhotos(p.slug, servicesRef);
+  const photoAlt = `Project photo from ${possessive(p.shortName)} Google profile`;
 
   useEffect(() => {
     markOwnerFromUrl();
@@ -160,32 +206,49 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
         </div>
       </section>
 
-      <section className="prospect-services" id="preview-services">
+      <section
+        className="prospect-services"
+        id="preview-services"
+        ref={servicesRef}
+      >
         <div className="prospect-section-heading">
           <p>Built around what the customer needs</p>
-          <h2>Choose the project. Get the right next step.</h2>
+          <div>
+            <h2>Choose the project. Get the right next step.</h2>
+            {googlePhotos.some(Boolean) ? (
+              <small className="prospect-photo-source">
+                Photos from {possessive(p.shortName)} Google Business Profile
+              </small>
+            ) : null}
+          </div>
         </div>
         <div className="prospect-service-grid">
-          {p.services.map((s, i) => (
-            <article key={s}>
-              <div className="prospect-service-image">
-                {/* eslint-disable-next-line @next/next/no-img-element -- small local webp, same as the original page */}
-                <img
-                  src={p.serviceImages[i]}
-                  alt={`${s} project example`}
-                  loading="lazy"
-                />
-                <span>0{i + 1}</span>
-              </div>
-              <div className="prospect-service-copy">
-                <h3>{s}</h3>
-                <p>
-                  Clear expectations, project details captured early and a fast
-                  response path.
-                </p>
-              </div>
-            </article>
-          ))}
+          {p.services.map((s, i) => {
+            const photo = googlePhotos[i];
+            return (
+              <article key={s}>
+                <div className="prospect-service-image">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- local webp, or a Google-hosted photo that may not be cached or proxied */}
+                  <img
+                    src={photo?.src ?? p.serviceImages[i]}
+                    alt={photo ? photoAlt : `${s} project example`}
+                    loading="lazy"
+                  />
+                  <span>0{i + 1}</span>
+                  {photo ? (
+                    <PhotoCredit photo={photo} fallback={p.googleProfile} />
+                  ) : null}
+                </div>
+                <div className="prospect-service-copy">
+                  <h3>{s}</h3>
+                  <p>
+                    Clear expectations, project details captured early and a
+                    fast response path.
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
@@ -350,20 +413,26 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
           </div>
         </div>
         <div className="owner-upgrade-grid">
-          {p.upgrades.map((u, i) => (
-            <article
-              key={u.title}
-              style={
-                {
-                  "--upgrade-image": `url("${u.image}")`,
-                } as React.CSSProperties
-              }
-            >
-              <span>UPGRADE {i + 1}</span>
-              <h3>{u.title}</h3>
-              <p>{u.detail}</p>
-            </article>
-          ))}
+          {p.upgrades.map((u, i) => {
+            const photo = googlePhotos[p.services.length + i];
+            return (
+              <article
+                key={u.title}
+                style={
+                  {
+                    "--upgrade-image": `url("${photo?.src ?? u.image}")`,
+                  } as React.CSSProperties
+                }
+              >
+                {photo ? (
+                  <PhotoCredit photo={photo} fallback={p.googleProfile} />
+                ) : null}
+                <span>UPGRADE {i + 1}</span>
+                <h3>{u.title}</h3>
+                <p>{u.detail}</p>
+              </article>
+            );
+          })}
         </div>
         <div className="owner-package">
           <div>

@@ -377,6 +377,62 @@
 .prospect-service-copy {
   padding: 24px;
 }
+/* Google Places photo credit (author + "Google Maps"), required wherever a profile photo shows. */
+.photo-credit {
+  color: #fff;
+  background: #000000a8;
+  border-radius: 4px;
+  align-items: center;
+  gap: 6px;
+  max-width: calc(100% - 16px);
+  padding: 3px 8px;
+  font-family: Roboto, var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 18px;
+  display: flex;
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+}
+.photo-credit a,
+.photo-credit strong {
+  color: inherit;
+  font-weight: 400;
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 0;
+  overflow: hidden;
+}
+.photo-credit a:hover,
+.photo-credit a:focus-visible {
+  text-decoration: underline;
+}
+.photo-credit b {
+  font-weight: 400;
+  opacity: 0.7;
+}
+.photo-credit .photo-credit-maps {
+  flex: none;
+  overflow: visible;
+}
+.prospect-service-image .photo-credit img,
+.photo-credit img {
+  border-radius: 50%;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+.prospect-photo-source {
+  color: var(--preview-muted);
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  display: block;
+}
 .prospect-service-grid h3 {
   margin: 0 0 12px;
   font-size: 20px;
@@ -619,6 +675,15 @@
   display: flex;
   overflow: hidden;
   box-shadow: 0 14px 34px #16231d1f;
+}
+.owner-upgrade-grid article {
+  position: relative;
+}
+.owner-upgrade-grid .photo-credit {
+  max-width: calc(100% - 28px);
+  top: 14px;
+  bottom: auto;
+  left: 14px;
 }
 .owner-upgrade-grid span {
   color: #ffb07e;

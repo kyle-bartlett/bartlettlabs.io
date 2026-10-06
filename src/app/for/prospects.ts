@@ -18,6 +18,13 @@ export type Prospect = {
   reviews: number;
   website: string | null;
   googleProfile: string;
+  /** Google place ID, the `!19s` segment of googleProfile. The one Places value we may store. */
+  placeId: string;
+  /**
+   * Profile images to leave off the page because they are graphics, not job photos, as
+   * "<width>x<height>" in Google pixels. Checked by hand on 2026-10-05.
+   */
+  photoSkipSizes?: string[];
   websiteStatus: "working" | "outdated" | "none";
   accent: string;
   accentDark: string;
@@ -50,6 +57,7 @@ export const prospects: Prospect[] = [
     website: "https://aagsolutionsllc.com/",
     googleProfile:
       "https://www.google.com/maps/place/AAGS+Solutions+LLC/data=!4m7!3m6!1s0x8640d7497bd7e549:0x6aae7374ab22f963!8m2!3d29.961757!4d-95.6682786!16s%2Fg%2F11w4vmtzm3!19sChIJSeXXe0nXQIYRY_kiq3Rzrmo?authuser=0&hl=en&rclk=1",
+    placeId: "ChIJSeXXe0nXQIYRY_kiq3Rzrmo",
     websiteStatus: "working",
     accent: "#ce652d",
     accentDark: "#833814",
@@ -120,6 +128,7 @@ export const prospects: Prospect[] = [
     website: "https://brianthefenceguytx.com/",
     googleProfile:
       "https://www.google.com/maps/place/Brianthefenceguy/data=!4m7!3m6!1s0x298720fe2a55551d:0xde25573108c60aeb!8m2!3d29.9885048!4d-95.5588633!16s%2Fg%2F11mdjmx864!19sChIJHVVVKv4ghykR6wrGCDFXJd4?authuser=0&hl=en&rclk=1",
+    placeId: "ChIJHVVVKv4ghykR6wrGCDFXJd4",
     websiteStatus: "working",
     accent: "#d47532",
     accentDark: "#874315",
@@ -190,6 +199,7 @@ export const prospects: Prospect[] = [
     website: "https://www.ebprivacyfenceskatytx.com/",
     googleProfile:
       "https://www.google.com/maps/place/EB+Privacy+Fences+LLC/data=!4m7!3m6!1s0x6999347d07a47d35:0x391c89bca707b62b!8m2!3d29.7582286!4d-95.7495456!16s%2Fg%2F11vjjqbrcr!19sChIJNX2kB300mWkRK7YHp7yJHDk?authuser=0&hl=en&rclk=1",
+    placeId: "ChIJNX2kB300mWkRK7YHp7yJHDk",
     websiteStatus: "working",
     accent: "#af6130",
     accentDark: "#71391b",
@@ -260,6 +270,7 @@ export const prospects: Prospect[] = [
     website: "https://www.goatfenceco.com/",
     googleProfile:
       "https://www.google.com/maps/place/GOAT+Fence+Company/data=!4m7!3m6!1s0x8641217abcdfdcbb:0x9488b2c64428c0b6!8m2!3d29.875645!4d-95.6543809!16s%2Fg%2F11gtytjdqh!19sChIJu9zfvHohQYYRtsAoRMayiJQ?authuser=0&hl=en&rclk=1",
+    placeId: "ChIJu9zfvHohQYYRtsAoRMayiJQ",
     websiteStatus: "working",
     accent: "#c2672b",
     accentDark: "#7b3a13",
@@ -325,6 +336,7 @@ export const prospects: Prospect[] = [
     website: "https://fencebuildersofhouston.com/",
     googleProfile:
       "https://www.google.com/maps/place/Lonestar+Handywork/data=!4m7!3m6!1s0x21ae9889fe5dde1d:0x84f5058b29136843!8m2!3d29.7895199!4d-95.1776863!16s%2Fg%2F11nnr8pdvn!19sChIJHd5d_omYriERQ2gTKYsF9YQ?authuser=0&hl=en&rclk=1",
+    placeId: "ChIJHd5d_omYriERQ2gTKYsF9YQ",
     websiteStatus: "outdated",
     accent: "#ba5b2a",
     accentDark: "#783716",
@@ -390,6 +402,9 @@ export const prospects: Prospect[] = [
     website: "https://www.n2fencinghouston.com/",
     googleProfile:
       "https://www.google.com/maps/place/N2+FENCING/data=!4m7!3m6!1s0x86474b61c8a6da8f:0xc45c7b95de49a234!8m2!3d30.1300232!4d-95.3872252!16s%2Fg%2F11p55zk0ws!19sChIJj9qmyGFLR4YRNKJJ3pV7XMQ?authuser=0&hl=en&rclk=1",
+    placeId: "ChIJj9qmyGFLR4YRNKJJ3pV7XMQ",
+    // A promo graphic, not a job photo.
+    photoSkipSizes: ["1440x810"],
     websiteStatus: "working",
     accent: "#d56e2f",
     accentDark: "#8a3e15",
@@ -460,6 +475,7 @@ export const prospects: Prospect[] = [
     website: "https://premierfencinghouston.com/",
     googleProfile:
       "https://www.google.com/maps/place/Premier+Fencing+Company/data=!4m7!3m6!1s0x8421a040499a5ad9:0x7347cf0247de313e!8m2!3d29.986612!4d-95.2243979!16s%2Fg%2F11l2vh84t8!19sChIJ2VqaSUCgIYQRPjHeRwLPR3M?authuser=0&hl=en&rclk=1",
+    placeId: "ChIJ2VqaSUCgIYQRPjHeRwLPR3M",
     websiteStatus: "outdated",
     accent: "#d87934",
     accentDark: "#98491d",
@@ -524,6 +540,7 @@ export const prospects: Prospect[] = [
     website: "https://raftervservices.com/",
     googleProfile:
       "https://www.google.com/maps/place/Rafter+V+Services/data=!4m7!3m6!1s0x56947d73820b05b:0x77cbe59c11e9c30b!8m2!3d29.836095!4d-95.484649!16s%2Fg%2F11vz7jn8lv!19sChIJW7AgONdHaQURC8PpEZzly3c?authuser=0&hl=en&rclk=1",
+    placeId: "ChIJW7AgONdHaQURC8PpEZzly3c",
     websiteStatus: "outdated",
     accent: "#b56c37",
     accentDark: "#75411f",
@@ -584,6 +601,9 @@ export const prospects: Prospect[] = [
     website: "https://southtexfencetrees.com/",
     googleProfile:
       "https://www.google.com/maps/place/Southtex+Fence+%26+Trees+LLC/data=!4m7!3m6!1s0x8640a394a3a15c7d:0x7d22fcfec525693b!8m2!3d29.7005227!4d-95.2060151!16s%2Fg%2F11k0t_nyqc!19sChIJfVyho5SjQIYRO2klxf78In0?authuser=0&hl=en&rclk=1",
+    placeId: "ChIJfVyho5SjQIYRO2klxf78In0",
+    // A promo graphic, not a job photo.
+    photoSkipSizes: ["1079x608"],
     websiteStatus: "outdated",
     accent: "#dc6b35",
     accentDark: "#93431f",
@@ -649,6 +669,7 @@ export const prospects: Prospect[] = [
     website: null,
     googleProfile:
       "https://www.google.com/maps/place/Westgate+Fencing/data=!4m7!3m6!1s0x853c86ea0e0a2e3f:0x8e26dbb25031c02c!8m2!3d29.612!4d-95.4539135!16s%2Fg%2F11x7k5pyn9!19sChIJPy4KDuqGPIURLMAxULLbJo4?authuser=0&hl=en&rclk=1",
+    placeId: "ChIJPy4KDuqGPIURLMAxULLbJo4",
     websiteStatus: "none",
     accent: "#c36c32",
     accentDark: "#7f3f1b",
