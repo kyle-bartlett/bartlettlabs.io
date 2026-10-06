@@ -4,9 +4,11 @@
  * "Photos from your Google profile" gallery only if photos come back. Responses are never
  * cached: Google allows storing place IDs only.
  *
- * Limits, in order: PER_IP_PER_DAY page loads per visitor (Kyle's devices, marked with the
- * bl_owner cookie by /api/owner, skip it), then the monthly cap every request counts against,
- * owner or not, then Google's daily quota on the bartlett-crm project.
+ * Limits, in order: PER_IP_PER_DAY page loads per visitor, then the daily and monthly caps in
+ * Postgres every request counts against, then Google's quota on the bartlett-crm project.
+ * Devices marked with the bl_owner cookie (/api/owner) skip the per-visitor limit but share
+ * one OWNER_PER_DAY pool. Anyone can set that cookie, so the pool, not the cookie, is what
+ * keeps a spoofed owner from spending the prospects' share of the daily cap.
  */
 import { getProspect } from "@/app/for/prospects";
 import { clientIp, ipBucket } from "@/lib/client-ip";
@@ -18,17 +20,19 @@ export const runtime = "nodejs";
 // memory: the site runs as one container, and this limit is about fairness between visitors.
 // Cost is bounded by the monthly counter in Postgres and Google's daily quota.
 const PER_IP_PER_DAY = 8;
+// Enough for Kyle to check all 10 pages once a day; at most 40 of the 100 daily photo requests.
+const OWNER_PER_DAY = 10;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const perIp = new Map<string, { count: number; since: number }>();
 
-function overDailyLimit(key: string, now: number): boolean {
+function overDailyLimit(key: string, now: number, limit: number): boolean {
   const entry = perIp.get(key);
   if (!entry || now - entry.since > DAY_MS) {
     if (perIp.size > 5000) perIp.clear();
     perIp.set(key, { count: 1, since: now });
     return false;
   }
-  return ++entry.count > PER_IP_PER_DAY;
+  return ++entry.count > limit;
 }
 
 const isOwner = (req: Request) =>
@@ -44,11 +48,11 @@ export async function GET(req: Request) {
   const prospect = getProspect(new URL(req.url).searchParams.get("slug") ?? "");
   if (!prospect) return reply({ ok: false, error: "Invalid request." }, 400);
 
-  if (!isOwner(req)) {
-    const ip = clientIp(req.headers);
-    if (overDailyLimit(ip ? ipBucket(ip) : "unknown", Date.now()))
-      return reply({ ok: false, reason: "limit" });
-  }
+  const ip = clientIp(req.headers);
+  const over = isOwner(req)
+    ? overDailyLimit("owner", Date.now(), OWNER_PER_DAY)
+    : overDailyLimit(ip ? ipBucket(ip) : "unknown", Date.now(), PER_IP_PER_DAY);
+  if (over) return reply({ ok: false, reason: "limit" });
 
   return reply(await placePhotos(prospect, defaultPhotoDeps()));
 }

@@ -6,6 +6,7 @@ import {
   billingMonth,
   choosePhotos,
   isBusinessAuthor,
+  billingPeriod,
   memoryPhotoUsage,
   PHOTO_SLOTS,
   placeIdFromMapsUrl,
@@ -370,6 +371,25 @@ describe("placePhotos", () => {
     expect(r.ok && r.photos).toHaveLength(2);
     expect(mediaCalls(calls)).toHaveLength(2);
     expect(await usage.reserve(1, 900)).toBe(0);
+  });
+
+  it("hands unused requests back to the period they were claimed in", async () => {
+    vi.useFakeTimers();
+    try {
+      // 23:59 Pacific on the last day of October, then 00:01 on November 1.
+      vi.setSystemTime(new Date("2026-11-01T06:59:00Z"));
+      const usage = memoryPhotoUsage();
+      const before = billingPeriod();
+      expect(await usage.reserve(4, 900, 100, before)).toBe(4);
+      vi.setSystemTime(new Date("2026-11-01T07:01:00Z"));
+      expect(billingPeriod()).not.toEqual(before);
+      expect(await usage.reserve(98, 900, 100)).toBe(98);
+      await usage.release(4, before);
+      // The new day's 98 still count: only 2 left.
+      expect(await usage.reserve(10, 900, 100)).toBe(2);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("hands back what a short profile didn't use", async () => {

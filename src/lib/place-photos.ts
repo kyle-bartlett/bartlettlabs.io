@@ -71,14 +71,26 @@ export type PhotoResult =
   | { ok: true; photos: ShownPhoto[] }
   | { ok: false; reason: "no-key" | "cap" | "error" };
 
+/** The Pacific billing month and day a claim was counted against. */
+export type BillingPeriod = { month: string; day: string };
+
 export type PhotoUsage = {
   /**
-   * Claims up to `n` photo requests under `monthCap` for this billing month and `dayCap` for
-   * today; returns how many were granted. Throws when a counter can't be read or written.
+   * Claims up to `n` photo requests under `monthCap` for the billing month and `dayCap` for
+   * the day in `at` (default: now); returns how many were granted. Throws when a counter
+   * can't be read or written.
    */
-  reserve: (n: number, monthCap: number, dayCap?: number) => Promise<number>;
-  /** Hands back `n` claimed requests that were not used. */
-  release: (n: number) => Promise<void>;
+  reserve: (
+    n: number,
+    monthCap: number,
+    dayCap?: number,
+    at?: BillingPeriod,
+  ) => Promise<number>;
+  /**
+   * Hands back `n` unused requests to the period they were claimed in, so a claim made just
+   * before Pacific midnight never frees budget in the next day or month.
+   */
+  release: (n: number, at?: BillingPeriod) => Promise<void>;
 };
 
 export type PhotoDeps = {
@@ -238,12 +250,14 @@ export async function placePhotos(
   const headers = { "X-Goog-Api-Key": deps.apiKey };
 
   // Claim the budget before touching Google: no counter, no Google calls.
+  const period = billingPeriod();
   let granted: number;
   try {
     granted = await deps.usage.reserve(
       PHOTO_SLOTS,
       deps.monthlyCap,
       deps.dailyCap ?? Infinity,
+      period,
     );
   } catch (err) {
     console.error(
@@ -256,7 +270,7 @@ export async function placePhotos(
   const giveBack = async (n: number) => {
     if (n <= 0) return;
     try {
-      await deps.usage.release(n);
+      await deps.usage.release(n, period);
     } catch {
       // The counter stays a little high, which only errs on the safe side.
     }
@@ -333,6 +347,11 @@ export function billingMonth(d = new Date()): string {
   return billingDay(d).slice(0, 7);
 }
 
+export function billingPeriod(d = new Date()): BillingPeriod {
+  const day = billingDay(d);
+  return { month: day.slice(0, 7), day };
+}
+
 /** A fresh in-memory counter, for tests and local development only. */
 export function memoryPhotoUsage(): PhotoUsage {
   const state = { month: billingMonth(), day: billingDay(), m: 0, d: 0 };
@@ -353,10 +372,10 @@ export function memoryPhotoUsage(): PhotoUsage {
       state.d += granted;
       return granted;
     },
-    async release(n) {
+    async release(n, at = billingPeriod()) {
       roll();
-      state.m = Math.max(0, state.m - n);
-      state.d = Math.max(0, state.d - n);
+      if (at.month === state.month) state.m = Math.max(0, state.m - n);
+      if (at.day === state.day) state.d = Math.max(0, state.d - n);
     },
   };
 }
@@ -399,10 +418,9 @@ export function photoUsage(): PhotoUsage {
       throw err;
     }));
   return {
-    async reserve(n, monthCap, dayCap = Infinity) {
+    async reserve(n, monthCap, dayCap = Infinity, at = billingPeriod()) {
       await ensure();
-      const m = billingMonth();
-      const d = billingDay();
+      const { month: m, day: d } = at;
       return s.begin(async (tx) => {
         await tx`insert into place_photo_usage (month) values (${m}) on conflict (month) do nothing`;
         await tx`insert into place_photo_daily (day) values (${d}) on conflict (day) do nothing`;
@@ -425,11 +443,10 @@ export function photoUsage(): PhotoUsage {
         return granted;
       });
     },
-    async release(n) {
+    async release(n, at = billingPeriod()) {
       if (n <= 0) return;
       await ensure();
-      const m = billingMonth();
-      const d = billingDay();
+      const { month: m, day: d } = at;
       await s`update place_photo_usage set calls = greatest(calls - ${n}, 0) where month = ${m}`;
       await s`update place_photo_daily set calls = greatest(calls - ${n}, 0) where day = ${d}`;
     },

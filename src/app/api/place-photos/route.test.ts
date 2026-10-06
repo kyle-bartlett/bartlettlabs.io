@@ -124,12 +124,30 @@ describe("GET /api/place-photos", () => {
     ).toBe("limit");
   });
 
-  it("lets Kyle's marked devices past the per-visitor limit", async () => {
+  it("lets Kyle's marked devices past the per-visitor limit, up to one shared owner pool", async () => {
     vi.stubGlobal("fetch", vi.fn());
-    const owner = { "x-real-ip": "10.0.0.7", cookie: "a=1; bl_owner=1" };
-    for (let i = 0; i < 12; i++) {
-      expect(await reason(await get("n2-fencing", owner))).toBe("no-key");
-    }
+    vi.resetModules();
+    const { GET: fresh } = await import("./route");
+    // The cookie is public, so spoofed owners on fresh IPs share the same 10 views.
+    const view = (i: number) =>
+      fresh(
+        new Request("http://localhost/api/place-photos?slug=n2-fencing", {
+          headers: { "x-real-ip": `10.0.1.${i}`, cookie: "a=1; bl_owner=1" },
+        }),
+      );
+    for (let i = 0; i < 10; i++)
+      expect(await reason(await view(i))).toBe("no-key");
+    expect(await reason(await view(10))).toBe("limit");
+    // Ordinary visitors keep their own per-IP allowance.
+    expect(
+      await reason(
+        await fresh(
+          new Request("http://localhost/api/place-photos?slug=n2-fencing", {
+            headers: { "x-real-ip": "10.0.2.1" },
+          }),
+        ),
+      ),
+    ).toBe("no-key");
   });
 
   it("still counts Kyle's devices against the monthly cap", async () => {
