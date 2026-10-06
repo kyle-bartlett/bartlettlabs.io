@@ -60,7 +60,7 @@ export default function PrivacyPolicyPage() {
               Privacy Policy
             </h1>
             <p className="text-lg leading-relaxed text-silver">
-              Last updated: October 5, 2026
+              Last updated: October 6, 2026
             </p>
           </div>
 
@@ -292,9 +292,10 @@ export default function PrivacyPolicyPage() {
                     </a>.
                   </li>
                   <li>
-                    <strong className="text-navy">Cloudflare:</strong> We use Cloudflare for content
-                    delivery, DDoS protection, and website security. Cloudflare may process IP addresses
-                    and request data as part of their services. Their privacy policy is at{" "}
+                    <strong className="text-navy">Cloudflare:</strong> Cloudflare runs the DNS for our
+                    domain, which means it answers the lookup that points your browser to our server.
+                    Your visits and anything you submit go straight to our server, not through
+                    Cloudflare. Their privacy policy is at{" "}
                     <a
                       href="https://www.cloudflare.com/privacypolicy/"
                       target="_blank"
@@ -333,10 +334,6 @@ export default function PrivacyPolicyPage() {
                     <strong className="text-navy">Visitor identification cookies:</strong> Set by our
                     visitor identification provider and its partners to recognize returning browsers
                     and match visits to business contact information.
-                  </li>
-                  <li>
-                    <strong className="text-navy">Security cookies:</strong> Used by Cloudflare to
-                    identify trusted web traffic and protect against malicious activity.
                   </li>
                 </ul>
                 <p className="text-sm leading-relaxed text-silver mt-3">
