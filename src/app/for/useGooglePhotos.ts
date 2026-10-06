@@ -2,17 +2,18 @@
 
 /**
  * Browser side of the Google photos on the proposal pages (src/lib/place-photos.ts).
- * The page renders with its stock images. Once the watched section is within reach, this asks
- * /api/place-photos once and swaps in each Google photo only after it has loaded, so a slow,
- * failed or capped request leaves the stock image in place.
+ * Once the watched section is within reach, this asks /api/place-photos once, preloads every
+ * photo, and hands back the ones that loaded, all at once so the gallery doesn't jump. A slow,
+ * failed or capped request returns nothing and the gallery stays hidden. Google's photo URLs
+ * are short-lived, so a photo that breaks after it was shown can be dropped with `drop`.
  */
-import { useEffect, useState, type RefObject } from "react";
+import { useCallback, useEffect, useState, type RefObject } from "react";
 import type { ShownPhoto } from "@/lib/place-photos";
 
 const REQUEST_TIMEOUT_MS = 8_000;
 const IMAGE_TIMEOUT_MS = 10_000;
 
-/** Resolves once the browser has the image, so the swap never shows a broken picture. */
+/** Resolves once the browser has the image, so the gallery never shows a broken picture. */
 export function loadImage(src: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -32,12 +33,11 @@ export function loadImage(src: string): Promise<void> {
   });
 }
 
-/** Slot i holds a loaded Google photo, or null to keep the stock image. */
 export function useGooglePhotos(
   slug: string,
   watch: RefObject<HTMLElement | null>,
-): (ShownPhoto | null)[] {
-  const [photos, setPhotos] = useState<(ShownPhoto | null)[]>([]);
+): { photos: ShownPhoto[]; drop: (src: string) => void } {
+  const [photos, setPhotos] = useState<ShownPhoto[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -54,20 +54,14 @@ export function useGooglePhotos(
           photos?: ShownPhoto[];
         };
         if (!body.ok || !Array.isArray(body.photos)) return;
-        body.photos.forEach((photo, i) => {
-          loadImage(photo.src)
-            .then(() => {
-              if (cancelled) return;
-              setPhotos((prev) => {
-                const next = [...prev];
-                next[i] = photo;
-                return next;
-              });
-            })
-            .catch(() => {});
-        });
+        const all = body.photos;
+        const loaded = await Promise.allSettled(
+          all.map((photo) => loadImage(photo.src)),
+        );
+        if (cancelled) return;
+        setPhotos(all.filter((_, i) => loaded[i].status === "fulfilled"));
       } catch {
-        // Stock images stay.
+        // No gallery.
       }
     }
 
@@ -91,5 +85,10 @@ export function useGooglePhotos(
     };
   }, [slug, watch]);
 
-  return photos;
+  const drop = useCallback(
+    (src: string) => setPhotos((prev) => prev.filter((p) => p.src !== src)),
+    [],
+  );
+
+  return { photos, drop };
 }

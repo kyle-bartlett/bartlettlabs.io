@@ -377,62 +377,6 @@
 .prospect-service-copy {
   padding: 24px;
 }
-/* Google Places photo credit (author + "Google Maps"), required wherever a profile photo shows. */
-.photo-credit {
-  color: #fff;
-  background: #000000a8;
-  border-radius: 4px;
-  align-items: center;
-  gap: 6px;
-  max-width: calc(100% - 16px);
-  padding: 3px 8px;
-  font-family: Roboto, var(--font-inter), Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: normal;
-  line-height: 18px;
-  display: flex;
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-}
-.photo-credit a,
-.photo-credit strong {
-  color: inherit;
-  font-weight: 400;
-  text-decoration: none;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  min-width: 0;
-  overflow: hidden;
-}
-.photo-credit a:hover,
-.photo-credit a:focus-visible {
-  text-decoration: underline;
-}
-.photo-credit b {
-  font-weight: 400;
-  opacity: 0.7;
-}
-.photo-credit .photo-credit-maps {
-  flex: none;
-  overflow: visible;
-}
-.prospect-service-image .photo-credit img,
-.photo-credit img {
-  border-radius: 50%;
-  flex: none;
-  width: 16px;
-  height: 16px;
-  display: block;
-}
-.prospect-photo-source {
-  color: var(--preview-muted);
-  margin-top: 14px;
-  font-size: 12px;
-  font-weight: 600;
-  display: block;
-}
 .prospect-service-grid h3 {
   margin: 0 0 12px;
   font-size: 20px;
@@ -676,14 +620,87 @@
   overflow: hidden;
   box-shadow: 0 14px 34px #16231d1f;
 }
-.owner-upgrade-grid article {
-  position: relative;
+/*
+ * "Photos from your Google profile". Google content sits on its own paper cards, apart from
+ * the page's stock images, and every photo carries its credit under it: all authors (names in
+ * full, wrapping) and a "Google Maps" link to the photo, styled per Google's text attribution
+ * rules (Roboto or sans-serif, weight 400, 12 to 16px, #1f1f1f or #5e5e5e, never wrapped).
+ */
+.owner-photos {
+  margin-top: 60px;
 }
-.owner-upgrade-grid .photo-credit {
-  max-width: calc(100% - 28px);
-  top: 14px;
-  bottom: auto;
-  left: 14px;
+.owner-photos h3 {
+  letter-spacing: -0.5px;
+  margin: 0 0 18px;
+  font-size: 22px;
+}
+.owner-photo-grid {
+  grid-template-columns: repeat(4, 1fr);
+  align-items: start;
+  gap: 14px;
+  display: grid;
+}
+.owner-photo-grid figure {
+  background: var(--preview-paper);
+  border: 1px solid var(--preview-line);
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.owner-photo-grid figure > img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #ded8cc;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.photo-credit {
+  color: #1f1f1f;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  padding: 9px 11px 10px;
+  font-family: Roboto, var(--font-inter), Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 17px;
+  display: flex;
+}
+.photo-credit-authors {
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  gap: 4px 10px;
+  min-width: 0;
+  display: flex;
+}
+.photo-credit-author {
+  overflow-wrap: anywhere;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  display: inline-flex;
+}
+.photo-credit a {
+  color: inherit;
+  text-decoration: none;
+}
+.photo-credit a:hover,
+.photo-credit a:focus-visible {
+  text-decoration: underline;
+}
+.photo-credit img {
+  border-radius: 50%;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+.photo-credit .photo-credit-maps {
+  color: #5e5e5e;
+  white-space: nowrap;
+  flex: none;
 }
 .owner-upgrade-grid span {
   color: #ffb07e;
@@ -969,6 +986,9 @@
   }
   .owner-upgrade-grid {
     grid-template-columns: 1fr;
+  }
+  .owner-photo-grid {
+    grid-template-columns: 1fr 1fr;
   }
   .owner-upgrade-grid article {
     min-height: 260px;
@@ -1406,5 +1426,16 @@ body:has(.prospect-chat-form input:focus) .prospect-mobile-claim {
   }
   .prospect-chat-panel {
     box-shadow: 8px 8px var(--preview-ink);
+  }
+}
+@media (max-width: 700px) {
+  .owner-photos {
+    margin-top: 44px;
+  }
+  .owner-photo-grid {
+    gap: 10px;
+  }
+  .photo-credit {
+    padding: 8px 9px 9px;
   }
 }

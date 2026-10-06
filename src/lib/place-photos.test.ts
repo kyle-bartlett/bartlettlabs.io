@@ -2,6 +2,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getProspect, prospects } from "@/app/for/prospects";
 import {
+  billingDay,
+  billingMonth,
   choosePhotos,
   isBusinessAuthor,
   memoryPhotoUsage,
@@ -70,8 +72,9 @@ function fakeGoogle(
 function deps(
   fetchMock: ReturnType<typeof vi.fn>,
   over: Partial<PhotoDeps> = {},
-): PhotoDeps & { reserved: number[] } {
+): PhotoDeps & { reserved: number[]; released: number[] } {
   const reserved: number[] = [];
+  const released: number[] = [];
   return {
     apiKey: "test-key",
     fetch: fetchMock as unknown as typeof fetch,
@@ -80,12 +83,26 @@ function deps(
         reserved.push(n);
         return n;
       },
+      release: async (n) => {
+        released.push(n);
+      },
     },
     monthlyCap: 900,
     reserved,
+    released,
     ...over,
   };
 }
+
+/** A counter that throws on every call, like Postgres being down. */
+const brokenUsage = {
+  reserve: async () => {
+    throw new Error("db down");
+  },
+  release: async () => {
+    throw new Error("db down");
+  },
+};
 
 const mediaCalls = (calls: string[]) =>
   calls.filter((c) => c.includes("/media?"));
@@ -142,12 +159,12 @@ describe("choosePhotos", () => {
       ],
       aags,
     );
+    // P3, a customer's portrait photo, ranks fifth and misses the four-photo row.
     expect(chosen.map((p) => p.name?.split("/").pop())).toEqual([
       "P2",
       "P4",
       "P1",
       "P0",
-      "P3",
     ]);
   });
 
@@ -165,9 +182,46 @@ describe("choosePhotos", () => {
     expect(chosen.map((p) => p.widthPx)).toEqual([960]);
   });
 
-  it(`never returns more than ${PHOTO_SLOTS}`, () => {
+  it(`never returns more than ${PHOTO_SLOTS}, one gallery row`, () => {
+    expect(PHOTO_SLOTS).toBe(4);
     const many = Array.from({ length: 10 }, (_, i) => photo(i, "Someone"));
-    expect(choosePhotos(many, aags)).toHaveLength(PHOTO_SLOTS);
+    expect(choosePhotos(many, aags)).toHaveLength(4);
+  });
+
+  it("drops photos that can't carry their own Google Maps link or a named author", () => {
+    const chosen = choosePhotos(
+      [
+        photo(0, "AAGS Solutions LLC", 4032, 3024, {
+          googleMapsUri: undefined,
+        }),
+        photo(1, "AAGS Solutions LLC", 4032, 3024, {
+          googleMapsUri: "https://evil.example/maps/photo",
+        }),
+        photo(2, "AAGS Solutions LLC", 4032, 3024, { authorAttributions: [] }),
+        photo(3, "AAGS Solutions LLC", 4032, 3024, {
+          authorAttributions: [{ displayName: "  " }],
+        }),
+        photo(4, "Customer"),
+      ],
+      aags,
+    );
+    expect(chosen.map((p) => p.name?.split("/").pop())).toEqual(["P4"]);
+  });
+
+  it("counts a photo as the company's when any of its authors is the company", () => {
+    const chosen = choosePhotos(
+      [
+        photo(0, "Customer One"),
+        photo(1, "Customer Two", 4032, 3024, {
+          authorAttributions: [
+            { displayName: "Customer Two" },
+            { displayName: "AAGS Solutions LLC" },
+          ],
+        }),
+      ],
+      aags,
+    );
+    expect(chosen.map((p) => p.name?.split("/").pop())).toEqual(["P1", "P0"]);
   });
 });
 
@@ -188,20 +242,24 @@ describe("placePhotos", () => {
           width: 4032,
           height: 3024,
           owner: true,
-          author: {
-            name: "AAGS Solutions LLC",
-            uri: "https://maps.google.com/maps/contrib/0",
-            avatar: "https://lh3.googleusercontent.com/a-/avatar0",
-          },
+          authors: [
+            {
+              name: "AAGS Solutions LLC",
+              uri: "https://maps.google.com/maps/contrib/0",
+              avatar: "https://lh3.googleusercontent.com/a-/avatar0",
+            },
+          ],
           mapsUri: "https://www.google.com/maps/place//data=!3m4!1e2!3m2!1sP0",
         },
         expect.objectContaining({
           owner: false,
-          author: expect.objectContaining({ name: "Ryan Hajdik" }),
+          authors: [expect.objectContaining({ name: "Ryan Hajdik" })],
         }),
       ],
     });
-    expect(d.reserved).toEqual([2]);
+    // Four claimed up front, the two this profile couldn't use handed back.
+    expect(d.reserved).toEqual([PHOTO_SLOTS]);
+    expect(d.released).toEqual([2]);
     // Details asks only for photos, which keeps it on the free IDs Only SKU.
     const [detailsUrl, init] = fetchMock.mock.calls[0] as unknown as [
       string,
@@ -226,13 +284,37 @@ describe("placePhotos", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("falls back when Google rejects the key", async () => {
+  it("keeps every author and every character of their names", async () => {
+    const long =
+      "Westgate Construction and Fence Company of Greater Northwest Houston Texas LLC";
+    const { fetchMock } = fakeGoogle([
+      photo(0, long, 4032, 3024, {
+        authorAttributions: [
+          { displayName: long, uri: "//maps.google.com/maps/contrib/1" },
+          { displayName: "Second Author" },
+          { displayName: "" },
+        ],
+      }),
+    ]);
+    const r = await placePhotos(westgate, deps(fetchMock));
+    expect(r.ok && r.photos[0].authors).toEqual([
+      {
+        name: long,
+        uri: "https://maps.google.com/maps/contrib/1",
+        avatar: null,
+      },
+      { name: "Second Author", uri: null, avatar: null },
+    ]);
+  });
+
+  it("falls back when Google rejects the key, and hands the claim back", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     const { fetchMock, calls } = fakeGoogle([], { detailsStatus: 403 });
     const d = deps(fetchMock);
     expect(await placePhotos(aags, d)).toEqual({ ok: false, reason: "error" });
     expect(mediaCalls(calls)).toHaveLength(0);
-    expect(d.reserved).toEqual([]);
+    expect(d.reserved).toEqual([PHOTO_SLOTS]);
+    expect(d.released).toEqual([PHOTO_SLOTS]);
   });
 
   it("falls back when Google times out", async () => {
@@ -266,15 +348,17 @@ describe("placePhotos", () => {
     expect(mediaCalls(calls)).toHaveLength(0);
   });
 
-  it("makes no paid photo requests once the monthly cap is reached", async () => {
+  it("makes no Google calls at all once the monthly cap is reached", async () => {
     const many = Array.from({ length: 9 }, (_, i) => photo(i, "Someone"));
-    const { fetchMock, calls } = fakeGoogle(many);
+    const { fetchMock } = fakeGoogle(many);
     const r = await placePhotos(
       aags,
-      deps(fetchMock, { usage: { reserve: async () => 0 } }),
+      deps(fetchMock, {
+        usage: { reserve: async () => 0, release: async () => {} },
+      }),
     );
     expect(r).toEqual({ ok: false, reason: "cap" });
-    expect(mediaCalls(calls)).toHaveLength(0);
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("only requests what's left under the cap", async () => {
@@ -286,6 +370,15 @@ describe("placePhotos", () => {
     expect(r.ok && r.photos).toHaveLength(2);
     expect(mediaCalls(calls)).toHaveLength(2);
     expect(await usage.reserve(1, 900)).toBe(0);
+  });
+
+  it("hands back what a short profile didn't use", async () => {
+    const { fetchMock } = fakeGoogle([photo(0, "AAGS Solutions LLC")]);
+    const usage = memoryPhotoUsage();
+    await usage.reserve(890, 900);
+    await placePhotos(aags, deps(fetchMock, { usage }));
+    // 890 + 1 used: nine left.
+    expect(await usage.reserve(100, 900)).toBe(9);
   });
 
   it("drops a photo whose request fails or whose URL isn't Google's", async () => {
@@ -304,7 +397,7 @@ describe("placePhotos", () => {
       },
     );
     const r = await placePhotos(aags, deps(fetchMock));
-    expect(r.ok && r.photos.map((p) => p.author?.name)).toEqual(["c"]);
+    expect(r.ok && r.photos.map((p) => p.authors[0].name)).toEqual(["c"]);
   });
 
   it("falls back when every photo request fails", async () => {
@@ -318,29 +411,131 @@ describe("placePhotos", () => {
     });
   });
 
-  it("falls back when the usage counter can't be read", async () => {
-    const { fetchMock, calls } = fakeGoogle([photo(0, "a")]);
+  it("makes no Google calls at all when the usage counter can't be read", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const { fetchMock } = fakeGoogle([photo(0, "a")]);
+    const r = await placePhotos(aags, deps(fetchMock, { usage: brokenUsage }));
+    expect(r).toEqual({ ok: false, reason: "error" });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("still returns photos when handing back unused claims fails", async () => {
+    const { fetchMock } = fakeGoogle([photo(0, "AAGS Solutions LLC")]);
     const r = await placePhotos(
       aags,
       deps(fetchMock, {
         usage: {
-          reserve: async () => {
-            throw new Error("db down");
-          },
+          reserve: async (n) => n,
+          release: brokenUsage.release,
         },
       }),
     );
-    expect(r).toEqual({ ok: false, reason: "error" });
-    expect(mediaCalls(calls)).toHaveLength(0);
+    expect(r.ok && r.photos).toHaveLength(1);
+  });
+});
+
+describe("photoUsage", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+
+  it("fails closed in production when there is no database", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("LEADS_DATABASE_URL", "");
+    const { photoUsage } = await import("@/lib/place-photos");
+    await expect(photoUsage().reserve(4, 900)).rejects.toThrow();
+  });
+
+  it("throws instead of counting in memory when Postgres is unreachable", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("LEADS_DATABASE_URL", "postgres://u:p@127.0.0.1:1/none");
+    const { photoUsage } = await import("@/lib/place-photos");
+    const usage = photoUsage();
+    await expect(usage.reserve(4, 900)).rejects.toThrow();
+    // Still failing on the next view: no quiet switch to a process counter.
+    await expect(usage.reserve(4, 900)).rejects.toThrow();
+  });
+
+  it("counts in memory only outside production", async () => {
+    vi.stubEnv("NODE_ENV", "test");
+    vi.stubEnv("LEADS_DATABASE_URL", "");
+    const { photoUsage } = await import("@/lib/place-photos");
+    expect(await photoUsage().reserve(4, 900)).toBe(4);
+  });
+});
+
+describe("billingDay", () => {
+  it("rolls over at Pacific midnight, when Google resets its daily quotas", () => {
+    expect(billingDay(new Date("2026-10-06T06:59:00Z"))).toBe("2026-10-05");
+    expect(billingDay(new Date("2026-10-06T07:00:00Z"))).toBe("2026-10-06");
+  });
+});
+
+describe("billingMonth", () => {
+  it("follows Google's Pacific-time billing month, not UTC", () => {
+    // 6pm Pacific on Oct 31 is already November in UTC.
+    expect(billingMonth(new Date("2026-11-01T01:00:00Z"))).toBe("2026-10");
+    expect(billingMonth(new Date("2026-11-01T08:00:00Z"))).toBe("2026-11");
+    expect(billingMonth(new Date("2027-01-01T07:59:00Z"))).toBe("2026-12");
+  });
+});
+
+describe("daily cap", () => {
+  it("stops a day at the daily cap even with month to spare, and starts over the next day", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-10-06T15:00:00Z"));
+    const usage = memoryPhotoUsage();
+    expect(await usage.reserve(4, 900, 6)).toBe(4);
+    expect(await usage.reserve(4, 900, 6)).toBe(2);
+    expect(await usage.reserve(4, 900, 6)).toBe(0);
+    vi.setSystemTime(new Date("2026-10-07T15:00:00Z"));
+    expect(await usage.reserve(4, 900, 6)).toBe(4);
+    vi.useRealTimers();
+  });
+
+  it("is passed to the counter by placePhotos, and a spent day means no Google calls", async () => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-10-06T15:00:00Z"));
+    const usage = memoryPhotoUsage();
+    await usage.reserve(100, 900, 100);
+    const { fetchMock } = fakeGoogle([photo(0, "AAGS Solutions LLC")]);
+    const r = await placePhotos(
+      aags,
+      deps(fetchMock, { usage, monthlyCap: 900, dailyCap: 100 }),
+    );
+    expect(r).toEqual({ ok: false, reason: "cap" });
+    expect(fetchMock).not.toHaveBeenCalled();
+    vi.useRealTimers();
+  });
+});
+
+describe("defaultPhotoDeps", () => {
+  afterEach(() => vi.unstubAllEnvs());
+
+  it("caps 900 a month and 100 a day, and env can only lower the month", async () => {
+    const { defaultPhotoDeps } = await import("@/lib/place-photos");
+    vi.stubEnv("PLACE_PHOTOS_MONTHLY_CAP", "");
+    vi.stubEnv("PLACE_PHOTOS_DAILY_CAP", "");
+    expect(defaultPhotoDeps()).toMatchObject({
+      monthlyCap: 900,
+      dailyCap: 100,
+    });
+    vi.stubEnv("PLACE_PHOTOS_MONTHLY_CAP", "5000");
+    expect(defaultPhotoDeps().monthlyCap).toBe(900);
+    vi.stubEnv("PLACE_PHOTOS_MONTHLY_CAP", "50");
+    expect(defaultPhotoDeps()).toMatchObject({ monthlyCap: 50, dailyCap: 50 });
   });
 });
 
 describe("memoryPhotoUsage", () => {
-  it("grants up to the cap, then nothing", async () => {
+  it("grants up to the cap, then nothing, and takes back unused claims", async () => {
     const usage = memoryPhotoUsage();
     expect(await usage.reserve(7, 10)).toBe(7);
     expect(await usage.reserve(7, 10)).toBe(3);
     expect(await usage.reserve(1, 10)).toBe(0);
+    await usage.release(2);
+    expect(await usage.reserve(4, 10)).toBe(2);
   });
 
   it("starts over in a new month", async () => {

@@ -26,7 +26,7 @@ export default function TermsPage() {
         <div className="mx-auto max-w-3xl px-0 pt-8">
           <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>
           <p className="mb-10 text-gray-500">
-            Last updated: March 18, 2026
+            Last updated: October 5, 2026
           </p>
 
           <div className="prose prose-lg max-w-none space-y-8">
@@ -201,7 +201,45 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">8. Limitation of Liability</h2>
+              <h2 className="text-2xl font-semibold mb-4">8. Google Maps Content</h2>
+              <p>
+                Some pages on the Site, including our proposal pages, show content from Google
+                Maps, such as photos from a business&apos;s Google profile, through the Google
+                Maps Platform. Each photo credits its author and links to the photo on Google
+                Maps. By using those pages, you agree to be bound by the{" "}
+                <a
+                  href="https://maps.google.com/help/terms_maps.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-600 dark:text-cyan-400 underline"
+                >
+                  Google Maps/Google Earth Additional Terms of Service
+                </a>{" "}
+                and the{" "}
+                <a
+                  href="https://policies.google.com/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-600 dark:text-cyan-400 underline"
+                >
+                  Google Terms of Service
+                </a>
+                , which are part of these Terms by reference. Google&apos;s handling of your
+                information is covered by the{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-600 dark:text-cyan-400 underline"
+                >
+                  Google Privacy Policy
+                </a>
+                .
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">9. Limitation of Liability</h2>
               <p>
                 To the fullest extent permitted by law, Bartlett Labs shall not be liable for
                 any indirect, incidental, special, consequential, or punitive damages arising
@@ -212,7 +250,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">9. Disclaimer of Warranties</h2>
+              <h2 className="text-2xl font-semibold mb-4">10. Disclaimer of Warranties</h2>
               <p>
                 The Site and services are provided &quot;as is&quot; and &quot;as available&quot;
                 without warranties of any kind, either express or implied. We do not warrant
@@ -222,7 +260,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">10. Indemnification</h2>
+              <h2 className="text-2xl font-semibold mb-4">11. Indemnification</h2>
               <p>
                 You agree to indemnify and hold harmless Bartlett Labs LLC, its owners,
                 employees, and agents from any claims, damages, losses, or expenses arising
@@ -232,7 +270,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">11. Termination</h2>
+              <h2 className="text-2xl font-semibold mb-4">12. Termination</h2>
               <p>
                 We reserve the right to terminate or suspend access to our Site or services
                 at our sole discretion, without notice, for conduct that we believe violates
@@ -242,7 +280,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">12. Governing Law</h2>
+              <h2 className="text-2xl font-semibold mb-4">13. Governing Law</h2>
               <p>
                 These Terms are governed by the laws of the State of Texas, without regard to
                 conflict of law principles. Any disputes arising under these Terms shall be
@@ -252,7 +290,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">13. Changes to Terms</h2>
+              <h2 className="text-2xl font-semibold mb-4">14. Changes to Terms</h2>
               <p>
                 We reserve the right to update or modify these Terms at any time. Changes
                 will be posted on this page with an updated &quot;Last updated&quot; date. Your
@@ -262,7 +300,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">14. Contact Information</h2>
+              <h2 className="text-2xl font-semibold mb-4">15. Contact Information</h2>
               <p>
                 For questions about these Terms of Service, contact us at:
               </p>

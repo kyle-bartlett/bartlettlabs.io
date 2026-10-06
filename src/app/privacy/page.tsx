@@ -60,7 +60,7 @@ export default function PrivacyPolicyPage() {
               Privacy Policy
             </h1>
             <p className="text-lg leading-relaxed text-silver">
-              Last updated: September 24, 2026
+              Last updated: October 5, 2026
             </p>
           </div>
 
@@ -225,6 +225,36 @@ export default function PrivacyPolicyPage() {
                     >
                       policies.google.com/privacy
                     </a>.
+                  </li>
+                  <li>
+                    <strong className="text-navy">Google Maps Platform:</strong> Some pages,
+                    including our proposal pages, show photos from a business&apos;s Google profile
+                    through the Google Maps Platform (Places API). Your browser loads those photos
+                    straight from Google, so Google receives your IP address and browser details.
+                    Our server keeps a count of photo requests per IP address in memory for up to
+                    one day to stop abuse; it is not saved. By using those pages, you are also
+                    subject to the Google Privacy Policy, which is part of this policy by
+                    reference:{" "}
+                    <a
+                      href="https://policies.google.com/privacy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline transition-colors hover:text-navy"
+                      style={{ color: "#06b6d4" }}
+                    >
+                      policies.google.com/privacy
+                    </a>
+                    . Google Maps content is also covered by the{" "}
+                    <a
+                      href="https://maps.google.com/help/terms_maps.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline transition-colors hover:text-navy"
+                      style={{ color: "#06b6d4" }}
+                    >
+                      Google Maps/Google Earth Additional Terms of Service
+                    </a>
+                    .
                   </li>
                   <li>
                     <strong className="text-navy">Visitor identification provider:</strong> Runs a

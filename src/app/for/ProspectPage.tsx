@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { ShownPhoto } from "@/lib/place-photos";
 import { ProspectChat } from "./ProspectChat";
-import { possessive, type Prospect } from "./prospects";
+import type { Prospect } from "./prospects";
 import { markOwnerFromUrl, track, trackViewWhenSeen } from "./track";
 import { useGooglePhotos } from "./useGooglePhotos";
 
@@ -22,43 +22,85 @@ function initials(name: string): string {
     .join("");
 }
 
+/** "A", "A and B", "A, B and C". */
+function listNames(names: string[]): string {
+  if (names.length < 2) return names.join("");
+  return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+}
+
 /**
- * Google requires each Places photo to credit its author and link to the photo on Google Maps,
- * with "Google Maps" spelled out as-is when there's no map on the page.
+ * Google requires each Places photo to credit every author (avatar, name, profile link) and to
+ * link to the photo itself on Google Maps, with "Google Maps" spelled out as-is (never wrapped
+ * or translated) when there's no map on the page. Names are shown in full and wrap.
  */
-function PhotoCredit({
-  photo,
-  fallback,
-}: {
-  photo: ShownPhoto;
-  fallback: string;
-}) {
-  const author = photo.author;
+function PhotoCredit({ photo }: { photo: ShownPhoto }) {
   return (
-    <div className="photo-credit">
-      {author?.avatar ? (
-        // eslint-disable-next-line @next/next/no-img-element -- Google-hosted avatar, never cached or proxied
-        <img src={author.avatar} alt="" width={16} height={16} />
-      ) : null}
-      {author ? (
-        author.uri ? (
-          <a href={author.uri} target="_blank" rel="noreferrer">
-            {author.name}
-          </a>
-        ) : (
-          <strong>{author.name}</strong>
-        )
-      ) : null}
-      {author ? <b aria-hidden="true">·</b> : null}
+    <figcaption className="photo-credit">
+      <span className="photo-credit-authors">
+        {photo.authors.map((author, i) => (
+          <span className="photo-credit-author" key={`${author.name}-${i}`}>
+            {author.avatar ? (
+              // eslint-disable-next-line @next/next/no-img-element -- Google-hosted avatar, never cached or proxied
+              <img
+                src={author.avatar}
+                alt=""
+                width={16}
+                height={16}
+                onError={(e) => {
+                  e.currentTarget.hidden = true;
+                }}
+              />
+            ) : null}
+            {author.uri ? (
+              <a href={author.uri} target="_blank" rel="noreferrer">
+                {author.name}
+              </a>
+            ) : (
+              <span>{author.name}</span>
+            )}
+          </span>
+        ))}
+      </span>
       <a
         className="photo-credit-maps"
-        href={photo.mapsUri ?? fallback}
+        href={photo.mapsUri}
         target="_blank"
         rel="noreferrer"
         translate="no"
       >
         Google Maps
       </a>
+    </figcaption>
+  );
+}
+
+/** The prospect's own Google photos, unlabeled, each with its full credit. Hidden when empty. */
+function GooglePhotoGallery({
+  photos,
+  onBroken,
+}: {
+  photos: ShownPhoto[];
+  onBroken: (src: string) => void;
+}) {
+  if (photos.length === 0) return null;
+  return (
+    <div className="owner-photos">
+      <h3>Photos from your Google profile</h3>
+      <div className="owner-photo-grid">
+        {photos.map((photo) => (
+          <figure key={photo.src}>
+            {/* eslint-disable-next-line @next/next/no-img-element -- Google-hosted photo; Google's terms forbid caching or proxying it */}
+            <img
+              src={photo.src}
+              alt={`Photo by ${listNames(photo.authors.map((a) => a.name))} on Google Maps`}
+              width={photo.width || undefined}
+              height={photo.height || undefined}
+              onError={() => onBroken(photo.src)}
+            />
+            <PhotoCredit photo={photo} />
+          </figure>
+        ))}
+      </div>
     </div>
   );
 }
@@ -69,9 +111,8 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
   const [showPlan, setShowPlan] = useState(false);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
-  const servicesRef = useRef<HTMLElement>(null);
-  const googlePhotos = useGooglePhotos(p.slug, servicesRef);
-  const photoAlt = `Project photo from ${possessive(p.shortName)} Google profile`;
+  const ownerRef = useRef<HTMLElement>(null);
+  const google = useGooglePhotos(p.slug, ownerRef);
 
   useEffect(() => {
     markOwnerFromUrl();
@@ -206,49 +247,32 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
         </div>
       </section>
 
-      <section
-        className="prospect-services"
-        id="preview-services"
-        ref={servicesRef}
-      >
+      <section className="prospect-services" id="preview-services">
         <div className="prospect-section-heading">
           <p>Built around what the customer needs</p>
-          <div>
-            <h2>Choose the project. Get the right next step.</h2>
-            {googlePhotos.some(Boolean) ? (
-              <small className="prospect-photo-source">
-                Photos from {possessive(p.shortName)} Google Business Profile
-              </small>
-            ) : null}
-          </div>
+          <h2>Choose the project. Get the right next step.</h2>
         </div>
         <div className="prospect-service-grid">
-          {p.services.map((s, i) => {
-            const photo = googlePhotos[i];
-            return (
-              <article key={s}>
-                <div className="prospect-service-image">
-                  {/* eslint-disable-next-line @next/next/no-img-element -- local webp, or a Google-hosted photo that may not be cached or proxied */}
-                  <img
-                    src={photo?.src ?? p.serviceImages[i]}
-                    alt={photo ? photoAlt : `${s} project example`}
-                    loading="lazy"
-                  />
-                  <span>0{i + 1}</span>
-                  {photo ? (
-                    <PhotoCredit photo={photo} fallback={p.googleProfile} />
-                  ) : null}
-                </div>
-                <div className="prospect-service-copy">
-                  <h3>{s}</h3>
-                  <p>
-                    Clear expectations, project details captured early and a
-                    fast response path.
-                  </p>
-                </div>
-              </article>
-            );
-          })}
+          {p.services.map((s, i) => (
+            <article key={s}>
+              <div className="prospect-service-image">
+                {/* eslint-disable-next-line @next/next/no-img-element -- small local webp, same as the original page */}
+                <img
+                  src={p.serviceImages[i]}
+                  alt={`${s} project example`}
+                  loading="lazy"
+                />
+                <span>0{i + 1}</span>
+              </div>
+              <div className="prospect-service-copy">
+                <h3>{s}</h3>
+                <p>
+                  Clear expectations, project details captured early and a fast
+                  response path.
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -394,7 +418,7 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
         </div>
       </section>
 
-      <section className="owner-plan" id="owner-plan">
+      <section className="owner-plan" id="owner-plan" ref={ownerRef}>
         <div className="owner-plan-intro">
           <p className="owner-eyebrow">Now, for {p.shortName}</p>
           <h2>This was not a generic redesign.</h2>
@@ -412,27 +436,22 @@ export function ProspectPage({ prospect: p }: { prospect: Prospect }) {
             </a>
           </div>
         </div>
+        <GooglePhotoGallery photos={google.photos} onBroken={google.drop} />
         <div className="owner-upgrade-grid">
-          {p.upgrades.map((u, i) => {
-            const photo = googlePhotos[p.services.length + i];
-            return (
-              <article
-                key={u.title}
-                style={
-                  {
-                    "--upgrade-image": `url("${photo?.src ?? u.image}")`,
-                  } as React.CSSProperties
-                }
-              >
-                {photo ? (
-                  <PhotoCredit photo={photo} fallback={p.googleProfile} />
-                ) : null}
-                <span>UPGRADE {i + 1}</span>
-                <h3>{u.title}</h3>
-                <p>{u.detail}</p>
-              </article>
-            );
-          })}
+          {p.upgrades.map((u, i) => (
+            <article
+              key={u.title}
+              style={
+                {
+                  "--upgrade-image": `url("${u.image}")`,
+                } as React.CSSProperties
+              }
+            >
+              <span>UPGRADE {i + 1}</span>
+              <h3>{u.title}</h3>
+              <p>{u.detail}</p>
+            </article>
+          ))}
         </div>
         <div className="owner-package">
           <div>
