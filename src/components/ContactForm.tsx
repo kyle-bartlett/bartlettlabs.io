@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import posthog from "posthog-js";
 import { services } from "@/content/services";
 import { siteConfig } from "@/content/site";
 
@@ -46,6 +47,12 @@ export default function ContactForm() {
         .filter(Boolean)
         .join("\n"),
     );
+
+    // Conversion event for PostHog. No name/email/message on purpose.
+    posthog?.capture?.("contact_form_submitted", {
+      service_interest: service || "unspecified",
+      has_phone: Boolean(phone),
+    });
 
     window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
     setStatus("success");
