@@ -27,7 +27,7 @@ RepBot is built for local service businesses: HVAC, plumbing, electrical, roofin
 
 RepBot pricing: $149 per month with no setup fee. That includes 500 call minutes a month (about 200 calls); after that it is 20 cents a minute. Month to month, no contract.
 
-Prospects can hear RepBot before buying. Offer the demo line or the RepBot site (https://repbot.bartlettlabs.io) when a visitor wants to hear it or asks what it sounds like. The demo line answers as a sample business so the caller can judge the voice and the booking flow.
+Prospects can hear RepBot before buying. The demo line is (979) 987-4241, the same public Bartlett Labs number, and RepBot answers it. Offer that number or the RepBot site (https://repbot.bartlettlabs.io) when a visitor wants to hear it or asks what it sounds like.
 
 ## What the AI Growth System does
 
