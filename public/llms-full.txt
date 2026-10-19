@@ -26,6 +26,12 @@ The studio is intentionally focused on practical operating-system offers:
 - Best for owners who miss calls while doing the work
 - Focus: instant missed-call response, lead capture, and owner alerts
 
+### RepBot AI Voice Receptionist
+
+- $149/mo, no setup fee, month to month; 500 call minutes a month included (about 200 calls), then 20 cents a minute
+- Answers the business line 24/7, captures name, number, address and problem, books the job on the calendar during the call
+- Sold on its own at https://repbot.bartlettlabs.io, added to the Solo plan for $149/mo, included in Crew and Herd
+
 ### 2. Automated Follow-Ups
 
 - Included in the core operating system

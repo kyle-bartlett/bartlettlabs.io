@@ -13,6 +13,7 @@ Kyle Bartlett is a Purdue-trained engineer with 13 years of post-college experie
 ## Services
 
 - Missed Call Text-Back: included in every plan (Solo $497/mo, Crew $897/mo, Herd $1,297/mo, each plus setup)
+- RepBot AI Voice Receptionist: $149/mo, no setup fee, 500 call minutes included; sold alone at https://repbot.bartlettlabs.io, added to Solo for $149/mo, included in Crew and Herd
 - Automated Follow-Ups: included in the core operating system
 - Simple CRM Dashboard: included in the core operating system
 - Consulting & Advisory: scoped case by case

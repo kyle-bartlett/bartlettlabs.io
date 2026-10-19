@@ -5,6 +5,7 @@ import {
   ClipboardCheck,
   Gauge,
   MessageSquareText,
+  Phone,
   PhoneCall,
   SearchCheck,
   ShieldCheck,
@@ -143,6 +144,7 @@ export const pricingTiers = [
       "Basic web chat and lead forms",
       "Google review request flow",
       "Weekly owner summary",
+      "Add RepBot voice receptionist for $149/mo",
     ],
   },
   {
@@ -152,7 +154,7 @@ export const pricingTiers = [
     bestFor: "2-8 person teams",
     features: [
       "Everything in Solo",
-      "AI voice intake option",
+      "RepBot AI voice receptionist included",
       "Quote follow-up sequences",
       "Pipeline dashboard and alerts",
     ],
@@ -172,6 +174,14 @@ export const pricingTiers = [
 ] satisfies PricingTier[];
 
 export const expansionModules = [
+  {
+    title: "RepBot Voice Receptionist",
+    price: "$149/mo",
+    summary:
+      "A 24/7 AI receptionist that answers your line, captures the caller, and books the job on your calendar. Add it to Solo; included in Crew and Herd.",
+    bestFor: "Solo shops that miss calls after hours",
+    icon: Phone,
+  },
   {
     title: "Database Reactivation",
     price: "$197/mo",

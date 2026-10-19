@@ -1,6 +1,14 @@
 # ENGRAM — Bartlett Labs Crash Recovery
 
-> Last updated: 2026-09-14. Active work: `widgo_bartlettlabs/MISSION_LOG.md`. Everything under "Archive" is the March 2026 outreach state, kept as history only: GoHighLevel is fully cancelled (keys dead) and leads now live in the CRM at crm.bartlettlabs.io.
+> Last updated: 2026-10-19. Active work: `widgo_bartlettlabs/MISSION_LOG.md`. Everything under "Archive" is the March 2026 outreach state, kept as history only: GoHighLevel is fully cancelled (keys dead) and leads now live in the CRM at crm.bartlettlabs.io.
+
+## 2026-10-19 RepBot as a Solo add-on in site copy + Widgo knowledge v3
+
+- Why: Kyle chatted with the Widgo bot; it said AI voice intake is Crew-only. Kyle wants it to say yes, RepBot ($149/mo, no setup, 500 min) adds to Solo; Crew/Herd include it. Open pricing stays.
+- Done: docs/WIDGO_KNOWLEDGE.md rewritten as v3 (RepBot section, Solo+RepBot=$646 worked example, approved answers). PDF built with pandoc+weasyprint at repo root `Bartlett-Labs-Approved-Knowledge-v3.pdf` (untracked, like v2). growth-system.ts: Solo feature line, Crew "RepBot AI voice receptionist included", new first expansion module (icon Phone). GrowthSystemHome ticker + `growth-card-grid-five` (globals.css). llms.txt + llms-full.txt RepBot lines.
+- Verified: SMB tree cannot run vitest/next build (arm64 node_modules; iMac is x64; laptop too slow over SMB). Verified from a local clone `~/.cache/bl-verify`: 39 files/141 tests pass, build green.
+- Widgo side still open: app.widgo.ai had no live session. Needs Kyle to sign in (Google SSO) in the Chrome tab, then: Knowledge > Sources: upload v3 PDF, remove v2; edit the protected guardrail that begins `Only quote the published plan prices (Solo $497` to add RepBot $149/mo (no setup fee) and Solo add-on wording; re-test the Solo + voice add-on question on bartlettlabs.io.
+- Phone mismatch: v2 PDF listed (830) 783-2470; site/llms list (979) 987-4241. v3 uses the site number. Confirm with Kyle which is the public line.
 
 ## Archive: 2026-03 outreach state (superseded 2026-09-14)
 

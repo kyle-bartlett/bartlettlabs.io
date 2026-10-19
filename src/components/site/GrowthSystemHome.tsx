@@ -57,7 +57,7 @@ export function GrowthSystemHome() {
           <div>
             {[
               "Missed-call text-back",
-              "AI voice intake",
+              "RepBot AI voice receptionist",
               "Google Calendar and Google Business Profile integration",
               "Make.com and n8n workflows",
               "Review requests",
@@ -65,7 +65,7 @@ export function GrowthSystemHome() {
               "Owner alerts",
               "Demo-first builds",
               "Missed-call text-back",
-              "AI voice intake",
+              "RepBot AI voice receptionist",
               "Google Calendar and Google Business Profile integration",
               "Make.com and n8n workflows",
               "Review requests",
@@ -416,7 +416,7 @@ export function GrowthSystemHome() {
             <span className="growth-eyebrow">Expansion modules</span>
             <h2 id="modules-title">Bolt-on engines when the first system starts working.</h2>
           </div>
-          <div className="growth-card-grid growth-card-grid-four">
+          <div className="growth-card-grid growth-card-grid-five">
             {expansionModules.map((module) => {
               const Icon = module.icon;
               return (
