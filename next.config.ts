@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/webp", "image/avif"],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
+    // Security: every next/image source is a local file under /public/images,
+    // so keep the optimizer (it serves resized webp/avif) but only for that
+    // path. No remotePatterns: remote URLs stay rejected.
+    localPatterns: [{ pathname: "/images/**", search: "" }],
   },
   async redirects() {
     return [
