@@ -104,6 +104,8 @@ describe("prospect chat", () => {
         .body as string,
     );
     expect(body.tools).toBeUndefined();
-    expect(body.model).toBe("claude-haiku-4-5-20251001");
+    expect(body.model).toBe("claude-haiku-5-5");
+    expect(body.temperature).toBeUndefined();
+    expect(body.cache_control).toEqual({ type: "ephemeral" });
   });
 });

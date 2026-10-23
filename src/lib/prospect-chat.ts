@@ -2,7 +2,9 @@
  * Demo chat assistant on the fence proposal pages (/for/<slug>): it answers as the prospect's
  * own website assistant, so the owner sees what their customers would get.
  *
- * Model: Claude Haiku 4.5 through the Anthropic Messages API (ANTHROPIC_API_KEY).
+ * Model: Claude Haiku 5.5 through the Anthropic Messages API (ANTHROPIC_API_KEY), with
+ * automatic prompt caching so each turn rereads the prospect's system prompt and the
+ * conversation so far at the cache rate.
  * Spend: each conversation is capped at MAX_USER_TURNS visitor messages, and the whole
  * feature stops at PROSPECT_CHAT_MONTHLY_USD (default $20) per calendar month, counted in
  * prospect_chat_usage (outbound Postgres; in memory when there's no database).
@@ -12,15 +14,20 @@
 import { possessive, type Prospect } from "@/app/for/prospects";
 import { db } from "@/lib/lead-store";
 
-export const CHAT_MODEL = "claude-haiku-4-5-20251001";
+export const CHAT_MODEL = "claude-haiku-5-5";
 export const MAX_USER_TURNS = 12;
 export const MAX_MESSAGE_CHARS = 600;
-const MAX_TOKENS = 350;
+// Haiku 5.5 thinks by default and thinking counts toward max_tokens; low effort keeps it
+// brief and 1,024 leaves room for it plus a short reply. The prompt sets reply length.
+const MAX_TOKENS = 1024;
 const API_URL = "https://api.anthropic.com/v1/messages";
 const TIMEOUT_MS = 20_000;
-// Haiku 4.5 list price per token, USD.
-const INPUT_USD = 1 / 1_000_000;
-const OUTPUT_USD = 5 / 1_000_000;
+// Haiku 5.5 list price per token, USD (prompts under 100k tokens; chats never get close).
+const INPUT_USD = 0.1 / 1_000_000;
+const OUTPUT_USD = 0.5 / 1_000_000;
+// Cache writes bill at 1.25x input and reads at 0.1x; usage folds both into input tokens.
+const CACHE_WRITE = 1.25;
+const CACHE_READ = 0.1;
 
 export type ChatMessage = { role: "user" | "assistant"; content: string };
 export type ChatLead = {
@@ -175,7 +182,12 @@ export async function chatReply(
       : "");
   let data: {
     content?: ApiBlock[];
-    usage?: { input_tokens?: number; output_tokens?: number };
+    usage?: {
+      input_tokens?: number;
+      output_tokens?: number;
+      cache_creation_input_tokens?: number;
+      cache_read_input_tokens?: number;
+    };
   };
   try {
     const res = await deps.fetch(API_URL, {
@@ -188,7 +200,8 @@ export async function chatReply(
       body: JSON.stringify({
         model: CHAT_MODEL,
         max_tokens: MAX_TOKENS,
-        temperature: 0.3,
+        output_config: { effort: "low" },
+        cache_control: { type: "ephemeral" },
         system,
         ...(opts.leadSent ? {} : { tools: [leadTool(p)] }),
         messages,
@@ -207,8 +220,15 @@ export async function chatReply(
     return { ok: false, reason: "error", reply: fallback };
   }
 
+  const u = data.usage ?? {};
+  // Input-price-equivalent tokens, so the monthly cap counts cache writes and reads.
+  const billedInput = Math.round(
+    (u.input_tokens ?? 0) +
+      (u.cache_creation_input_tokens ?? 0) * CACHE_WRITE +
+      (u.cache_read_input_tokens ?? 0) * CACHE_READ,
+  );
   await deps.usage
-    .add(data.usage?.input_tokens ?? 0, data.usage?.output_tokens ?? 0)
+    .add(billedInput, u.output_tokens ?? 0)
     .catch(() => console.error("Prospect chat usage not recorded."));
 
   const blocks = data.content ?? [];
