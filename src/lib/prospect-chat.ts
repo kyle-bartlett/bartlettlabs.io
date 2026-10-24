@@ -196,6 +196,7 @@ export async function chatReply(
         "x-api-key": deps.apiKey,
         "anthropic-version": "2023-06-01",
         "content-type": "application/json",
+        ...(process.env.ANTHROPIC_WORKSPACE_ID ? { "anthropic-workspace-id": process.env.ANTHROPIC_WORKSPACE_ID } : {}),
       },
       body: JSON.stringify({
         model: CHAT_MODEL,
