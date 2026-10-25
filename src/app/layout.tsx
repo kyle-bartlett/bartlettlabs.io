@@ -111,6 +111,13 @@ export default function RootLayout({
           data-key="oa_pk_5sPR8FCNBI8myBzV1_PUZ_kpqDLylOZs"
           data-collector="https://c.getopen.so"
         ></script>
+        <script
+          async
+          src="https://caldera.social/t/1.js"
+          integrity="sha384-UCnwKWu6Be2g87+ZI1+h367D6yOXEuXFQL2U2Z7PuSoH3oSCsu/cmZMbj4s70JlC"
+          crossOrigin="anonymous"
+          data-site="sndvzppa3hcu6s9a"
+        ></script>
         <link rel="dns-prefetch" href="https://formspree.io" />
         <JsonLd />
       </head>
