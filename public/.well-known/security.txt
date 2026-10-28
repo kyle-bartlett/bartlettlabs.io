@@ -1,0 +1,5 @@
+Contact: mailto:kyle@bartlettlabs.io
+Contact: https://bartlettlabs.io/contact
+Expires: 2027-10-27T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://bartlettlabs.io/.well-known/security.txt
